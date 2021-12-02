@@ -6,3 +6,4 @@ config/mpd/database
 config/mpd/pid
 config/mpd/playlists
 config/mpd/state
+config/nvim/autoload
