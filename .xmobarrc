@@ -1,7 +1,7 @@
 Config { overrideRedirect = False
        , font     = "xft:Sauce Code Pro Nerd Font-9"
        , bgColor  = "#000000"
-       , fgColor  = "#f8f8f2"
+       , fgColor  = "#b7b8b9"
        , position = Top
        , lowerOnStart =     True
        , commands = [
@@ -28,13 +28,15 @@ Config { overrideRedirect = False
                                          , "--normal"   , "darkorange"
                                          , "--high"     , "darkorange"
                                          ] 10
-					, Run Volume "default" "Master" [] 10
-					,Run MPD
-					  [ "-t", "<fc=#31a354><statei></fc> <fc=#b7b8b9><artist></fc> — <fc=#80b1d3><title></fc> ", "--"
-					  , "-P", "  ", "-Z", "  "
-					  , "--host", "127.0.0.1"
-					  ] 10
-                    , Run StdinReader
+                    ,Run Volume "default" "Master" [] 10
+
+                    ,Run MPD
+                      [ "-t", "<fc=#31a354><statei></fc> <fc=#b7b8b9><artist></fc> — <fc=#80b1d3><title></fc> ", "--"
+                      , "-P", "  ", "-Z", "  "
+                      , "--host", "127.0.0.1"
+                      ] 10
+
+                    ,Run StdinReader
                     ]
        , sepChar  = "%"
        , alignSep = "}{"
