@@ -1,6 +1,8 @@
-.git
-README.md
 .xmonad/xmonad.errors
 .xmonad/xmonad.hi
 .xmonad/xmonad.o
 .xmonad/xmonad-x86_64-linux
+config/mpd/database
+config/mpd/pid
+config/mpd/playlists
+config/mpd/state
