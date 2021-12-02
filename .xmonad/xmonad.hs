@@ -49,7 +49,8 @@ myConfig = def
     ,  ((0                                      , xF86XK_AudioNext)   , spawn "mpc next")
     ,  ((0                                      , xF86XK_AudioPrev)   , spawn "mpc prev")
     ,  ((mod4Mask .|. shiftMask                 , xK_F6)              , spawn "sxiv /D/Downloads/wallpapers/*.jpg")
-
+    ,  ((mod1Mask                               , xK_F4)              , spawn "sd")
+    ,  ((mod4Mask                               , xK_i)               , spawn "ow")
     ]
 
 myLayout =  avoidStruts ( tiled ||| Mirror tiled ||| Full )
