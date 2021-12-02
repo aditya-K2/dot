@@ -51,6 +51,9 @@ myConfig = def
     ,  ((mod4Mask .|. shiftMask                 , xK_F6)              , spawn "sxiv /D/Downloads/wallpapers/*.jpg")
     ,  ((mod1Mask                               , xK_F4)              , spawn "sd")
     ,  ((mod4Mask                               , xK_i)               , spawn "ow")
+    ,  ((mod4Mask .|. shiftMask                 , xK_F5)              , spawn "reloadKeys")
+    ,  ((shiftMask                              , xK_Print)           , spawn "screenshotPart")
+    ,  ((0                                      , xK_Print)           , spawn "screenshot")
     ]
 
 myLayout =  avoidStruts ( tiled ||| Mirror tiled ||| Full )
