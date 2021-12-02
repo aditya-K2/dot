@@ -340,18 +340,11 @@ aw(){
 autopush(){
 	git add . && git commit -m "$1" && git push origin master
 }
-autopushm(){
-	git add . && git commit -m "$1" && git push origin main
-}
 all(){
 	ls *.$1
 }
 
-#  ____  ____   ___  __  __ ____ _____   ____ _____  _    ____ _____ ____
-# |  _ \|  _ \ / _ \|  \/  |  _ \_   _| / ___|_   _|/ \  |  _ \_   _/ ___|
-# | |_) | |_) | | | | |\/| | |_) || |   \___ \ | | / _ \ | |_) || | \___ \
-# |  __/|  _ <| |_| | |  | |  __/ | |    ___) || |/ ___ \|  _ < | |  ___) |
-# |_|   |_| \_\\___/|_|  |_|_|    |_|   |____/ |_/_/   \_\_| \_\|_| |____/
+# Prompt Starts
 
 ## autoload vcs and colors
 autoload -Uz vcs_info
@@ -387,10 +380,6 @@ zstyle ':vcs_info:git:*' formats " %{$fg[magenta]%}%b"
 PROMPT="%{$fg[cyan]%}%~%{$reset_color%}"
 PROMPT+="\$vcs_info_msg_0_ "
 
-#  ____  ____   ___  __  __ ____ _____   _____ _   _ ____  ____
-# |  _ \|  _ \ / _ \|  \/  |  _ \_   _| | ____| \ | |  _ \/ ___|
-# | |_) | |_) | | | | |\/| | |_) || |   |  _| |  \| | | | \___ \
-# |  __/|  _ <| |_| | |  | |  __/ | |   | |___| |\  | |_| |___) |
-# |_|   |_| \_\\___/|_|  |_|_|    |_|   |_____|_| \_|____/|____/
+# Prompt Ends
 
 source /home/aditya/suckless/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
