@@ -11,6 +11,7 @@ import XMonad.Hooks.ManageDocks
 import qualified Data.Map        as M
 import XMonad.Util.NamedScratchpad
 import Graphics.X11.ExtraTypes.XF86
+import XMonad.Layout.ToggleLayouts (ToggleLayout(..), toggleLayouts)
 
 rectCentered :: Rational -> W.RationalRect
 rectCentered percentage = W.RationalRect offset offset percentage percentage
@@ -29,7 +30,7 @@ myConfig = def
     , manageHook =  myManageHooks <+> manageDocks <+> namedScratchpadManageHook myScratchPads
     }
  `additionalKeysP`
-    [("M-f", sendMessage ToggleStruts >> toggleFull ) -- Toggles noborder/full
+    [("M-f", sendMessage (Toggle "Full") >> sendMessage (ToggleStruts))
     ,("M-c", kill)
     ,("M-r", spawn "xmonad --recompile; xmonad --restart")
     ,("M-m", windows W.swapMaster)
@@ -56,7 +57,7 @@ myConfig = def
     ,  ((0                                      , xK_Print)           , spawn "screenshot")
     ]
 
-myLayout =  avoidStruts ( tiled ||| Mirror tiled ||| Full )
+myLayout =  avoidStruts (toggleLayouts (noBorders Full) (tiled ||| Mirror tiled ||| Full))
   where
      -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta ratio
@@ -75,15 +76,6 @@ myManageHooks = composeAll
     [ isFullscreen --> doFullFloat
     -- skipped
     ]
-
---Looks to see if focused window is floating and if it is the places it in the stack
---else it makes it floating but as full screen
-toggleFull = withFocused (\windowId -> do
-    { floats <- gets (W.floating . windowset);
-        if windowId `M.member` floats
-        then withFocused $ windows . W.sink
-        else withFocused $ windows . (flip W.float $ W.RationalRect 0 0 1 1) })
-
 
 myScratchPads = [ NS "music" spawnGOMP getGOMP manageGOMP
                 , NS "torrent" spawnTorrent getTorrent manageTorrent
