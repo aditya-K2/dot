@@ -23,31 +23,33 @@ main :: IO()
 main = xmonad . ewmh =<< xmobar myConfig
 myConfig = def
     { modMask    = mod4Mask  -- Rebind Mod to the Super key
-	, handleEventHook = fullscreenEventHook
+    , handleEventHook = fullscreenEventHook
     , terminal = myTerminal-- Use custom layouts
-	, layoutHook = myLayout
-	, manageHook =  myManageHooks <+> manageDocks <+> namedScratchpadManageHook myScratchPads
+    , layoutHook = myLayout
+    , manageHook =  myManageHooks <+> manageDocks <+> namedScratchpadManageHook myScratchPads
     }
  `additionalKeysP`
     [("M-f", sendMessage ToggleStruts >> toggleFull ) -- Toggles noborder/full
-	,("M-c", kill)
-	,("M-r", spawn "xmonad --recompile; xmonad --restart")
-	,("M-m", windows W.swapMaster)
-	,("M-<Return>", spawn (myTerminal))
-	,("M-u", spawn ("brave"))
-	,("M-q", namedScratchpadAction myScratchPads "torrent")
-	,("M-e", spawn ("getEmoji"))
+    ,("M-c", kill)
+    ,("M-r", spawn "xmonad --recompile; xmonad --restart")
+    ,("M-m", windows W.swapMaster)
+    ,("M-<Return>", spawn (myTerminal))
+    ,("M-u", spawn ("brave"))
+    ,("M-q", namedScratchpadAction myScratchPads "torrent")
+    ,("M-e", spawn ("getEmoji"))
     ]
   `additionalKeys`
-    [  ((0                                      , 0x1008FF11), spawn "pamixer -d 5")
-    ,  ((0                                      , 0x1008FF13), spawn "pamixer -i 5")
-    ,  ((0                                      , 0x1008FF12), spawn "pamixer -t")
-	,  ((mod1Mask                               , xK_y      ), namedScratchpadAction myScratchPads "music")
-	,  ((mod4Mask                               , xK_space  ), namedScratchpadAction myScratchPads "scratch")
-	,  ((mod4Mask .|. controlMask .|. shiftMask , xK_c      ), namedScratchpadAction myScratchPads "colorChooser")
-	,  ((0                                      , xF86XK_AudioPlay ), spawn "mpc toggle")
-	,  ((0                                      , xF86XK_AudioNext) , spawn "mpc next")
-	,  ((0                                      , xF86XK_AudioPrev) , spawn "mpc prev")
+    [  ((0                                      , 0x1008FF11)         , spawn "pamixer -d 5")
+    ,  ((0                                      , 0x1008FF13)         , spawn "pamixer -i 5")
+    ,  ((0                                      , 0x1008FF12)         , spawn "pamixer -t")
+    ,  ((mod1Mask                               , xK_y      )         , namedScratchpadAction myScratchPads "music")
+    ,  ((mod4Mask                               , xK_space  )         , namedScratchpadAction myScratchPads "scratch")
+    ,  ((mod4Mask .|. controlMask .|. shiftMask , xK_c      )         , namedScratchpadAction myScratchPads "colorChooser")
+    ,  ((0                                      , xF86XK_AudioPlay )  , spawn "mpc toggle")
+    ,  ((0                                      , xF86XK_AudioNext)   , spawn "mpc next")
+    ,  ((0                                      , xF86XK_AudioPrev)   , spawn "mpc prev")
+    ,  ((mod4Mask .|. shiftMask                 , xK_F6)              , spawn "sxiv /D/Downloads/wallpapers/*.jpg")
+
     ]
 
 myLayout =  avoidStruts ( tiled ||| Mirror tiled ||| Full )
@@ -81,24 +83,22 @@ toggleFull = withFocused (\windowId -> do
 
 myScratchPads = [ NS "music" spawnGOMP getGOMP manageGOMP
                 , NS "torrent" spawnTorrent getTorrent manageTorrent
-				, NS "scratch" spawnScratch getScratch manageScratch
-				, NS "colorChooser" spawnChooser getChooser manageChooser
-				]
+                , NS "scratch" spawnScratch getScratch manageScratch
+                , NS "colorChooser" spawnChooser getChooser manageChooser
+                ]
+            where
+                spawnGOMP = "st -t music -e /H/code/goMP/goMP"
+                getGOMP = (title =? "music")
+                manageGOMP = (customFloating $ rectCentered 0.6)
 
-			where
+                spawnTorrent = myTerminal ++ " -t torrent -e tremc"
+                getTorrent = ( title =? "torrent" )
+                manageTorrent = (customFloating $ rectCentered 0.5)
 
-				spawnGOMP = "st -t music -e /H/code/goMP/goMP"
-				getGOMP = (title =? "music")
-				manageGOMP = (customFloating $ rectCentered 0.6)
+                spawnScratch = myTerminal ++ " -t scratch"
+                getScratch = ( title =? "scratch" )
+                manageScratch = (customFloating $ rectCentered 0.5)
 
-				spawnTorrent = myTerminal ++ " -t torrent -e tremc"
-				getTorrent = ( title =? "torrent" )
-				manageTorrent = (customFloating $ rectCentered 0.5)
-
-				spawnScratch = myTerminal ++ " -t scratch"
-				getScratch = ( title =? "scratch" )
-				manageScratch = (customFloating $ rectCentered 0.5)
-
-				spawnChooser = "kcolorchooser"
-				getChooser = ( className =? "kcolorchooser" )
-				manageChooser = (defaultFloating)
+                spawnChooser = "kcolorchooser"
+                getChooser = ( className =? "kcolorchooser" )
+                manageChooser = (defaultFloating)
