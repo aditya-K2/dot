@@ -38,7 +38,7 @@ nnoremap <leader>de : call vimspector#Reset()<CR>
 nnoremap <leader>cs : call OpenCheatSheat() <CR>
 nnoremap <M-m> : call TermToggle() <CR>
 nnoremap <leader>cn : call OpenInANewTmuxWindow() <CR>
-nnoremap <leader>ct :lua print(require("wordConverter").ConvertWord(vim.fn.expand("<cword>"), false))<CR>
+nnoremap <leader>ct :lua require("wordConverter").ConvertWord(vim.fn.expand("<cword>"), false)<CR>
 
 nmap <leader>dj <Plug> VimspectorStepInto
 nmap <leader>dk <Plug> VimspectorStepOver

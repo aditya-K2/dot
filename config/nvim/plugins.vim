@@ -23,6 +23,7 @@
 
 		" Float Term
 		Plug 'voldikss/vim-floaterm'
+		Plug 'dstein64/vim-startuptime'
 
 		" Color Shower
 		Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
