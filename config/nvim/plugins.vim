@@ -20,6 +20,7 @@
 		Plug 'easymotion/vim-easymotion'
 
 		Plug 'fatih/vim-go', {'do' : ':GoUpdateBinaries'}
+		Plug 'lewis6991/impatient.nvim'
 
 		" Float Term
 		Plug 'voldikss/vim-floaterm'
