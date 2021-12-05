@@ -37,10 +37,10 @@ set guifont=Source\ Code\ Pro:h8
 
 " LSP Diagnostics
 
-sign define LspDiagnosticsSignError text=>> texthl=LspDiagnosticsSignError
-sign define LspDiagnosticsSignWarning text=>> texthl=LspDiagnosticsSignWarning
-sign define LspDiagnosticsSignInformation text=>> texthl=LspDiagnosticsSignInformation
-sign define LspDiagnosticsSignHint text=>> texthl=LspDiagnosticsSignHint
+sign define DiagnosticSignError texthl=DiagnosticSignError text=
+sign define DiagnosticSignWarn  texthl=DiagnosticSignWarn  text=
+sign define DiagnosticSignInfo  texthl=DiagnosticSignInfo  text=
+sign define DiagnosticSignHint  texthl=DiagnosticSignHint  text=
 
 " Highlights
 "
@@ -55,14 +55,15 @@ hi CursorLine guibg=#212223
 hi CursorLineNr guibg=#212223
 hi EndOfBuffer guibg=#15191a
 hi SignColumn guibg=NONE
-hi LspDiagnosticsDefaultError guibg=NONE
+hi DiagnosticsDefaultError guibg=NONE
 
 hi SpellBad guifg=#703435 gui=none
-hi LspDiagnosticsVirtualTextError guifg=#910b0b ctermbg=NONE gui=italic
-hi LspDiagnosticsVirtualTextWarning guifg=#726c23 ctermbg=NONE gui=italic
-hi LspDiagnosticsVirtualTextHint guifg=#1d6a70 ctermbg=NONE gui=italic
-hi LspDiagnosticsSignError guifg=#703435
-hi LspDiagnosticsSignWarning guifg=#726c23
+hi DiagnosticVirtualTextError guifg=#910b0b ctermbg=NONE gui=italic
+hi DiagnosticVirtualTextWarn guifg=#ffa500 ctermbg=NONE gui=italic
+hi DiagnosticVirtualTextHint guifg=#1d6a70 ctermbg=NONE gui=italic
+hi DiagnosticSignError guifg=#910b0b
+hi DiagnosticSignHint guifg=#1d6a70
+" hi DiagnosticSignWarn
 hi Pmenu guibg=#282f31
 hi PmenuSel guibg=#aaaaff guifg=#000000
 hi NonText guifg=#333436 gui=italic
