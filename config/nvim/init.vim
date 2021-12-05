@@ -1,4 +1,5 @@
 source $HOME/.config/nvim/plugins.vim
+lua require('impatient')
 source $HOME/.config/nvim/settings.vim
 source $HOME/.config/nvim/mappings.vim
 luafile $HOME/.config/nvim/lsp/servers.lua
