@@ -120,6 +120,7 @@ alias code='codium'
 
 alias ex='nvim ~/.xinitrc '
 alias xm='nvim ~/.xmonad/xmonad.hs'
+alias xb='nvim ~/.xmobarrc'
 alias en='nvim ~/.config/nvim '
 alias ea='nvim ~/.config/alacritty/alacritty.yml '
 alias et='nvim ~/.tmux.conf'
@@ -143,6 +144,7 @@ alias dg='du -h --max-depth 1 | grep G '
 alias wlist='nmcli d wifi list'
 alias wconnect='nmcli d wifi connect'
 alias wk='nmcli d wifi list && nmcli d wifi connect "kurdunkar home" '
+alias wr='nmcli d wifi list && nmcli d wifi connect "realme X7 Max" '
 alias wo='nmcli d wifi list && nmcli d wifi connect oppo '
 
 alias aco='cd /home/aditya/.config/awesome ; nvim rc.lua'
@@ -316,7 +318,10 @@ gppn(){
 	g++ -O2 -g -Wall -lncurses $1 && ./a.out
 }
 rsc(){
-	ffmpeg -f x11grab -s 1920x1080 -i :0.0 $1.mkv
+	ffmpeg -f x11grab -s 1920x1080 -i :0.0 $1
+}
+mkvtomp4(){
+	ffmpeg -i "$1" -codec copy "${1%.*}.mp4"
 }
 rsv(){
 	mpv /dev/video0
