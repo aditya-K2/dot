@@ -53,6 +53,8 @@ myConfig = def
     ,  ((mod1Mask                               , xK_F4)              , spawn "sd")
     ,  ((mod4Mask                               , xK_i)               , spawn "ow")
     ,  ((mod4Mask .|. shiftMask                 , xK_F5)              , spawn "reloadKeys")
+    ,  ((mod4Mask                               , xK_F9)              , spawn "xbacklight -dec 10")
+    ,  ((mod4Mask                               , xK_F10)             , spawn "xbacklight -inc 10")
     ,  ((shiftMask                              , xK_Print)           , spawn "screenshotPart")
     ,  ((0                                      , xK_Print)           , spawn "screenshot")
     ]
