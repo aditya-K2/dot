@@ -37,7 +37,7 @@ set guifont=Source\ Code\ Pro:h8
 
 " LSP Diagnostics
 
-sign define DiagnosticSignError texthl=DiagnosticSignError text=
+sign define DiagnosticSignError texthl=DiagnosticSignError text=>>
 sign define DiagnosticSignWarn  texthl=DiagnosticSignWarn  text=
 sign define DiagnosticSignInfo  texthl=DiagnosticSignInfo  text=
 sign define DiagnosticSignHint  texthl=DiagnosticSignHint  text=
@@ -53,7 +53,7 @@ hi TabLineSel guifg=#2b3642 guibg=#eaeaea
 hi LineNr guibg=NONE
 hi CursorLine guibg=#212223
 hi CursorLineNr guibg=#212223
-hi EndOfBuffer guibg=#15191a
+hi EndOfBuffer guibg=#000000
 hi SignColumn guibg=NONE
 hi DiagnosticsDefaultError guibg=NONE
 
