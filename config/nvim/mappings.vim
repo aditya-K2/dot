@@ -70,6 +70,7 @@ autocmd BufRead,BufNewFile *.latex nnoremap <C-o> :call Spellfloat()<CR>
 autocmd BufRead,BufNewFile *.latex nmap <leader>mm :!compileLatex % <CR>
 autocmd BufRead,BufNewFile *.latex nmap <leader>mc :!pdflatex -shell-escape % <CR>
 autocmd BufRead,BufNewFile *.hs set expandtab
+autocmd BufRead,BufNewFile *def.h set expandtab
 
 nmap <leader>fn <cmd> lua require('telescope.builtin').find_files{cwd='/home/aditya/.config/nvim', prompt='cpFiles'}<CR>
 nmap <leader>fs :Telescope find_files <CR>
