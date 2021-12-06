@@ -53,7 +53,7 @@ hi TabLineSel guifg=#2b3642 guibg=#eaeaea
 hi LineNr guibg=NONE
 hi CursorLine guibg=#212223
 hi CursorLineNr guibg=#212223
-hi EndOfBuffer guibg=#15191a
+hi EndOfBuffer guibg=#000000
 hi SignColumn guibg=NONE
 hi DiagnosticsDefaultError guibg=NONE
 hi EndOfBuffer guibg=#000000
