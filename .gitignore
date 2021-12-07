@@ -10,3 +10,4 @@ config/nvim/autoload
 dwm/*.orig
 dwm/*.rej
 dwm/config.h
+slstatus/config.h
