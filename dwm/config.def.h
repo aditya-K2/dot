@@ -22,7 +22,7 @@ static const int DFW                       =   800;
 static const int DFH                       =   600;
 static const int DFX                       =   550;
 static const int DFY                       =   250;
-static const char *fonts[]                 =   { "SourceCodeProMedium:size=10" , "NotoColorEmoji:size=10"};
+static const char *fonts[]                 =   { "Sauce Code Pro Nerd Font:size=10" , "NotoColorEmoji:size=10"};
 static const char dmenufont[]              =   "SourceCodeProMedium:size=10";
 static const char col_Selected_FG[]        =   "#ffffff";
 static const char col_statusbarBG[]        =   "#111111";
