@@ -99,7 +99,6 @@ alias cds='cd /H/code/competitive/DSA'
 alias cdsa='cd /H/code/competitive/DSA'
 alias crandom='cd /random'
 alias cdot='cd /H/code/dotfiles/'
-alias sc='cd /home/aditya/suckless/scripts'
 
 # utils aliases
 
@@ -109,7 +108,7 @@ alias ls='exa'
 alias la='exa -a '
 alias ll='exa -la '
 alias grep='grep --color'
-alias rm='rm -i'
+alias rm='rm -iv'
 alias cp='cp -v'
 alias mv='mv -v'
 alias zathura='zathura --fork'
@@ -132,7 +131,7 @@ alias sb='source ~/.zshrc '
 # suckless aliases
 
 alias dco='cd /home/aditya/suckless/dwm && rm -f config.h && nvim config.def.h'
-alias dbo='cd /home/aditya/suckless/dwmblocks && rm -f blocks.h && nvim blocks.def.h'
+alias dbo='cd /home/aditya/suckless/slstatus && rm -f config.h && nvim config.def.h'
 alias sto='cd /home/aditya/suckless/st && rm -f config.h && nvim config.def.h'
 alias dmo='cd /home/aditya/suckless/dmenu && rm -f config.h && nvim config.def.h'
 
@@ -210,6 +209,19 @@ extract(){
   fi
 }
 
+sc(){
+	if [[ "$1" == "-m" ]]; then
+		fileName=$2
+		echo "#!/bin/sh" > /home/aditya/suckless/scripts/$fileName &&
+		chmod +x /home/aditya/suckless/scripts/$fileName &&
+		nvim /home/aditya/suckless/scripts/$fileName
+	elif [[ "$1" == "-g" ]]; then
+		cd $HOME/suckless/scripts/
+	else
+		allFiles $HOME/suckless/scripts | fzf --height 10 | xargs -r $EDITOR
+	fi
+}
+
 openFFF() {
     fff "$@"
     cd "$(cat "${XDG_CACHE_HOME:=${HOME}/.cache}/fff/.fff_d")"
@@ -228,9 +240,6 @@ fg(){
 	if [[ "$optionS" != "" ]]; then
 		nvim ${optionS%-*} -c "normal ${optionS#*-}Gzz"
 	fi
-}
-patches(){
-	du -a /D/Downloads/dwm-* | awk '{print $2}' | fzf --height 10 | xargs -r "$EDITOR"
 }
 ntem(){
 	nvim /tmp/$1
@@ -284,6 +293,9 @@ asmc(){
 fs(){
 	fzf  --height 10 | xargs -r $EDITOR
 }
+allFiles(){
+	du -a "$1" | awk '{print $2}'
+}
 fsc(){
 	fzf  --height 20 | xargs -r codium --add
 }
@@ -296,10 +308,10 @@ fco(){
 	fi
 }
 fn(){
-	du -a /home/aditya/.config/nvim | awk '{print $2}' | fzf  --height 10 | xargs -r $EDITOR
+	allFiles "/home/aditya/.config/nvim/" | fzf  --height 10 | xargs -r $EDITOR
 }
 nf(){
-	du -a /home/aditya/.config/nvim | awk '{print $2}' | fzf  --height 10 | xargs -r $EDITOR
+	allFiles "/home/aditya/.config/nvim/"| fzf  --height 10 | xargs -r $EDITOR
 }
 gpp(){
 	g++ $1 && ./a.out
@@ -382,7 +394,7 @@ zstyle ':vcs_info:*' check-for-changes true
 # zstyle ':vcs_info:git:*' formats " %r/%S %b %m%u%c "
 zstyle ':vcs_info:git:*' formats " %{$fg[magenta]%}%b"
 
-PROMPT="%{$fg[cyan]%}%~%{$reset_color%}"
+PROMPT=" %{$fg[cyan]%}%~%{$reset_color%}"
 PROMPT+="\$vcs_info_msg_0_ "
 
 # Prompt Ends
