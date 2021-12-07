@@ -126,9 +126,6 @@ static Key keys[] = {
   { 0,                                      XK_Print,                    spawn,                 SHCMD("screenshot") },
   { ControlMask,                            XK_Print,                    spawn,                 SHCMD("directoryName") },
   { ShiftMask,                              XK_Print,                    spawn,                 SHCMD("screenshotPart") },
-  { 0,                                      XF86XK_AudioLowerVolume,     spawn,                 SHCMD("pamixer -d 5 ; pkill -RTMIN+10 dwmblocks")}, //XK COMMAND TO DECREASE VOLUME
-  { 0,                                      XF86XK_AudioMute,            spawn,                 SHCMD("pulsemute")}, //XK COMMAND TO MUTE VOLUME
-  { 0,                                      XF86XK_AudioRaiseVolume,     spawn,                 SHCMD("pamixer -i 5 ; pkill -RTMIN+10 dwmblocks")}, //XK COMMAND TO INCREASE VOLUME
   { 0,                                      XF86XK_AudioPrev,            spawn,                 SHCMD("playerctlPrev")}, //XK COMMAND TO previous song
   { 0,                                      XF86XK_AudioNext,            spawn,                 SHCMD("playerctlNext")}, //XK COMMAND TO next song
   { 0,                                      XF86XK_AudioPlay,            spawn,                 SHCMD("playerctlToggle")}, //XK COMMAND TO next song
