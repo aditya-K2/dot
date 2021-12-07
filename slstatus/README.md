@@ -1,0 +1,1 @@
+# slstatus - suckless status
