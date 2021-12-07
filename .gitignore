@@ -7,7 +7,7 @@ config/mpd/pid
 config/mpd/playlists
 config/mpd/state
 config/nvim/autoload
-dwm/*.orig
-dwm/*.rej
-dwm/config.h
-slstatus/config.h
+suckless/dwm/*.orig
+suckless/dwm/*.rej
+suckless/dwm/config.h
+suckless/slstatus/config.h
