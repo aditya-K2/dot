@@ -100,7 +100,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-p", ">", "-m", dmenumon, "-fn", dmenufont, "-nb", col_statusbarBG, "-nf", col_dmenuFG, "-sb", col_statusbarMiddle, "-sf", col_statusbarFG, "-i" , NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-p", ">", "-m", dmenumon, "-fn", dmenufont};
 static const char *termcmd[]  = { "/usr/bin/alacritty", NULL };
 static const char *web[] = { "/usr/bin/brave", NULL };
 static const char *torrentcli[] = {"t", "alacritty", "-t", "tremc" , "-e", "tremc", NULL};
@@ -126,9 +126,9 @@ static Key keys[] = {
   { 0,                                      XK_Print,                    spawn,                 SHCMD("screenshot") },
   { ControlMask,                            XK_Print,                    spawn,                 SHCMD("directoryName") },
   { ShiftMask,                              XK_Print,                    spawn,                 SHCMD("screenshotPart") },
-  { 0,                                      XF86XK_AudioPrev,            spawn,                 SHCMD("playerctlPrev")}, //XK COMMAND TO previous song
-  { 0,                                      XF86XK_AudioNext,            spawn,                 SHCMD("playerctlNext")}, //XK COMMAND TO next song
-  { 0,                                      XF86XK_AudioPlay,            spawn,                 SHCMD("playerctlToggle")}, //XK COMMAND TO next song
+  { 0,                                      XF86XK_AudioPrev,            spawn,                 SHCMD("mpc prev")}, //XK COMMAND TO previous song
+  { 0,                                      XF86XK_AudioNext,            spawn,                 SHCMD("mpc next")}, //XK COMMAND TO next song
+  { 0,                                      XF86XK_AudioPlay,            spawn,                 SHCMD("mpc toggle")}, //XK COMMAND TO next song
   { 0,                                      XF86XK_AudioStop,            spawn,                 SHCMD("mpc stop")}, //XK COMMAND TO next song
   { MODKEY,                                 XK_F11,                      spawn,                 SHCMD("pamixer -d 5 ; pkill -RTMIN+10 dwmblocks")}, //ALTERNATE CONTROLS
   { MODKEY,                                 XK_F12,                      spawn,                 SHCMD("pamixer -i 5 ; pkill -RTMIN+10 dwmblocks")}, //ALTERNATE CONTROLS
