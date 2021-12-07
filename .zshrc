@@ -185,6 +185,37 @@ function __ccgCompletions(){
 
 #functions
 
+audioConvert(){
+	for i in *.webm
+	do
+		ffmpeg -i "$i" -b:a 320k "${i%.webm}.mp3" &&
+		rm "$i"
+	done
+}
+
+ytm (){
+	mkdir /random/Music/$1 &&
+	cd /random/Music/$1 &&
+
+	youtube-dl -f 251 "$2"
+
+	for i in *.webm
+	do
+		ffmpeg -i "$i" -b:a 320k "${i%.webm}.mp3" &&
+		rm "$i"
+
+	done
+}
+
+m4atoflac(){
+	for i in *.m4a
+	do
+		# ffmpeg -i "$i" -b:a 320k "${i%.webm}.mp3" &&
+		ffmpeg -i "$i" -f flac "${i%.m4a}.flac" &&
+		rm "$i"
+	done
+}
+
 extract(){
   if [ -f $1 ] ; then
     case $1 in
