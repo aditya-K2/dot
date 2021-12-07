@@ -67,6 +67,6 @@ require'lspconfig'.html.setup {
 }
 
 require'lspconfig'.tsserver.setup{}
-
+require'lspconfig'.cmake.setup{}
 require'lspconfig'.gopls.setup{}
 require "lsp_signature".setup()
