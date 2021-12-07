@@ -15,6 +15,35 @@ function! OpenInANewTmuxWindow()
 	bdel
 endfunction
 
+let g:TermToggleId = 0
+let g:TermIsOpen = 0
+
+fun! TermToggle()
+
+	if g:TermToggleId == 0 && g:TermIsOpen == 0
+
+		split | resize -10 | term zsh
+		set nobuflisted
+		set nornu nonu
+		let g:TermToggleId = nvim_win_get_buf(0)
+		let g:TermIsOpen = 1
+		let b:isToggledTerminal = 1
+
+	elseif g:TermIsOpen == 1
+
+		quit
+		let g:TermIsOpen = 0
+
+	else
+
+		split | resize -10
+		call nvim_win_set_buf(0, g:TermToggleId)
+		let g:TermIsOpen = 1
+
+	end
+
+endfun
+
 let g:mapleader = "\<Space>"            " set leader key
 
 nnoremap <TAB> :bnext<CR>

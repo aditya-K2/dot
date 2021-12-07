@@ -49,7 +49,6 @@
 
 		" My Plugin
 		Plug 'aditya-K2/spellfloat'
-		Plug 'aditya-K2/termToggle'
 
 		"Maximizer
 		Plug 'szw/vim-maximizer'
