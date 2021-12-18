@@ -83,7 +83,7 @@ alias cst='cd /home/aditya/suckless/st'
 alias cscripts='cd /home/aditya/suckless/scripts'
 alias cdd='cd /D/Downloads/'
 alias cpo='cd /H/code/competitive'
-alias cno='cd /H/notes'
+alias cnotes='cd /random/notes'
 alias cl='cd /random/collegeStuff'
 alias cm='cd /random/collegeStuff/md'
 alias cmusic='cd /D/Downloads/Music/'
@@ -92,7 +92,7 @@ alias cs='cd /home/aditya/suckless'
 alias cr='cd /random/'
 alias crt='cd /random/RTDownloads'
 alias cn='cd ~/.config/nvim '
-alias cgom='cd /H/code/goMP'
+alias cgom='cd /H/code/gomp'
 alias cgui="cd /H/code/docScanner"
 alias cmanga='cd /random/Manga/'
 alias cds='cd /H/code/competitive/DSA'
@@ -158,7 +158,9 @@ alias hardmine='cd /home/aditya/xmr-Hardcore/ ; ./xmr-stak-rx --noTest'
 # git aliases
 
 alias gp='git push'
-alias ggraph='git log --graph --pretty=oneline --abbrev-commit'
+alias gd='git diff'
+alias gg='git log --graph --pretty=oneline --abbrev-commit'
+alias gl='git log'
 alias gb='git branch'
 alias gco='git checkout'
 alias gst='git status'
@@ -317,9 +319,9 @@ gcla(){
 	cd $1
 }
 asmc(){
-	nasm -f elf64 -o "${1%.asm}.o" "$1" &&
-	ld "${1%.asm}.o" -o "${1%.asm}" &&
-	./"${1%.asm}"
+	nasm -f elf64 -o "/tmp/${1%.asm}.o" "$1" &&
+	ld "/tmp/${1%.asm}.o" -o "/tmp/${1%.asm}" &&
+	"/tmp/${1%.asm}"
 }
 fs(){
 	fzf  --height 10 | xargs -r $EDITOR
@@ -369,10 +371,6 @@ mkvtomp4(){
 rsv(){
 	mpv /dev/video0
 }
-gd(){
-	searchTerm=$(printf "$1" | sed "s/ /%20/g")
-	lynx "https://searx.fmac.xyz/search?q=$searchTerm"
-}
 ap(){
 	searchTerm=$(printf "$1" | sed "s/ /%20/g")
 	brave "https://archlinux.org/packages/?sort=&q=$searchTerm&maintainer=&flagged=" &
@@ -386,7 +384,11 @@ aw(){
 	brave "https://wiki.archlinux.org/index.php?search=$searchTerm&title=Special%3ASearch&go=Go" &
 }
 autopush(){
-	git add . && git commit -m "$1" && git push origin master
+	if [[ "$2" != "" ]]; then
+		git add . && git commit -m "$1" && git push origin "$2"
+	else
+		git add . && git commit -m "$1" && git push origin master
+	fi
 }
 all(){
 	ls *.$1
