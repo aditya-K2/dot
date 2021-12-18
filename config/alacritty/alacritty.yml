@@ -1,0 +1,65 @@
+env:
+  TERM: xterm-256color
+
+window:
+  padding:
+      x: 5
+      y: 5
+
+  opacity: 0.9
+
+shell:
+  program: /bin/zsh
+
+font:
+  size: 7
+
+  normal:
+    family: JetBrains Mono Nerd Font
+    # family: JetBrains Mono Nerd Font
+    style: Thin
+  bold:
+    family: JetBrains Mono Nerd Font
+    style: Normal
+  italic:
+    family: JetBrains Mono Nerd Font
+    style: Italic
+  bold_italic:
+    family: JetBrains Mono Nerd Font
+    style: Bold Italic
+  offset:
+   x: 1
+   y: 0
+
+background_opacity: 0.95
+
+colors:
+  name: Brewer (dark)
+  primary:
+    background: "#0c0d0e"
+    foreground: "#b7b8b9"
+  cursor:
+    text: "#0c0d0e"
+    cursor: "#b7b8b9"
+  normal:
+    black: "#0c0d0e"
+    red: "#e31a1c"
+    green: "#31a354"
+    yellow: "#dca060"
+    blue: "#3182bd"
+    magenta: "#756bb1"
+    cyan: "#80b1d3"
+    white: "#b7b8b9"
+  bright:
+    black: "#737475"
+    red: "#e31a1c"
+    green: "#31a354"
+    yellow: "#dca060"
+    blue: "#3182bd"
+    magenta: "#756bb1"
+    cyan: "#80b1d3"
+    white: "#fcfdfe"
+
+cursor:
+  style:
+    blinking: Never
