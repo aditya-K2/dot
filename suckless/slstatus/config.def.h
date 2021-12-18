@@ -64,9 +64,11 @@ static const char unknown_str[] = "n/a";
  * wifi_essid          WiFi ESSID                      interface name (wlan0)
  */
 static const struct arg args[] = {
-	/* function format          argument */
-	{ run_command, " %s",           "networkSpeed" },
-	{ run_command, " %s",           "mpcM" },
-	{ run_command, " %s",           "getDate" },
-	{ run_command, " %s",           "battery.sh" },
+    /* function format          argument */
+    /* {netspeed_rx, " ^c#14ff72^  ^c#cbffc5^ %s", "wlp2s0"}, */
+    /* {netspeed_tx, " ^c#4687ff^  ^c#aee5ff^ %s", "wlp2s0"}, */
+    {run_command, " %s", "networkSpeed"},
+    {run_command, " %s", "mpcM"},
+    {run_command, " %s", "getDate"},
+    {run_command, " %s", "battery.sh"},
 };
