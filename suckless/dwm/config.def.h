@@ -67,7 +67,7 @@ static const Rule rules[] = {
 
  { NULL,                 NULL,       "pcmanfm",              0,      1,           -1 ,       DFX,         DFY,   DFW,         DFH,             2,         'n'},
  { NULL,                 NULL,       "scratchpad",           0,      1,           -1,        DFX,         DFY,   DFW,         DFH,             2,         's'},
- { NULL,                 NULL,       "goMP",                 0,      1,           -1,        DFX - 50 ,   DFY,   DFW + 50 ,   DFH,             2,         'y'},
+ { NULL,                 NULL,       "gomp",                 0,      1,           -1,        DFX - 50 ,   DFY,   DFW + 50 ,   DFH,             2,         'y'},
  { NULL,                 NULL,       "tremc",                0,      1,           -1,        DFX - 50 ,   DFY,   DFW + 50 ,   DFH,             2,         't'},
 };
 
@@ -78,7 +78,7 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 
 static const Layout layouts[] = {
     /* symbol     arrange function */
-    { "|  ",     tile },    /* first entry is default */
+    { "|  ",     tile },    /* first entry is default */
     { "|  ",     NULL },    /* no layout function means floating behavior */
     { "[M]",      monocle },
     { "HHH",      grid },
@@ -106,7 +106,7 @@ static const char *web[] = { "/usr/bin/brave", NULL };
 static const char *torrentcli[] = {"t", "alacritty", "-t", "tremc" , "-e", "tremc", NULL};
 static const char *fileManager[] = {"n", "/usr/bin/pcmanfm", NULL };
 static const char *scratchpadcmd[] = {"s", "alacritty", "-t", "scratchpad" , "-e", "zsh", NULL};
-static const char *gompcmd[] = {"y", "st", "-t", "goMP" , "-e", "/H/code/goMP/goMP", NULL};
+static const char *gompcmd[] = {"y", "st", "-t", "gomp" , "-e", "/H/code/gomp/gomp", NULL};
 
 
 
