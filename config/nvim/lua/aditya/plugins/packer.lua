@@ -58,6 +58,7 @@ return require("packer").startup(function(use)
     -- use 'puremourning/vimspector'
 
     use 'aditya-K2/spellfloat'
+    use { '/H/code/cph.nvim', rocks = {'http'}}
 
     --Maximizer
     use 'szw/vim-maximizer'
