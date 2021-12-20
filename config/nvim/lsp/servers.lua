@@ -33,7 +33,7 @@ end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 
-local servers = {"clangd", "vimls", "pyright", "gopls"}
+local servers = {"clangd", "vimls", "pyright", "gopls", "cssls", "html", "tsserver", "cmake"}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -48,8 +48,14 @@ end
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
     signs = true,
-	virtual_text = true,
+	virtual_text = false,
 	underline = true,
+    float = {
+        show_header = true,
+        source = 'if_many',
+        border = 'rounded',
+        focusable = false,
+    },
     update_in_insert = false,
   }
 )
@@ -61,12 +67,12 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 require'lspconfig'.cssls.setup {
   capabilities = capabilities,
 }
-
 require'lspconfig'.html.setup {
   capabilities = capabilities,
 }
-
-require'lspconfig'.tsserver.setup{}
+require'lspconfig'.tsserver.setup{
+	capabilities = capabilities
+}
 require'lspconfig'.cmake.setup{}
 require'lspconfig'.gopls.setup{}
 require "lsp_signature".setup()

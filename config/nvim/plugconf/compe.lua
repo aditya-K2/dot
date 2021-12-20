@@ -23,6 +23,12 @@ cmp.setup {
     { name = "buffer" }
   },
 
+  snippet = {
+	  expand = function(args)
+		  require("luasnip").lsp_expand(args.body)
+	  end,
+  },
+
   experimental = {
     -- the new menu
     native_menu = false,
