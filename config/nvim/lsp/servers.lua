@@ -33,7 +33,19 @@ end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 
-local servers = {"clangd", "vimls", "pyright", "gopls", "cssls", "html", "tsserver", "cmake"}
+local servers =
+
+        {
+            "clangd",
+            "vimls",
+            "pyright",
+            "gopls",
+            "cssls",
+            "html",
+            "tsserver",
+            "cmake"
+        }
+
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -42,6 +54,44 @@ for _, lsp in ipairs(servers) do
     }
   }
 end
+
+-- lua lsp configuration because it's different from others 🌝
+-- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
+local sumneko_root_path = "/home/aditya/suckless/lua-language-server"
+local sumneko_binary =  "/home/aditya/suckless/lua-language-server/bin/Linux/lua-language-server"
+
+local runtime_path = vim.split(package.path, ';')
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
+
+-- Lua Language Server
+--
+require'lspconfig'.sumneko_lua.setup {
+  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
+  on_attach = on_attach,
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+        -- Setup your lua path
+        path = runtime_path,
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
 
 -- Diagnostic Errors Settings and Appearances
 
@@ -64,15 +114,4 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-require'lspconfig'.cssls.setup {
-  capabilities = capabilities,
-}
-require'lspconfig'.html.setup {
-  capabilities = capabilities,
-}
-require'lspconfig'.tsserver.setup{
-	capabilities = capabilities
-}
-require'lspconfig'.cmake.setup{}
-require'lspconfig'.gopls.setup{}
 require "lsp_signature".setup()
