@@ -69,6 +69,9 @@ static const Rule rules[] = {
  { NULL,                 NULL,       "scratchpad",           0,      1,           -1,        DFX,         DFY,   DFW,         DFH,             2,         's'},
  { NULL,                 NULL,       "gomp",                 0,      1,           -1,        DFX - 50 ,   DFY,   DFW + 50 ,   DFH,             2,         'y'},
  { NULL,                 NULL,       "tremc",                0,      1,           -1,        DFX - 50 ,   DFY,   DFW + 50 ,   DFH,             2,         't'},
+ { NULL,                 NULL,       "Select Color",         0,      1,           -1,        DFX - 50 ,   DFY,   DFW + 50 ,   DFH,             2,         'c'},
+ { NULL,                 NULL,       "Ideas",                0,      1,           -1,        DFX - 50 ,   DFY,   DFW + 50 ,   DFH,             2,         'i'},
+
 };
 
 /* layout(s) */
@@ -105,10 +108,10 @@ static const char *termcmd[]  = { "/usr/bin/alacritty", NULL };
 static const char *web[] = { "/usr/bin/brave", NULL };
 static const char *torrentcli[] = {"t", "alacritty", "-t", "tremc" , "-e", "tremc", NULL};
 static const char *fileManager[] = {"n", "/usr/bin/pcmanfm", NULL };
+static const char *colorChooser[] = {"c", "/usr/bin/kcolorchooser", NULL };
 static const char *scratchpadcmd[] = {"s", "alacritty", "-t", "scratchpad" , "-e", "zsh", NULL};
+static const char *ideascmd[] = {"i", "alacritty", "-t", "Ideas" , "-e", "nvim", "/home/aditya/ideas", NULL};
 static const char *gompcmd[] = {"y", "st", "-t", "gomp" , "-e", "/H/code/gomp/gomp", NULL};
-
-
 
 static Key keys[] = {
    /* modifier                               key                          function        argument */
@@ -120,6 +123,8 @@ static Key keys[] = {
   { Mod1Mask,                               XK_y,                        togglescratch,         {.v = gompcmd } },
   { MODKEY,                                 XK_n,                        togglescratch,         {.v = fileManager } },
   { MODKEY,                                 XK_q,                        togglescratch,         {.v = torrentcli } },
+  { MODKEY|ControlMask|ShiftMask,           XK_c,                        togglescratch,         {.v = colorChooser } },
+  { MODKEY,                                 XK_o,                        togglescratch,         {.v = ideascmd } },
   { Mod1Mask,                               XK_q,                        spawn,                 SHCMD("torrentInfo") },
   { MODKEY|ShiftMask,                       XK_y,                        spawn,                 SHCMD("spotify") },
   { Mod1Mask,                               XK_F4,                       spawn,                 SHCMD("sd") }, //add to path
@@ -133,14 +138,11 @@ static Key keys[] = {
   { MODKEY,                                 XK_F11,                      spawn,                 SHCMD("pamixer -d 5 ; pkill -RTMIN+10 dwmblocks")}, //ALTERNATE CONTROLS
   { MODKEY,                                 XK_F12,                      spawn,                 SHCMD("pamixer -i 5 ; pkill -RTMIN+10 dwmblocks")}, //ALTERNATE CONTROLS
   { MODKEY|ShiftMask,                       XK_F5,                       spawn,                 SHCMD("reloadKeys")}, // map keys again
-  { MODKEY,                                 XK_F6,                       spawn,                 SHCMD("feh --randomize --bg-scale /D/Downloads/wallpapers/*.jpg")}, // map keys again
   { MODKEY|ShiftMask,                       XK_F6,                       spawn,                 SHCMD("sxiv /D/Downloads/wallpapers/*.jpg")}, // map keys again
   { MODKEY,                                 XK_F10,                      spawn,                 SHCMD("xbacklight -inc 10 ; pkill -RTMIN+20 dwmblocks")},
   { MODKEY,                                 XK_F9,                       spawn,                 SHCMD("xbacklight -dec 10 ; pkill -RTMIN+20 dwmblocks")},
   { MODKEY,                                 XK_e,                        spawn,                 SHCMD("getEmoji")},
-  { MODKEY,                                 XK_i,                        spawn,                 SHCMD("spotifydStart")},
-  { MODKEY|ShiftMask|ControlMask,           XK_i,                        spawn,                 SHCMD("spotifyd && notify-send \"Spotify Started\" -i /D/Downloads/spotify.png")},
-  { MODKEY|ShiftMask,                       XK_o,                        spawn,                 SHCMD("scriptMaker")},
+  { MODKEY,                                 XK_i,                        spawn,                 SHCMD("copyq menu")},
   { MODKEY,                                 XK_g,                        setlayout,             {.v = &layouts[3]} },
   { MODKEY,                                 XK_r,                        setlayout,             {.v = &layouts[4]} },
   { MODKEY|ShiftMask,                       XK_r,                        setlayout,             {.v = &layouts[5]} },
@@ -156,7 +158,6 @@ static Key keys[] = {
   { MODKEY,                                 XK_l,                        setmfact,              {.f = +0.05} },
   { MODKEY,                                 XK_Tab,                      view,                  {0} },
   { MODKEY|ShiftMask,                       XK_c,                        killclient,            {0} },
-  { MODKEY|ControlMask|ShiftMask,           XK_c,                        spawn,                 SHCMD("kcolorchooser")},
   { MODKEY,                                 XK_c,                        killclient,            {0} },
   { MODKEY|ShiftMask,                       XK_t,                        setlayout,             {.v = &layouts[0]} },
   { MODKEY|ShiftMask,                       XK_m,                        setlayout,             {.v = &layouts[2]} },
