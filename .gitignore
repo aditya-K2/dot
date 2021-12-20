@@ -6,7 +6,7 @@ config/mpd/database
 config/mpd/pid
 config/mpd/playlists
 config/mpd/state
-config/nvim/autoload
+config/nvim/plugin/*
 suckless/dwm/*.orig
 suckless/dwm/*.rej
 suckless/dwm/config.h

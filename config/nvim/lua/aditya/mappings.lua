@@ -42,6 +42,7 @@ nmap ("<leader>" , "dcbp  <Plug>VimspectorToggleConditionalBreakpoint")
 
 vim.cmd( "autocmd BufRead,BufNewFile *.txt nmap <CR> :wq <CR>" )
 vim.cmd( "autocmd BufWritePre * :%s/\\s\\+$//e" )
+vim.cmd( "autocmd BufRead,BufNewFile .zshrc set filetype=bash" )
 
 vim.cmd( "autocmd BufRead,BufNewFile *.md set wrap" )
 vim.cmd( "autocmd BufRead,BufNewFile *.md set spell spelllang=en_us" )
