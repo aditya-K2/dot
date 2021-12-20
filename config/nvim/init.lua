@@ -1,0 +1,5 @@
+vim.cmd("source $HOME/.config/nvim/plugins.vim")
+require("aditya.settings")
+require("aditya.lsp")
+require("aditya.mappings")
+require("aditya.plugins")
