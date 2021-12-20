@@ -1,5 +1,4 @@
 require("aditya.plugins")
-require('impatient')
 require("aditya.settings")
 require("aditya.mappings")
 require("aditya.lsp")
