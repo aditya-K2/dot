@@ -68,18 +68,20 @@ nnoremap <leader>cs : call OpenCheatSheat() <CR>
 nnoremap <M-m> : call TermToggle() <CR>
 nnoremap <leader>cn : call OpenInANewTmuxWindow() <CR>
 nnoremap <leader>ct :lua require("wordConverter").ConvertWord(vim.fn.expand("<cword>"), false)<CR>
+nnoremap <S-m> :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap <leader>d<space> :call vimspector#Continue()<CR>
 
 nmap <leader>dj <Plug> VimspectorStepInto
 nmap <leader>dk <Plug> VimspectorStepOver
 nmap <leader>dl <Plug> VimspectorStepOut
 nmap <leader>dr <Plug> VimspectorRestart
-nnoremap <leader>d<space> :call vimspector#Continue()<CR>
 
 nmap <leader> drc   <Plug>VimspectorRunToCursor
 nmap <C-a> <Plug>VimspectorToggleBreakpoint
 nmap <C-y> <Plug>VimspectorToggleBreakpoint
 nmap <leader> dcbp  <Plug>VimspectorToggleConditionalBreakpoint
 
+" autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()
 autocmd BufRead,BufNewFile *.cpp nmap <F6> :FloatermNew --autoclose=0 g++ % -o %< && ./%< <CR>
 autocmd BufRead,BufNewFile *.cc nmap <F6> :FloatermNew --autoclose=0 g++ % -o %< && ./%< <CR>
 autocmd BufRead,BufNewFile *.py nmap <F6> :FloatermNew --autoclose=0 python % <CR>
@@ -98,8 +100,8 @@ autocmd BufRead,BufNewFile *.latex set spell spelllang=en_us
 autocmd BufRead,BufNewFile *.latex nnoremap <C-o> :call Spellfloat()<CR>
 autocmd BufRead,BufNewFile *.latex nmap <leader>mm :!compileLatex % <CR>
 autocmd BufRead,BufNewFile *.latex nmap <leader>mc :!pdflatex -shell-escape % <CR>
-autocmd BufRead,BufNewFile *.hs set expandtab
-autocmd BufRead,BufNewFile *def.h set expandtab
+" autocmd BufRead,BufNewFile *.hs set expandtab
+" autocmd BufRead,BufNewFile *def.h set expandtab
 
 nmap <leader>fn <cmd> lua require('telescope.builtin').find_files{cwd='/home/aditya/.config/nvim', prompt='cpFiles'}<CR>
 nmap <leader>fs :Telescope find_files <CR>
@@ -115,8 +117,11 @@ nmap <F5> :call CompileCPP()<CR>
 imap <C-BS> <C-w>
 imap <C-h> <C-w>
 
-"Better tabbing
+" Better tabbing
 vnoremap < <gv
 vnoremap > >gv
+" Helps Moving Text Up and Down
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
 
 tnoremap <M-m> <C-\><C-n>:call TermToggle()<CR>

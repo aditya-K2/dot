@@ -1,33 +1,41 @@
   call plug#begin('~/.config/nvim/autoload/plugged')
 
+		Plug 'lewis6991/impatient.nvim'
+		Plug 'nvim-lua/popup.nvim'
+		Plug 'nvim-lua/plenary.nvim'
+		Plug 'L3MON4D3/LuaSnip'
+		Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+
 		Plug 'tpope/vim-commentary'
 		Plug 'mattn/emmet-vim'
 
 		" Telescope
-		Plug 'nvim-lua/popup.nvim'
-		Plug 'nvim-lua/plenary.nvim'
 		Plug 'nvim-telescope/telescope.nvim'
 		Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 		" Color Schemes
 		" Plug 'mhartington/oceanic-next'
-		Plug 'chriskempson/base16-vim'
 		" Plug 'navarasu/onedark.nvim'
+		" Plug 'chriskempson/base16-vim'
+		" Plug 'tomasiser/vim-code-dark'
+          Plug 'Mofiqul/vscode.nvim'
 
+
+		Plug 'mhinz/vim-startify'
 		Plug 'nvim-lualine/lualine.nvim'
 		Plug 'kyazdani42/nvim-web-devicons'
-		" HOP
+
 		Plug 'easymotion/vim-easymotion'
 
+		Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+		Plug 'mzlogin/vim-markdown-toc'
+
 		Plug 'fatih/vim-go', {'do' : ':GoUpdateBinaries'}
-		Plug 'lewis6991/impatient.nvim'
 
 		" Float Term
 		Plug 'voldikss/vim-floaterm'
 		Plug 'dstein64/vim-startuptime'
 
-		" Color Shower
-		Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
 		" Tree Sitter
 		Plug 'nvim-treesitter/nvim-treesitter' , { 'do': ':TSUpdate' }

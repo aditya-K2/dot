@@ -2,7 +2,8 @@ syntax enable                           " Enables syntax highlighing
 syntax on
 set background=dark
 set termguicolors     " enable true colors support
-colorscheme base16-default-dark
+let g:vscode_style = "dark"
+colorscheme vscode
 
 set hidden                              " Required to keep multiple buffers open multiple buffers
 set nowrap
@@ -33,41 +34,44 @@ set noshowmode
 set completeopt=menuone,noinsert,noselect
 set spelloptions=camel
 set guifont=Source\ Code\ Pro:h8
-
+set expandtab
 
 " LSP Diagnostics
 
-sign define DiagnosticSignError texthl=DiagnosticSignError text=>>
+sign define DiagnosticSignError texthl=DiagnosticSignError text=
 sign define DiagnosticSignWarn  texthl=DiagnosticSignWarn  text=
 sign define DiagnosticSignInfo  texthl=DiagnosticSignInfo  text=
-sign define DiagnosticSignHint  texthl=DiagnosticSignHint  text=
+sign define DiagnosticSignHint  texthl=DiagnosticSignHint  text=
 
 " Highlights
-"
-hi Comment gui=italic guifg=#464646
-hi Normal guibg=#000000 gui=NONE
-" hi Normal guibg=#15191a gui=NONE
-hi ColorColumn guibg=#232323
-hi TabLineFill guifg=#14191f
-hi TabLineSel guifg=#2b3642 guibg=#eaeaea
-hi LineNr guibg=NONE
-hi CursorLine guibg=#212223
-hi CursorLineNr guibg=#212223
-hi EndOfBuffer guibg=#000000
-hi SignColumn guibg=NONE
-hi DiagnosticsDefaultError guibg=NONE
-hi EndOfBuffer guibg=#000000
+""
+"hi Comment gui=italic guifg=#464646
+"hi Normal guibg=#000000 gui=NONE
+"" hi Normal guibg=#15191a gui=NONE
+"hi ColorColumn guibg=#232323
+"hi TabLineFill guifg=#14191f
+"hi TabLineSel guifg=#2b3642 guibg=#eaeaea
+"hi LineNr guibg=NONE
+"hi CursorLine guibg=#212223
+"hi CursorLineNr guibg=#212223
+"hi EndOfBuffer guibg=#000000
+"hi SignColumn guibg=NONE
+"hi EndOfBuffer guibg=#000000
 
 hi SpellBad guifg=#703435 gui=none
-hi DiagnosticVirtualTextError guifg=#910b0b ctermbg=NONE gui=italic
+hi DiagnosticsDefaultError guibg=NONE
+hi DiagnosticVirtualTextError guifg=#ff3939 ctermbg=NONE gui=italic
 hi DiagnosticVirtualTextWarn guifg=#ffa500 ctermbg=NONE gui=italic
 hi DiagnosticVirtualTextHint guifg=#1d6a70 ctermbg=NONE gui=italic
-hi DiagnosticSignError guifg=#910b0b
+hi DiagnosticFloatingError guifg=#ff3939 ctermbg=NONE gui=italic
+hi DiagnosticFloatingWarn guifg=#ffa500 ctermbg=NONE gui=italic
+hi DiagnosticFloatingHint guifg=#1d6a70 ctermbg=NONE gui=italic
+hi DiagnosticSignError guifg=#ff3939
 hi DiagnosticSignHint guifg=#1d6a70
-" hi DiagnosticSignWarn
-hi Pmenu guibg=#282f31
-hi PmenuSel guibg=#aaaaff guifg=#000000
-hi NonText guifg=#333436 gui=italic
+
+" hi Pmenu guibg=#282f31
+" hi PmenuSel guibg=#aaaaff guifg=#000000
+" hi NonText guifg=#333436 gui=italic
 
 " Globals
 
