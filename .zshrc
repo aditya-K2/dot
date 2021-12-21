@@ -24,9 +24,9 @@ bindkey -v
 
 export KEYTIMEOUT=1
 # export CGO_ENABLED=1
-export PATH=$PATH:/home/aditya/suckless/scripts
-export PATH=$PATH:/home/aditya/.local/bin
-export PATH=$PATH:/home/aditya/.cargo/bin
+export PATH=$PATH:$HOME/suckless/scripts
+export PATH=$PATH:$HOME/.local/bin
+export PATH=$PATH:$HOME/.cargo/bin
 export EDITOR='nvim'
 export JDTLS_HOME=$HOME/suckless/jdtls/
 
@@ -77,10 +77,10 @@ bindkey -M vicmd '^R' history-incremental-search-backward
 
 # Mnemonics C :
 
-alias cdwm='cd /home/aditya/suckless/dwm'
-alias cdwmblocks='cd /home/aditya/suckless/dwmblocks '
-alias cst='cd /home/aditya/suckless/st'
-alias cscripts='cd /home/aditya/suckless/scripts'
+alias cdwm='cd $HOME/suckless/dwm'
+alias cdwmblocks='cd $HOME/suckless/dwmblocks '
+alias cst='cd $HOME/suckless/st'
+alias cscripts='cd $HOME/suckless/scripts'
 alias cdd='cd /D/Downloads/'
 alias cpo='cd /H/code/competitive'
 alias cnotes='cd /random/notes'
@@ -88,7 +88,7 @@ alias cl='cd /random/collegeStuff'
 alias cm='cd /random/collegeStuff/md'
 alias cmusic='cd /D/Downloads/Music/'
 alias cf='cd /F/RTDownloads'
-alias cs='cd /home/aditya/suckless'
+alias cs='cd $HOME/suckless'
 alias cr='cd /random/'
 alias crt='cd /random/RTDownloads'
 alias cn='cd ~/.config/nvim '
@@ -106,7 +106,7 @@ alias mutt='neomutt'
 alias diff='diff --color'
 alias ls='exa'
 alias la='exa -a '
-alias ll='exa -la '
+alias ll='exa -la --icons'
 alias grep='grep --color'
 alias rm='rm -iv'
 alias cp='cp -v'
@@ -130,15 +130,17 @@ alias sb='source ~/.zshrc '
 
 # suckless aliases
 
-alias dco='cd /home/aditya/suckless/dwm && rm -f config.h && nvim config.def.h'
-alias dbo='cd /home/aditya/suckless/slstatus && rm -f config.h && nvim config.def.h'
-alias sto='cd /home/aditya/suckless/st && rm -f config.h && nvim config.def.h'
-alias dmo='cd /home/aditya/suckless/dmenu && rm -f config.h && nvim config.def.h'
+alias dco='cd $HOME/suckless/dwm && rm -f config.h && nvim config.def.h'
+alias dbo='cd $HOME/suckless/slstatus && rm -f config.h && nvim config.def.h'
+alias sto='cd $HOME/suckless/st && rm -f config.h && nvim config.def.h'
+alias dmo='cd $HOME/suckless/dmenu && rm -f config.h && nvim config.def.h'
 
-# Random Aliases
+# Disk Space Aliases
 
 alias dm='du -h --max-depth 1 | grep M '
 alias dg='du -h --max-depth 1 | grep G '
+
+# Wifi Related Aliases
 
 alias wlist='nmcli d wifi list'
 alias wconnect='nmcli d wifi connect'
@@ -146,14 +148,13 @@ alias wk='nmcli d wifi list && nmcli d wifi connect "kurdunkar home" '
 alias wr='nmcli d wifi list && nmcli d wifi connect "realme X7 Max" '
 alias wo='nmcli d wifi list && nmcli d wifi connect oppo '
 
-alias aco='cd /home/aditya/.config/awesome ; nvim rc.lua'
+# Random Aliases
+
+alias aco='cd $HOME/.config/awesome ; nvim rc.lua'
 alias yt='youtube-dl'
 alias tsm='transmission-remote'
 alias pg='ping google.com'
 alias smci='sudo make clean install'
-alias simon='sxiv /D/Downloads/wallpapers/*simonStal.jpg'
-alias softmine='cd /home/aditya/xmr-soft/ ; ./xmr-stak-rx --noTest'
-alias hardmine='cd /home/aditya/xmr-Hardcore/ ; ./xmr-stak-rx --noTest'
 
 # git aliases
 
@@ -245,9 +246,9 @@ extract(){
 sc(){
 	if [[ "$1" == "-m" ]]; then
 		fileName=$2
-		echo "#!/bin/sh" > /home/aditya/suckless/scripts/$fileName &&
-		chmod +x /home/aditya/suckless/scripts/$fileName &&
-		nvim /home/aditya/suckless/scripts/$fileName
+		echo "#!/bin/sh" > $HOME/suckless/scripts/$fileName &&
+		chmod +x $HOME/suckless/scripts/$fileName &&
+		nvim $HOME/suckless/scripts/$fileName
 	elif [[ "$1" == "-g" ]]; then
 		cd $HOME/suckless/scripts/
 	else
@@ -278,7 +279,7 @@ ntem(){
 	nvim /tmp/$1
 }
 poke(){
-	cat /home/aditya/suckless/colorscripts/$(ls /home/aditya/suckless/colorscripts/ | shuf -n 1)
+	cat $HOME/suckless/colorscripts/$(ls $HOME/suckless/colorscripts/ | shuf -n 1)
 }
 cco(){
 	if [[ "$1" == "-m" ]];  then
@@ -314,10 +315,7 @@ fo(){
 		nvim -c "$(cat -n $selectedFile | fzf --height 10 | awk '{print $1}')" "$selectedFile"
 	fi
 }
-gcla(){
-	git clone https://github.com/aditya-K2/$1 &&
-	cd $1
-}
+
 asmc(){
 	nasm -f elf64 -o "/tmp/${1%.asm}.o" "$1" &&
 	ld "/tmp/${1%.asm}.o" -o "/tmp/${1%.asm}" &&
@@ -333,38 +331,44 @@ fsc(){
 	fzf  --height 20 | xargs -r codium --add
 }
 fco(){
-	dir=$(ls /home/aditya/.config/ | fzf  --height 10 )
+	dir=$(ls $HOME/.config/ | fzf  --height 10 )
 	if [[ "$1" == "-g" ]]; then
 		cd ~/.config/$dir
 	else
 		nvim ~/.config/$dir
 	fi
 }
+
 fn(){
-	allFiles "/home/aditya/.config/nvim/" | fzf  --height 10 | xargs -r $EDITOR
+	allFiles "$HOME/.config/nvim/" | fzf  --height 10 | xargs -r $EDITOR
 }
+
 nf(){
-	allFiles "/home/aditya/.config/nvim/"| fzf  --height 10 | xargs -r $EDITOR
+	allFiles "$HOME/.config/nvim/"| fzf  --height 10 | xargs -r $EDITOR
 }
+
 gpp(){
 	g++ $1 && ./a.out
 }
-gcp(){
-	g++ $1 && ./a.out
-}
+
 gc(){
-	if [[ "$1" != "-m" ]]; then
-		git clone "https://github.com/$1"
+    if [[ "$1" == "-m" ]]; then
+        git clone $2
+    elif [[ "$1" == "-p" ]]; then
+        git clone https://github.com/aditya-K2/$2 && cd $2
+    else
+        git clone "https://github.com/$1"
+    fi
+}
+
+rsc(){
+	if [[ "$1" == "-c" ]]; then
+		 ffmpeg -f v4l2 -video_size 640x480 -i /dev/video0 -c:v libx264 -preset ultrafast -c:a aac "$2"
 	else
-		git clone $2
+		 ffmpeg -f x11grab -s 1920x1080 -i :0.0 $1
 	fi
 }
-gppn(){
-	g++ -O2 -g -Wall -lncurses $1 && ./a.out
-}
-rsc(){
-	ffmpeg -f x11grab -s 1920x1080 -i :0.0 $1
-}
+
 mkvtomp4(){
 	ffmpeg -i "$1" -codec copy "${1%.*}.mp4"
 }
@@ -384,10 +388,12 @@ aw(){
 	brave "https://wiki.archlinux.org/index.php?search=$searchTerm&title=Special%3ASearch&go=Go" &
 }
 autopush(){
-	if [[ "$2" != "" ]]; then
-		git add . && git commit -m "$1" && git push origin "$2"
-	else
+	if [[ "$2" == "" ]]; then
 		git add . && git commit -m "$1" && git push origin master
+    elif [[ "$2" == "-n" ]]; then
+        git add . && git commit -m "$1"
+	else
+		git add . && git commit -m "$1" && git push origin "$2"
 	fi
 }
 all(){
@@ -432,4 +438,4 @@ PROMPT+="\$vcs_info_msg_0_ "
 
 # Prompt Ends
 
-source /home/aditya/suckless/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+source $HOME/suckless/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
