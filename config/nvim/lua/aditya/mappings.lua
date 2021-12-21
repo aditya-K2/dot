@@ -29,6 +29,8 @@ nnoremap ("<leader>dw" , ": call GotoWindow(g:vimspector_session_windows.watches
 nnoremap ("<leader>ds" , ": call GotoWindow(g:vimspector_session_windows.stack_trace)<CR>")
 nnoremap ("<leader>do" , ": call GotoWindow(g:vimspector_session_windows.output)<CR>")
 nnoremap ("<leader>de" , ": call vimspector#Reset()<CR>")
+nnoremap ("<S-m>"      , ":lua vim.lsp.diagnostic.show_line_diagnostics()<CR>")
+nnoremap ("<M-m>"      , ":lua require('termtoggle').TermToggle()<CR>")
 
 nmap ("<leader>dj" , "<Plug> VimspectorStepInto")
 nmap ("<leader>dk" , "<Plug> VimspectorStepOver")
@@ -75,5 +77,3 @@ vnoremap (">" , ">gv")
 
 vnoremap ("J" , ":m '>+1<CR>gv=gv")
 vnoremap ("K" , ":m '<-2<CR>gv=gv")
-
-vim.api.nvim_set_keymap("t", "<M-m>" , "<C-\\><C-n>:call TermToggle()<CR>", {noremap = true})

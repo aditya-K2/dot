@@ -29,7 +29,7 @@ return require("packer").startup(function(use)
 
     use 'easymotion/vim-easymotion'
 
-    use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
+    use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'}
     use 'mzlogin/vim-markdown-toc'
 
     -- use 'fatih/vim-go', {'do' : ':GoUpdateBinaries'}
@@ -58,6 +58,7 @@ return require("packer").startup(function(use)
     -- use 'puremourning/vimspector'
 
     use 'aditya-K2/spellfloat'
+    use 'aditya-K2/termtoggle.nvim'
     use { '/H/code/cph.nvim', rocks = {'http'}}
 
     --Maximizer
