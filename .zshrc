@@ -1,7 +1,7 @@
-#	 ____  _____/ /_  __________
-#	/_  / / ___/ __ \/ ___/ ___/
-#	 / /_(__  ) / / / /  / /__
-#	/___/____/_/ /_/_/   \___/
+#     ____  _____/ /_  __________
+#    /_  / / ___/ __ \/ ___/ ___/
+#     / /_(__  ) / / / /  / /__
+#    /___/____/_/ /_/_/   \___/
 #
 autoload -U colors && colors
 
@@ -15,7 +15,7 @@ autoload -U compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 compinit
-_comp_options+=(globdots)		# Include hidden files.
+_comp_options+=(globdots)        # Include hidden files.
 
 # vi mode
 bindkey -v
@@ -176,47 +176,47 @@ compdef __ccoCompletions cco
 
 function __ccoCompletions(){
     _arguments -C \
-		"1: :($(ls /H/code))" \
+        "1: :($(ls /H/code))" \
 }
 
 compdef __ccgCompletions ccg
 
 function __ccgCompletions(){
     _arguments -C \
-		"1: :($(ls /H/code/college/))" \
+        "1: :($(ls /H/code/college/))" \
 }
 
 #functions
 
 audioConvert(){
-	for i in *.webm
-	do
-		ffmpeg -i "$i" -b:a 320k "${i%.webm}.mp3" &&
-		rm "$i"
-	done
+    for i in *.webm
+    do
+        ffmpeg -i "$i" -b:a 320k "${i%.webm}.mp3" &&
+        rm "$i"
+    done
 }
 
 ytm (){
-	mkdir /random/Music/$1 &&
-	cd /random/Music/$1 &&
+    mkdir /random/Music/$1 &&
+    cd /random/Music/$1 &&
 
-	youtube-dl -f 251 "$2"
+    youtube-dl -f 251 "$2"
 
-	for i in *.webm
-	do
-		ffmpeg -i "$i" -b:a 320k "${i%.webm}.mp3" &&
-		rm "$i"
+    for i in *.webm
+    do
+        ffmpeg -i "$i" -b:a 320k "${i%.webm}.mp3" &&
+        rm "$i"
 
-	done
+    done
 }
 
 m4atoflac(){
-	for i in *.m4a
-	do
-		# ffmpeg -i "$i" -b:a 320k "${i%.webm}.mp3" &&
-		ffmpeg -i "$i" -f flac "${i%.m4a}.flac" &&
-		rm "$i"
-	done
+    for i in *.m4a
+    do
+        # ffmpeg -i "$i" -b:a 320k "${i%.webm}.mp3" &&
+        ffmpeg -i "$i" -f flac "${i%.m4a}.flac" &&
+        rm "$i"
+    done
 }
 
 extract(){
@@ -244,16 +244,16 @@ extract(){
 }
 
 sc(){
-	if [[ "$1" == "-m" ]]; then
-		fileName=$2
-		echo "#!/bin/sh" > $HOME/suckless/scripts/$fileName &&
-		chmod +x $HOME/suckless/scripts/$fileName &&
-		nvim $HOME/suckless/scripts/$fileName
-	elif [[ "$1" == "-g" ]]; then
-		cd $HOME/suckless/scripts/
-	else
-		allFiles $HOME/suckless/scripts | fzf --height 10 | xargs -r $EDITOR
-	fi
+    if [[ "$1" == "-m" ]]; then
+        fileName=$2
+        echo "#!/bin/sh" > $HOME/suckless/scripts/$fileName &&
+        chmod +x $HOME/suckless/scripts/$fileName &&
+        nvim $HOME/suckless/scripts/$fileName
+    elif [[ "$1" == "-g" ]]; then
+        cd $HOME/suckless/scripts/
+    else
+        allFiles $HOME/suckless/scripts | fzf --height 10 | xargs -r $EDITOR
+    fi
 }
 
 openFFF() {
@@ -262,93 +262,93 @@ openFFF() {
 }
 
 tsma(){
-	transmission-remote --add "$1"
+    transmission-remote --add "$1"
 }
 
 lzf(){
-	locate "$1" | fzf --height 10
+    locate "$1" | fzf --height 10
 }
 
 fg(){
-	optionS=$(rg --column --line-number --hidden --ignore-case --no-heading . | fzf --height 10 | awk '{print $1}' | awk -F ":" '{print $1 "-" $2}')
-	if [[ "$optionS" != "" ]]; then
-		nvim ${optionS%-*} -c "normal ${optionS#*-}Gzz"
-	fi
+    optionS=$(rg --column --line-number --hidden --ignore-case --no-heading . | fzf --height 10 | awk '{print $1}' | awk -F ":" '{print $1 "-" $2}')
+    if [[ "$optionS" != "" ]]; then
+        nvim ${optionS%-*} -c "normal ${optionS#*-}Gzz"
+    fi
 }
 ntem(){
-	nvim /tmp/$1
+    nvim /tmp/$1
 }
 poke(){
-	cat $HOME/suckless/colorscripts/$(ls $HOME/suckless/colorscripts/ | shuf -n 1)
+    cat $HOME/suckless/colorscripts/$(ls $HOME/suckless/colorscripts/ | shuf -n 1)
 }
 cco(){
-	if [[ "$1" == "-m" ]];  then
-		printf "Making Directory $2\n"
-		mkdir "/H/code/$2"
-		printf "Changing Directory to $2\n"
-		cd "/H/code/$2"
-	elif [[ "$1" == "-f" ]];  then
-		dir=$(ls /H/code/ | fzf  --height 10 )
-		cd "/H/code/$dir"
-	else
-		cd /H/code/$1
-	fi
+    if [[ "$1" == "-m" ]];  then
+        printf "Making Directory $2\n"
+        mkdir "/H/code/$2"
+        printf "Changing Directory to $2\n"
+        cd "/H/code/$2"
+    elif [[ "$1" == "-f" ]];  then
+        dir=$(ls /H/code/ | fzf  --height 10 )
+        cd "/H/code/$dir"
+    else
+        cd /H/code/$1
+    fi
 }
 
 ccg(){
-	cd /H/code/college/$1
+    cd /H/code/college/$1
 }
 pom(){
-	(pgrep pomodoro | xargs kill -INT ) || pomodoro &
+    (pgrep pomodoro | xargs kill -INT ) || pomodoro &
 }
 
 ez(){
-	nvim -c "normal $(cat ~/.zshrc -n | fzf --height 10| awk '{print $1}')Gzz" ~/.zshrc
+    nvim -c "normal $(cat ~/.zshrc -n | fzf --height 10| awk '{print $1}')Gzz" ~/.zshrc
 }
 
 fo(){
-	if [ -z ${1} ]; then
-		selectedFile="$(fzf --height 10)" &&
-		nvim -c "$(cat -n $selectedFile | fzf --height 10 | awk '{print $1}')" "$selectedFile"
-	else
-		selectedFile="$(du -a $1 | awk '{print $2}' |fzf --height 10)" &&
-		nvim -c "$(cat -n $selectedFile | fzf --height 10 | awk '{print $1}')" "$selectedFile"
-	fi
+    if [ -z ${1} ]; then
+        selectedFile="$(fzf --height 10)" &&
+        nvim -c "$(cat -n $selectedFile | fzf --height 10 | awk '{print $1}')" "$selectedFile"
+    else
+        selectedFile="$(du -a $1 | awk '{print $2}' |fzf --height 10)" &&
+        nvim -c "$(cat -n $selectedFile | fzf --height 10 | awk '{print $1}')" "$selectedFile"
+    fi
 }
 
 asmc(){
-	nasm -f elf64 -o "/tmp/${1%.asm}.o" "$1" &&
-	ld "/tmp/${1%.asm}.o" -o "/tmp/${1%.asm}" &&
-	"/tmp/${1%.asm}"
+    nasm -f elf64 -o "/tmp/${1%.asm}.o" "$1" &&
+    ld "/tmp/${1%.asm}.o" -o "/tmp/${1%.asm}" &&
+    "/tmp/${1%.asm}"
 }
 fs(){
-	fzf  --height 10 | xargs -r $EDITOR
+    fzf  --height 10 | xargs -r $EDITOR
 }
 allFiles(){
-	du -a "$1" | awk '{print $2}'
+    du -a "$1" | awk '{print $2}'
 }
 fsc(){
-	fzf  --height 20 | xargs -r codium --add
+    fzf  --height 20 | xargs -r codium --add
 }
 fco(){
-	dir=$(ls $HOME/.config/ | fzf  --height 10 )
-	if [[ "$1" == "-g" ]]; then
-		cd ~/.config/$dir
-	else
-		nvim ~/.config/$dir
-	fi
+    dir=$(ls $HOME/.config/ | fzf  --height 10 )
+    if [[ "$1" == "-g" ]]; then
+        cd ~/.config/$dir
+    else
+        nvim ~/.config/$dir
+    fi
 }
 
 fn(){
-	allFiles "$HOME/.config/nvim/" | fzf  --height 10 | xargs -r $EDITOR
+    allFiles "$HOME/.config/nvim/" | fzf  --height 10 | xargs -r $EDITOR
 }
 
 nf(){
-	allFiles "$HOME/.config/nvim/"| fzf  --height 10 | xargs -r $EDITOR
+    allFiles "$HOME/.config/nvim/"| fzf  --height 10 | xargs -r $EDITOR
 }
 
 gpp(){
-	g++ $1 && ./a.out
+    g++ $1 && ./a.out
 }
 
 gc(){
@@ -362,42 +362,42 @@ gc(){
 }
 
 rsc(){
-	if [[ "$1" == "-c" ]]; then
-		 ffmpeg -f v4l2 -video_size 640x480 -i /dev/video0 -c:v libx264 -preset ultrafast -c:a aac "$2"
-	else
-		 ffmpeg -f x11grab -s 1920x1080 -i :0.0 $1
-	fi
+    if [[ "$1" == "-c" ]]; then
+         ffmpeg -f v4l2 -video_size 640x480 -i /dev/video0 -c:v libx264 -preset ultrafast -c:a aac "$2"
+    else
+         ffmpeg -f x11grab -s 1920x1080 -i :0.0 $1
+    fi
 }
 
 mkvtomp4(){
-	ffmpeg -i "$1" -codec copy "${1%.*}.mp4"
+    ffmpeg -i "$1" -codec copy "${1%.*}.mp4"
 }
 rsv(){
-	mpv /dev/video0
+    mpv /dev/video0
 }
 ap(){
-	searchTerm=$(printf "$1" | sed "s/ /%20/g")
-	brave "https://archlinux.org/packages/?sort=&q=$searchTerm&maintainer=&flagged=" &
+    searchTerm=$(printf "$1" | sed "s/ /%20/g")
+    brave "https://archlinux.org/packages/?sort=&q=$searchTerm&maintainer=&flagged=" &
 }
 aur(){
-	searchTerm=$(printf "$1" | sed "s/ /%20/g")
-	brave "https://aur.archlinux.org/packages/?O=0&K=$searchTerm" &
+    searchTerm=$(printf "$1" | sed "s/ /%20/g")
+    brave "https://aur.archlinux.org/packages/?O=0&K=$searchTerm" &
 }
 aw(){
-	searchTerm=$(printf "$1" | sed "s/ /%20/g")
-	brave "https://wiki.archlinux.org/index.php?search=$searchTerm&title=Special%3ASearch&go=Go" &
+    searchTerm=$(printf "$1" | sed "s/ /%20/g")
+    brave "https://wiki.archlinux.org/index.php?search=$searchTerm&title=Special%3ASearch&go=Go" &
 }
 autopush(){
-	if [[ "$2" == "" ]]; then
-		git add . && git commit -m "$1" && git push origin master
+    if [[ "$2" == "" ]]; then
+        git add . && git commit -m "$1" && git push origin master
     elif [[ "$2" == "-n" ]]; then
         git add . && git commit -m "$1"
-	else
-		git add . && git commit -m "$1" && git push origin "$2"
-	fi
+    else
+        git add . && git commit -m "$1" && git push origin "$2"
+    fi
 }
 all(){
-	ls *.$1
+    ls *.$1
 }
 
 # Prompt Starts
