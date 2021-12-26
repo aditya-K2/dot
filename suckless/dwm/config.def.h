@@ -9,7 +9,7 @@
 static const unsigned int borderpx         =   0;     /* border pixel of windows */
 static const unsigned int gappx            =   4;     /* gaps between windows */
 static const unsigned int snap             =   32;    /* snap pixel */
-static const unsigned int systraypinning   =   1;     /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
+static const unsigned int systraypinning   =   0;     /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayonleft    =   0;     /* 0: systray in the right corner, >0: systray on left of status text */
 static const unsigned int systrayspacing   =   4;     /* systray spacing */
 static const int systraypinningfailfirst   =   1;     /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
@@ -102,16 +102,16 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/bash", "-c", cmd, NULL } }
 
 /* commands */
-static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-p", ">", "-m", dmenumon, "-fn", dmenufont};
-static const char *termcmd[]  = { "/usr/bin/alacritty", NULL };
-static const char *web[] = { "/usr/bin/brave", NULL };
-static const char *torrentcli[] = {"t", "alacritty", "-t", "tremc" , "-e", "tremc", NULL};
-static const char *fileManager[] = {"n", "/usr/bin/pcmanfm", NULL };
-static const char *colorChooser[] = {"c", "/usr/bin/kcolorchooser", NULL };
-static const char *scratchpadcmd[] = {"s", "alacritty", "-t", "scratchpad" , "-e", "zsh", NULL};
-static const char *ideascmd[] = {"i", "alacritty", "-t", "Ideas" , "-e", "nvim", "/home/aditya/ideas", NULL};
-static const char *gompcmd[] = {"y", "st", "-t", "gomp" , "-e", "/H/code/gomp/gomp", NULL};
+static char dmenumon[2]              = "0"; /* component of dmenucmd, manipulated in spawn() */
+static const char *dmenucmd[]        = { "dmenu_run", "-p", ">", "-m", dmenumon, "-fn", dmenufont};
+static const char *termcmd[]         = { "/usr/bin/alacritty", NULL };
+static const char *web[]             = { "/usr/bin/brave", NULL };
+static const char *torrentcli[]      = { "t", "alacritty", "-t", "tremc" , "-e", "tremc", NULL};
+static const char *fileManager[]     = { "n", "/usr/bin/pcmanfm", NULL };
+static const char *colorChooser[]    = { "c", "/usr/bin/kcolorchooser", NULL };
+static const char *scratchpadcmd[]   = { "s", "alacritty", "-t", "scratchpad" , "-e", "zsh", NULL};
+static const char *ideascmd[]        = { "i", "alacritty", "-t", "Ideas" , "-e", "nvim", "/home/aditya/ideas", NULL};
+static const char *gompcmd[]         = { "y", "st", "-t", "gomp" , "-e", "/H/code/gomp/gomp", NULL};
 
 static Key keys[] = {
    /* modifier                               key                          function        argument */
@@ -127,18 +127,19 @@ static Key keys[] = {
   { MODKEY,                                 XK_o,                        togglescratch,         {.v = ideascmd } },
   { Mod1Mask,                               XK_q,                        spawn,                 SHCMD("torrentInfo") },
   { MODKEY|ShiftMask,                       XK_y,                        spawn,                 SHCMD("spotify") },
-  { Mod1Mask,                               XK_F4,                       spawn,                 SHCMD("sd") }, //add to path
+  { MODKEY|ShiftMask,                       XK_p,                        spawn,                 SHCMD("openPDF") },
+  { Mod1Mask,                               XK_F4,                       spawn,                 SHCMD("sd") },
   { 0,                                      XK_Print,                    spawn,                 SHCMD("screenshot") },
   { ControlMask,                            XK_Print,                    spawn,                 SHCMD("directoryName") },
   { ShiftMask,                              XK_Print,                    spawn,                 SHCMD("screenshotPart") },
-  { 0,                                      XF86XK_AudioPrev,            spawn,                 SHCMD("mpc prev")}, //XK COMMAND TO previous song
-  { 0,                                      XF86XK_AudioNext,            spawn,                 SHCMD("mpc next")}, //XK COMMAND TO next song
-  { 0,                                      XF86XK_AudioPlay,            spawn,                 SHCMD("mpc toggle")}, //XK COMMAND TO next song
-  { 0,                                      XF86XK_AudioStop,            spawn,                 SHCMD("mpc stop")}, //XK COMMAND TO next song
-  { MODKEY,                                 XK_F11,                      spawn,                 SHCMD("pamixer -d 5 ; pkill -RTMIN+10 dwmblocks")}, //ALTERNATE CONTROLS
-  { MODKEY,                                 XK_F12,                      spawn,                 SHCMD("pamixer -i 5 ; pkill -RTMIN+10 dwmblocks")}, //ALTERNATE CONTROLS
-  { MODKEY|ShiftMask,                       XK_F5,                       spawn,                 SHCMD("reloadKeys")}, // map keys again
-  { MODKEY|ShiftMask,                       XK_F6,                       spawn,                 SHCMD("sxiv /D/Downloads/wallpapers/*.jpg")}, // map keys again
+  { 0,                                      XF86XK_AudioPrev,            spawn,                 SHCMD("mpc prev")},
+  { 0,                                      XF86XK_AudioNext,            spawn,                 SHCMD("mpc next")},
+  { 0,                                      XF86XK_AudioPlay,            spawn,                 SHCMD("mpc toggle")},
+  { 0,                                      XF86XK_AudioStop,            spawn,                 SHCMD("mpc stop")},
+  { MODKEY,                                 XK_F11,                      spawn,                 SHCMD("pamixer -d 5 ; pkill -RTMIN+10 dwmblocks")},
+  { MODKEY,                                 XK_F12,                      spawn,                 SHCMD("pamixer -i 5 ; pkill -RTMIN+10 dwmblocks")},
+  { MODKEY|ShiftMask,                       XK_F5,                       spawn,                 SHCMD("reloadKeys")},
+  { MODKEY|ShiftMask,                       XK_F6,                       spawn,                 SHCMD("sxiv /D/Downloads/wallpapers/*.jpg")},
   { MODKEY,                                 XK_F10,                      spawn,                 SHCMD("xbacklight -inc 10 ; pkill -RTMIN+20 dwmblocks")},
   { MODKEY,                                 XK_F9,                       spawn,                 SHCMD("xbacklight -dec 10 ; pkill -RTMIN+20 dwmblocks")},
   { MODKEY,                                 XK_e,                        spawn,                 SHCMD("getEmoji")},
