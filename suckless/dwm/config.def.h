@@ -142,6 +142,8 @@ static Key keys[] = {
   { MODKEY|ShiftMask,                       XK_F6,                       spawn,                 SHCMD("sxiv /D/Downloads/wallpapers/*.jpg")},
   { MODKEY,                                 XK_F10,                      spawn,                 SHCMD("xbacklight -inc 10 ; pkill -RTMIN+20 dwmblocks")},
   { MODKEY,                                 XK_F9,                       spawn,                 SHCMD("xbacklight -dec 10 ; pkill -RTMIN+20 dwmblocks")},
+  { 0,                                      XF86XK_MonBrightnessUp,      spawn,                 SHCMD("xbacklight -inc 10 ; pkill -RTMIN+20 dwmblocks")},
+  { 0,                                      XF86XK_MonBrightnessDown,    spawn,                 SHCMD("xbacklight -dec 10 ; pkill -RTMIN+20 dwmblocks")},
   { MODKEY,                                 XK_e,                        spawn,                 SHCMD("getEmoji")},
   { MODKEY,                                 XK_i,                        spawn,                 SHCMD("copyq menu")},
   { MODKEY,                                 XK_g,                        setlayout,             {.v = &layouts[3]} },
