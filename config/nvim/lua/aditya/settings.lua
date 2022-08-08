@@ -11,11 +11,15 @@ vim.g["floaterm_autoclose"]                  = 1
 vim.g["airline#extensions#tabline#enabled "] = 1
 vim.g["airline_theme "]                      = 'minimalist'
 vim.g["vimspector_enable_mappings "]         = 'HUMAN'
+vim.g["go_def_mapping_enabled"]              = false
+vim.g["oceanic_next_terminal_bold"] = 1
+vim.g["oceanic_next_terminal_italic"] = 1
+vim.g.tokyonight_style = "night"
 
 vim.cmd [[
     syntax enable
     syntax on
-    colorscheme vscode
+    colorscheme ayu-dark
 ]]
 
 vim.opt.background="dark"
@@ -45,7 +49,7 @@ vim.opt.shiftwidth=4
 vim.opt.smartindent = true
 vim.opt.incsearch = true
 vim.opt.list = true
-vim.opt.listchars = { eol = '↲', tab = '» ', trail = '~' }
+vim.opt.listchars = { eol = '↴', tab = '» ', trail = '~' --[[, space = "." ]] }
 vim.opt.compatible = false
 vim.opt.cursorline = true
 vim.opt.showtabline=2
@@ -54,6 +58,7 @@ vim.opt.completeopt="menuone,noinsert,noselect"
 vim.opt.spelloptions="camel"
 vim.opt.guifont="Source Code Pro:h8"
 vim.opt.expandtab=true
+vim.opt.laststatus=3
 
 -- LSP Diagnostics
 
@@ -74,3 +79,11 @@ vim.cmd( "hi DiagnosticFloatingWarn guifg=#ffa500 ctermbg=NONE gui=italic " )
 vim.cmd( "hi DiagnosticFloatingHint guifg=#1d6a70 ctermbg=NONE gui=italic " )
 vim.cmd( "hi DiagnosticSignError guifg=#ff3939 " )
 vim.cmd( "hi DiagnosticSignHint guifg=#1d6a70 " )
+vim.cmd( "hi Normal guibg=NONE gui=NONE" )
+vim.cmd( "hi LineNr guibg=NONE" )
+vim.cmd( "hi SignColumn guibg=NONE" )
+vim.cmd( "hi NonText guibg=NONE guifg=#535e5a" )
+vim.cmd( "hi Pmenu guibg=#2e2b2b" )
+-- vim.cmd( "hi Comment guifg=#4a4a4a" )
+vim.cmd( "hi ColorColumn guibg=#001e26" )
+vim.cmd( "hi CursorLine guibg=#1e1e1e" )

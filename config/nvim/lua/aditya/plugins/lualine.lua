@@ -1,12 +1,12 @@
--- Eviline config for lualine
+---- Eviline config for lualine
 -- Author: shadmansaleh
 -- Credit: glepnir
-local lualine = require 'lualine'
+local lualine = require('lualine')
 
 -- Color table for highlights
 -- stylua: ignore
 local colors = {
-  bg       = '#1d1d1d',
+  bg       = '#101010',
   fg       = '#bbc2cf',
   yellow   = '#ECBE7B',
   cyan     = '#008080',
@@ -16,7 +16,8 @@ local colors = {
   violet   = '#a9a1e1',
   magenta  = '#dbaeb0',
   -- blue     = '#8aa467',
-  blue     = '#84b3b2',
+  -- blue     = '#84b3b2',
+  blue     = '#fe811b',
   red      = '#ec5f67',
   -- bg       = '#202328',
   -- fg       = '#bbc2cf',
@@ -33,13 +34,13 @@ local colors = {
 
 local conditions = {
   buffer_not_empty = function()
-    return vim.fn.empty(vim.fn.expand '%:t') ~= 1
+    return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
   end,
   hide_in_width = function()
     return vim.fn.winwidth(0) > 80
   end,
   check_git_workspace = function()
-    local filepath = vim.fn.expand '%:p:h'
+    local filepath = vim.fn.expand('%:p:h')
     local gitdir = vim.fn.finddir('.git', filepath .. ';')
     return gitdir and #gitdir > 0 and #gitdir < #filepath
   end,
@@ -56,7 +57,7 @@ local config = {
       -- right section. Both are highlighted by c theme .  So we
       -- are just setting default looks o statusline
       normal = { c = { fg = colors.fg, bg = colors.bg } },
-      inactive = { c = { fg = colors.fg, bg = colors.bg }},
+      inactive = { c = { fg = colors.fg, bg = colors.bg } },
     },
   },
   sections = {
@@ -72,33 +73,12 @@ local config = {
   inactive_sections = {
     -- these are to remove the defaults
     lualine_a = {},
-    lualine_v = {},
+    lualine_b = {},
     lualine_y = {},
     lualine_z = {},
     lualine_c = {},
     lualine_x = {},
   },
-	tabline = {
-	  lualine_a = {},
-	  lualine_b = {{ 'buffers',
-		  buffers_color = {
-			  active = {
-				  bg = "#2e2f30",
-				  fg = colors.fg
-			  },
-			  -- inactive = {
-				  -- bg = colors.violet,
-				  -- fg = colors.bg
-				  -- }
-			  },
-		  }
-	  },
-	  lualine_c = {},
-	  lualine_x = {},
-	  lualine_y = {'filename'},
-	  lualine_z = {}
-	}
-
 }
 
 -- Inserts a component in lualine_c at left section
@@ -111,14 +91,6 @@ local function ins_right(component)
   table.insert(config.sections.lualine_x, component)
 end
 
-local function ins_intablineleft(component)
-  table.insert(config.tabline.lualine_a, component)
-end
-
-local function ins_intablineright(component)
-  table.insert(config.tabline.lualine_z, component)
-end
-
 ins_left {
   function()
     return '▊'
@@ -127,24 +99,12 @@ ins_left {
   padding = { left = 0, right = 1 }, -- We don't need space before this
 }
 
-ins_intablineright {
-  function()
-    return '▊'
-  end,
-  color = { fg = colors.blue }, -- Sets highlighting of component
-  padding = { left = 0, right = 0 }, -- We don't need space before this
-}
-ins_intablineleft {
-  function()
-    return '▊'
-  end,
-  color = { fg = colors.blue }, -- Sets highlighting of component
-  padding = { left = 0, right = 0 }, -- We don't need space before this
-}
-
 ins_left {
   -- mode component
   function()
+    return ''
+  end,
+  color = function()
     -- auto change color according to neovims mode
     local mode_color = {
       n = colors.red,
@@ -168,10 +128,8 @@ ins_left {
       ['!'] = colors.red,
       t = colors.red,
     }
-    vim.api.nvim_command('hi! LualineMode guifg=' .. mode_color[vim.fn.mode()] .. ' guibg=' .. colors.bg)
-    return ''
+    return { fg = mode_color[vim.fn.mode()] }
   end,
-  color = 'LualineMode',
   padding = { right = 1 },
 }
 
@@ -228,7 +186,7 @@ ins_left {
     return msg
   end,
   icon = ' LSP:',
-  color = { fg = '#494848', gui = 'bold' },
+  color = { fg = '#ffffff', gui = 'bold' },
 }
 
 -- Add components to right sections
