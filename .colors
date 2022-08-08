@@ -1,0 +1,11 @@
+#!/bin/sh
+
+export ORANGE_COLOR='#ff910a'
+export YELLOW_COLOR='#d5d083'
+export LIGHT_YELLOW_COLOR='#d5d083'
+export RED_COLOR="#ff0000"
+export BLUE_COLOR='#267dff'
+export GREEN_COLOR='#14ff72'
+export LIGHT_BLUE_COLOR='#b2e4ff'
+export LIGHT_GREEN_COLOR='#c2ffc1'
+export WHITE_COLOR='#ffffff'
