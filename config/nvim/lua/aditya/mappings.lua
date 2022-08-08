@@ -1,7 +1,7 @@
 vim.g["mapleader"] = " "            -- set leader key
 
 local function nnoremap(lhs, rhs)
-    vim.api.nvim_set_keymap("n", lhs, rhs, {noremap = true})
+    vim.api.nvim_set_keymap("n", lhs, rhs, {noremap = true, silent = true})
 end
 
 local function nmap(lhs, rhs)
@@ -29,7 +29,7 @@ nnoremap ("<leader>dw" , ": call GotoWindow(g:vimspector_session_windows.watches
 nnoremap ("<leader>ds" , ": call GotoWindow(g:vimspector_session_windows.stack_trace)<CR>")
 nnoremap ("<leader>do" , ": call GotoWindow(g:vimspector_session_windows.output)<CR>")
 nnoremap ("<leader>de" , ": call vimspector#Reset()<CR>")
-nnoremap ("<S-m>"      , ":lua vim.lsp.diagnostic.show_line_diagnostics()<CR>")
+-- nnoremap ("<S-m>"      , ":lua vim.lsp.diagnostic.show_line_diagnostics()<CR>")
 nnoremap ("<M-m>"      , ":lua require('termtoggle').TermToggle()<CR>")
 
 nmap ("<leader>dj" , "<Plug> VimspectorStepInto")
@@ -45,6 +45,7 @@ nmap ("<leader>" , "dcbp  <Plug>VimspectorToggleConditionalBreakpoint")
 vim.cmd( "autocmd BufRead,BufNewFile *.txt nmap <CR> :wq <CR>" )
 vim.cmd( "autocmd BufWritePre * :%s/\\s\\+$//e" )
 vim.cmd( "autocmd BufRead,BufNewFile .zshrc set filetype=bash" )
+vim.cmd( "autocmd BufRead,BufNewFile *.html set noexpandtab")
 
 vim.cmd( "autocmd BufRead,BufNewFile *.md set wrap" )
 vim.cmd( "autocmd BufRead,BufNewFile *.md set spell spelllang=en_us" )

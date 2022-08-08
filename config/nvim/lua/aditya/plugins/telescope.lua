@@ -2,7 +2,7 @@
 
 require("telescope").setup {
   defaults = {
-	  -- defaults here
+   -- defaults here
   },
   pickers = {
     -- Your special builtin config goes in here

@@ -40,8 +40,6 @@ local servers =
             "vimls",
             "pyright",
             "gopls",
-            "cssls",
-            "html",
             "tsserver",
             "cmake"
         }
@@ -98,8 +96,8 @@ require'lspconfig'.sumneko_lua.setup {
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
     signs = true,
-	virtual_text = false,
-	underline = true,
+ virtual_text = true,
+ underline = true,
     float = {
         show_header = true,
         source = 'if_many',
@@ -113,5 +111,11 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 --Enable (broadcasting) snippet capability for completion
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-
+require'lspconfig'.cssls.setup {
+  capabilities = capabilities,
+}
+require'lspconfig'.html.setup {
+  capabilities = capabilities,
+}
 require "lsp_signature".setup()
+

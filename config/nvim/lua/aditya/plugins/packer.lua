@@ -10,6 +10,7 @@ return require("packer").startup(function(use)
     use { 'rrethy/vim-hexokinase', run = 'make hexokinase' }
 
     use 'tpope/vim-commentary'
+    use 'tpope/vim-fugitive'
     use 'mattn/emmet-vim'
 
     -- Telescope
@@ -18,12 +19,19 @@ return require("packer").startup(function(use)
     -- Color Schemes
     -- use 'mhartington/oceanic-next'
     -- use 'navarasu/onedark.nvim'
+    -- use 'folke/tokyonight.nvim'
     -- use 'chriskempson/base16-vim'
     -- use 'tomasiser/vim-code-dark'
-    use 'Mofiqul/vscode.nvim'
+    -- use 'Mofiqul/vscode.nvim'
+    -- use "rebelot/kanagawa.nvim"
+    -- use 'Soares/base16.nvim'
+    -- use 'chriskempson/base16-vim'
+    -- use {"ellisonleao/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
+    -- use 'ishan9299/nvim-solarized-lua'
+    -- use 'davidosomething/vim-colors-meh'
+    use 'Shatur/neovim-ayu'
 
-
-    use 'mhinz/vim-startify'
+    -- use 'mhinz/vim-startify'
     use 'nvim-lualine/lualine.nvim'
     use 'kyazdani42/nvim-web-devicons'
 
@@ -32,7 +40,7 @@ return require("packer").startup(function(use)
     use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'}
     use 'mzlogin/vim-markdown-toc'
 
-    -- use 'fatih/vim-go', {'do' : ':GoUpdateBinaries'}
+    use 'fatih/vim-go'
 
     -- Float Term
     use 'voldikss/vim-floaterm'
@@ -53,13 +61,13 @@ return require("packer").startup(function(use)
     use 'hrsh7th/cmp-nvim-lua'
     use 'hrsh7th/cmp-nvim-lsp'
     use 'onsails/lspkind-nvim'
+    -- use 'p00f/cphelper.nvim'
 
     -- Debugger
     -- use 'puremourning/vimspector'
 
     use 'aditya-K2/spellfloat'
-    use 'aditya-K2/termtoggle.nvim'
-    use { '/H/code/cph.nvim', rocks = {'http'}}
+    use '/H/code/termtoggle.nvim'
 
     --Maximizer
     use 'szw/vim-maximizer'

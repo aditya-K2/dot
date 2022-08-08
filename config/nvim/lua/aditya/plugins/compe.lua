@@ -7,6 +7,8 @@ cmp.setup {
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-e>"] = cmp.mapping.close(),
+    ["<C-p>"] = cmp.mapping.select_prev_item(),
+    ["<C-n>"] = cmp.mapping.select_next_item(),
     ["<c-y>"] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Insert,
       select = true,
@@ -31,9 +33,9 @@ cmp.setup {
 
   experimental = {
     -- the new menu
-    native_menu = false,
     ghost_text = true,
   },
+  -- view = { entries = 'native' },
   formatting = {
     format = lspkind.cmp_format({with_text = true, maxwidth = 50})
   }
