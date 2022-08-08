@@ -30,6 +30,8 @@ export PATH=$PATH:$HOME/.cargo/bin
 export EDITOR='nvim'
 export JDTLS_HOME=$HOME/suckless/jdtls/
 
+source "$HOME/env.sh"
+
 # Key Bindings
 
 bindkey '^R' history-incremental-search-backward
@@ -93,6 +95,7 @@ alias cr='cd /random/'
 alias crt='cd /random/RTDownloads'
 alias cn='cd ~/.config/nvim '
 alias cgom='cd /H/code/gomp'
+alias cgs='cd /H/code/gspt'
 alias cgui="cd /H/code/docScanner"
 alias cmanga='cd /random/Manga/'
 alias cds='cd /H/code/competitive/DSA'
@@ -106,7 +109,7 @@ alias mutt='neomutt'
 alias diff='diff --color'
 alias ls='exa'
 alias la='exa -a '
-alias ll='exa -la --icons'
+alias ll='exa -l --icons'
 alias grep='grep --color'
 alias rm='rm -iv'
 alias cp='cp -v'
@@ -160,6 +163,7 @@ alias smci='sudo make clean install'
 
 alias gp='git push'
 alias gd='git diff'
+alias gsf='git config --global --add safe.directory "$(pwd)"'
 alias gg='git log --graph --pretty=oneline --abbrev-commit'
 alias gl='git log'
 alias gb='git branch'
@@ -186,7 +190,21 @@ function __ccgCompletions(){
         "1: :($(ls /H/code/college/))" \
 }
 
-#functions
+source "/H/code/lbdsa/dsa.zsh"
+
+# Functions
+
+note(){
+    if [[ "$1" != "" ]]; then
+        nvim /random/notes/thots/"$1"
+    else
+        nvim /random/notes/thots/$(date "+%a_%d_%b.md")
+    fi
+}
+
+his(){
+    cat $HOME/.cache/zsh/history | fzf --height 10 | xclip -selection clipboard
+}
 
 audioConvert(){
     for i in *.webm
