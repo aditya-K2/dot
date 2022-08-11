@@ -10,7 +10,6 @@ return require("packer").startup(function(use)
     use { 'rrethy/vim-hexokinase', run = 'make hexokinase' }
 
     use 'tpope/vim-commentary'
-    use 'tpope/vim-fugitive'
     use 'mattn/emmet-vim'
 
     -- Telescope
@@ -41,11 +40,6 @@ return require("packer").startup(function(use)
     use 'mzlogin/vim-markdown-toc'
 
     use 'fatih/vim-go'
-
-    -- Float Term
-    use 'voldikss/vim-floaterm'
-    use 'dstein64/vim-startuptime'
-
 
     -- Tree Sitter
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
