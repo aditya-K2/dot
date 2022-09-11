@@ -23,6 +23,13 @@ nnoremap ("<leader>m" , ":MaximizerToggle <CR>")
 -- nnoremap ("<S-m>"      , ":lua vim.lsp.diagnostic.show_line_diagnostics()<CR>")
 nnoremap ("<M-m>"      , ":lua require('termtoggle').TermToggle()<CR>")
 
+-- Split Mappings
+
+nnoremap("<M-h>", "<C-w>h")
+nnoremap("<M-j>", "<C-w>j")
+nnoremap("<M-k>", "<C-w>k")
+nnoremap("<M-l>", "<C-w>l")
+
 vim.cmd( "autocmd BufRead,BufNewFile *.txt nmap <CR> :wq <CR>" )
 vim.cmd( "autocmd BufWritePre * :%s/\\s\\+$//e" )
 vim.cmd( "autocmd BufRead,BufNewFile .zshrc set filetype=bash" )

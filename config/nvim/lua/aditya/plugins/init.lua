@@ -1,7 +1,7 @@
 require("aditya.plugins.packer")
 require('impatient')
 require("aditya.plugins.compe")
-require("aditya.plugins.lualine")
+-- require("aditya.plugins.lualine")
 require("aditya.plugins.luasnips")
 require("aditya.plugins.telescope")
 require("aditya.plugins.treesitter")

@@ -19,7 +19,7 @@ vim.g.tokyonight_style = "night"
 vim.cmd [[
     syntax enable
     syntax on
-    colorscheme ayu-dark
+    colorscheme base16-bright
 ]]
 
 vim.opt.background="dark"
@@ -87,3 +87,5 @@ vim.cmd( "hi Pmenu guibg=#2e2b2b" )
 -- vim.cmd( "hi Comment guifg=#4a4a4a" )
 vim.cmd( "hi ColorColumn guibg=#282828" )
 vim.cmd( "hi CursorLine guibg=#1e1e1e" )
+vim.cmd( "hi Visual guibg=#05233d" )
+
