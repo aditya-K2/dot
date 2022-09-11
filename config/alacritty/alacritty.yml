@@ -6,124 +6,66 @@ window:
       x: 5
       y: 5
 
-  opacity: 0.98
+  opacity: 0.99
 
 shell:
   program: /bin/zsh
 
 font:
-  size: 8
+  size: 6.5
 
   normal:
-    family: Sauce Code Pro Nerd Font
+    family: JetBrains Mono Nerd Font
     style: Normal
   bold:
-    family: Sauce Code Pro Nerd Font
+    family: JetBrains Mono Nerd Font
     style: Bold
   italic:
-    family: Sauce Code Pro Nerd Font
+    family: JetBrains Mono Nerd Font
     style: Italic
   bold_italic:
-    family: Sauce Code Pro Nerd Font
+    family: JetBrains Mono Nerd Font
     style: Bold Italic
   offset:
-   x: -1
+   x: 0
    y: 0
 
-# background_opacity: 0.95
-
-# colors:
-#   name: Brewer (dark)
-#   primary:
-#     background: "#0c0d0e"
-#     foreground: "#b7b8b9"
-#   cursor:
-#     text: "#0c0d0e"
-#     cursor: "#b7b8b9"
-#   normal:
-#     black: "#0c0d0e"
-#     red: "#e31a1c"
-#     green: "#31a354"
-#     yellow: "#dca060"
-#     blue: "#3182bd"
-#     magenta: "#756bb1"
-#     cyan: "#80b1d3"
-#     white: "#b7b8b9"
-#   bright:
-#     black: "#737475"
-#     red: "#e31a1c"
-#     green: "#31a354"
-#     yellow: "#dca060"
-#     blue: "#3182bd"
-#     magenta: "#756bb1"
-#     cyan: "#80b1d3"
-#     white: "#fcfdfe"
-
-# ## Colors (Gruvbox dark)
-# colors:
-#   # Default colors
-#   primary:
-#     # hard contrast: background = '0x1d2021'
-#     background: '0x1d2021'
-#     # soft contrast: background = '0x32302f'
-#     foreground: '0xebdbb2'
-
-#   # Normal colors
-#   normal:
-#     black:   '0x282828'
-#     red:     '0xcc241d'
-#     green:   '0x98971a'
-#     yellow:  '0xd79921'
-#     blue:    '0x458588'
-#     magenta: '0xb16286'
-#     cyan:    '0x689d6a'
-#     white:   '0xa89984'
-
-#   # Bright colors
-#   bright:
-#     black:   '0x928374'
-#     red:     '0xfb4934'
-#     green:   '0xb8bb26'
-#     yellow:  '0xfabd2f'
-#     blue:    '0x83a598'
-#     magenta: '0xd3869b'
-#     cyan:    '0x8ec07c'
-#     white:   '0xebdbb2'
-#
-## Colors (Solarized Dark)
+# Base16 Bright - alacritty color config
+# Chris Kempson (http://chriskempson.com)
 colors:
   # Default colors
   primary:
-    # background: '#000000' # base03
-    background: '#101010' # base03
-    foreground: '#839496' # base0
+    background: '0x101010'
+    foreground: '0xe0e0e0'
 
-  # Cursor colors
+  # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text:   '#002b36' # base03
-    cursor: '#839496' # base0
+    text: '0x000000'
+    cursor: '0xe0e0e0'
 
   # Normal colors
   normal:
-    black:   '#111111' # base02
-    red:     '#dc322f' # red
-    green:   '#859900' # green
-    yellow:  '#b58900' # yellow
-    blue:    '#268bd2' # blue
-    magenta: '#d33682' # magenta
-    cyan:    '#2aa198' # cyan
-    white:   '#eee8d5' # base2
+    black:   '0x000000'
+    red:     '0xfb0120'
+    green:   '0xa1c659'
+    yellow:  '0xfda331'
+    blue:    '0x6fb3d2'
+    magenta: '0xd381c3'
+    cyan:    '0x76c7b7'
+    white:   '0xe0e0e0'
 
   # Bright colors
   bright:
-    black:   '#111111' # base03
-    red:     '#cb4b16' # orange
-    green:   '#586e75' # base01
-    yellow:  '#657b83' # base00
-    blue:    '#839496' # base0
-    magenta: '#6c71c4' # violet
-    cyan:    '#93a1a1' # base1
-    white:   '#fdf6e3' # base3
+    black:   '0xb0b0b0'
+    red:     '0xfc6d24'
+    green:   '0x303030'
+    yellow:  '0x505050'
+    blue:    '0xd0d0d0'
+    magenta: '0xf5f5f5'
+    cyan:    '0xbe643c'
+    white:   '0xffffff'
+
+draw_bold_text_with_bright_colors: false
 
 cursor:
   style:
