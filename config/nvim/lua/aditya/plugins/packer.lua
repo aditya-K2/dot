@@ -24,17 +24,17 @@ return require("packer").startup(function(use)
     -- use 'Mofiqul/vscode.nvim'
     -- use "rebelot/kanagawa.nvim"
     -- use 'Soares/base16.nvim'
-    -- use 'chriskempson/base16-vim'
+    use 'chriskempson/base16-vim'
     -- use {"ellisonleao/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
     -- use 'ishan9299/nvim-solarized-lua'
     -- use 'davidosomething/vim-colors-meh'
-    use 'Shatur/neovim-ayu'
+    -- use 'Shatur/neovim-ayu'
 
     -- use 'mhinz/vim-startify'
-    use 'nvim-lualine/lualine.nvim'
-    use 'kyazdani42/nvim-web-devicons'
+    -- use 'nvim-lualine/lualine.nvim'
+    -- use 'kyazdani42/nvim-web-devicons'
 
-    use 'easymotion/vim-easymotion'
+    -- use 'easymotion/vim-easymotion'
 
     use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'}
     use 'mzlogin/vim-markdown-toc'
@@ -49,19 +49,16 @@ return require("packer").startup(function(use)
     use 'neovim/nvim-lspconfig'
     use 'ray-x/lsp_signature.nvim'
 
+    -- Cmp
     use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-nvim-lua'
     use 'hrsh7th/cmp-nvim-lsp'
     use 'onsails/lspkind-nvim'
-    -- use 'p00f/cphelper.nvim'
-
-    -- Debugger
-    -- use 'puremourning/vimspector'
 
     use 'aditya-K2/spellfloat'
-    use '/H/code/termtoggle.nvim'
+    use 'aditya-K2/termtoggle.nvim'
 
     --Maximizer
     use 'szw/vim-maximizer'
