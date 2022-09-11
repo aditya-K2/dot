@@ -194,6 +194,10 @@ source "/H/code/lbdsa/dsa.zsh"
 
 # Functions
 
+mpvf(){
+    locate "$1" | fzf --height 10 | xargs -r -d '\n' mpv
+}
+
 note(){
     if [[ "$1" != "" ]]; then
         nvim /random/notes/thots/"$1"
@@ -349,12 +353,29 @@ fsc(){
     fzf  --height 20 | xargs -r codium --add
 }
 fco(){
-    dir=$(ls $HOME/.config/ | fzf  --height 10 )
-    if [[ "$1" == "-g" ]]; then
+
+    local dir="NOT SET"
+    # Args
+    for i in "$@"
+    do
+        if [[ "$i" == "-g" ]]; then
+            local GO_TO_DIR=1
+        else
+            local dir="$i"
+        fi
+    done
+
+    # Dir
+    if [[ "$dir" == "NOT SET" ]]; then
+        local dir=$(ls $HOME/.config/ | fzf  --height 10 )
+    fi
+
+    if [[ "$GO_TO_DIR" == "1" ]]; then
         cd ~/.config/$dir
     else
         nvim ~/.config/$dir
     fi
+
 }
 
 fn(){
