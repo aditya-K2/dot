@@ -39,7 +39,7 @@ MPD_PORT : "6600"
 # NETWORK_TYPE : "unix"
 # NETWORK_ADDRESS: "/home/aditya/.mpd/socket"
 
-DEFAULT_IMAGE_PATH: "/home/aditya/.config/gomp/default.jpg"
+DEFAULT_IMAGE_PATH: "~/.config/gomp/default.jpg"
 
 GET_COVER_ART_FROM_LAST_FM : "TRUE"
 LASTFM_API_KEY: "d32bad56539caa9a826a73015ea72563"
@@ -55,4 +55,4 @@ showChildrenContent :
 
 SEEK_OFFSET : 5
 
-CACHE_DIR : "/home/aditya/.config/gomp/cache"
+CACHE_DIR : "~/.config/gomp/cache"
