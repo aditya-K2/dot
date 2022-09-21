@@ -41,11 +41,10 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-/* static const char *tags[] = {"", "", "", "", "", "", "", "", "" }; */
 static const char *tags[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9" };
 static const Rule rules[] = {
 
-  /* class               instance    title       tags mask   isfloating   monitor    float x,y,w,h    floatborderpx      scratchKEY*/
+  /* class               instance    title       tags mask   isfloating   monitor    float x,y,w,h              floatborderpx      scratchKEY*/
 
  { "Gimp",               NULL,       NULL,      1<<4,       0,           -1 ,       DFX,   DFY,   DFW,   DFH,             5,         0},
  { "Inkscape",           NULL,       NULL,      1<<4,       0,           -1 ,       DFX,   DFY,   DFW,   DFH,             5,         0},
