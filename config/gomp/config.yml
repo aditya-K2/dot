@@ -37,7 +37,7 @@ IMAGE_WIDTH_EXTRA_Y  : -2.5
 
 MPD_PORT : "6600"
 # NETWORK_TYPE : "unix"
-# NETWORK_ADDRESS: "/home/aditya/.mpd/socket"
+# NETWORK_ADDRESS: "~/.mpd/socket"
 
 DEFAULT_IMAGE_PATH: "~/.config/gomp/default.jpg"
 
