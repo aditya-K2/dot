@@ -229,10 +229,12 @@ mpvf(){
 }
 
 note(){
-    if [[ "$1" != "" ]]; then
+    if [[ "$1" == "-d" ]]; then
+        nvim /random/notes/thots/$(date "+%a_%d_%b.md")
+    elif [[ "$1" != "" ]]; then
         nvim /random/notes/thots/"$1"
     else
-        nvim /random/notes/thots/$(date "+%a_%d_%b.md")
+        allFiles /random/notes/thots | fzf --height 10 | xargs -r $EDITOR
     fi
 }
 
