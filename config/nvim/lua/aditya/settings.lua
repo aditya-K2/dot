@@ -14,12 +14,11 @@ vim.g["vimspector_enable_mappings "]         = 'HUMAN'
 vim.g["go_def_mapping_enabled"]              = false
 vim.g["oceanic_next_terminal_bold"] = 1
 vim.g["oceanic_next_terminal_italic"] = 1
-vim.g.tokyonight_style = "night"
 
 vim.cmd [[
     syntax enable
     syntax on
-    colorscheme base16-bright
+    colorscheme tokyonight-night
 ]]
 
 vim.opt.background="dark"
@@ -79,13 +78,13 @@ vim.cmd( "hi DiagnosticFloatingWarn guifg=#ffa500 ctermbg=NONE gui=italic " )
 vim.cmd( "hi DiagnosticFloatingHint guifg=#1d6a70 ctermbg=NONE gui=italic " )
 vim.cmd( "hi DiagnosticSignError guifg=#ff3939 " )
 vim.cmd( "hi DiagnosticSignHint guifg=#1d6a70 " )
-vim.cmd( "hi Normal guibg=NONE gui=NONE" )
+vim.cmd( "hi Normal guibg=#1a1b26 gui=NONE" )
 vim.cmd( "hi LineNr guibg=NONE" )
 vim.cmd( "hi SignColumn guibg=NONE" )
 vim.cmd( "hi NonText guibg=NONE guifg=#535e5a" )
-vim.cmd( "hi Pmenu guibg=#2e2b2b" )
+vim.cmd( "hi Pmenu guibg=#101010" )
 -- vim.cmd( "hi Comment guifg=#4a4a4a" )
-vim.cmd( "hi ColorColumn guibg=#282828" )
-vim.cmd( "hi CursorLine guibg=#1e1e1e" )
+-- vim.cmd( "hi StatusLine guibg=#24231d" )
+vim.cmd( "hi ColorColumn guibg=#24283b" )
+-- vim.cmd( "hi CursorLine guibg=#1e1e1e" )
 vim.cmd( "hi Visual guibg=#05233d" )
-
