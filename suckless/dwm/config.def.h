@@ -108,7 +108,7 @@ static const char *web[]             = { "/usr/bin/brave", NULL };
 static const char *torrentcli[]      = { "t", "alacritty", "-t", "tremc" , "-e", "tremc", NULL};
 static const char *fileManager[]     = { "n", "/usr/bin/pcmanfm", NULL };
 static const char *colorChooser[]    = { "c", "/usr/bin/kcolorchooser", NULL };
-static const char *scratchpadcmd[]   = { "s", "alacritty", "-t", "scratchpad" , "-e", "zsh", NULL};
+static const char *scratchpadcmd[]   = { "s", "alacritty", "-t", "scratchpad" , "-e", "tmux", NULL};
 static const char *ideascmd[]        = { "i", "alacritty", "-t", "Ideas" , "-e", "nvim", "/home/aditya/ideas", NULL};
 static const char *gompcmd[]         = { "y", "st", "-t", "gomp" , "-e", "/H/code/gomp/gomp", NULL};
 
