@@ -18,14 +18,16 @@ return require("packer").startup(function(use)
     -- Color Schemes
     -- use 'mhartington/oceanic-next'
     -- use 'navarasu/onedark.nvim'
-    -- use 'folke/tokyonight.nvim'
+    use 'folke/tokyonight.nvim'
     -- use 'chriskempson/base16-vim'
     -- use 'tomasiser/vim-code-dark'
     -- use 'Mofiqul/vscode.nvim'
     -- use "rebelot/kanagawa.nvim"
     -- use 'Soares/base16.nvim'
-    use 'chriskempson/base16-vim'
+    -- use 'chriskempson/base16-vim'
     -- use {"ellisonleao/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
+    -- use { "briones-gabriel/darcula-solid.nvim", requires = "rktjmp/lush.nvim" }
+    -- use {'shaunsingh/oxocarbon.nvim', branch = 'fennel'}
     -- use 'ishan9299/nvim-solarized-lua'
     -- use 'davidosomething/vim-colors-meh'
     -- use 'Shatur/neovim-ayu'
