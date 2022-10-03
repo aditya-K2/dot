@@ -25,11 +25,11 @@ static const int DFY                       =   250;
 static const char *fonts[]                 =   { "Sauce Code Pro Nerd Font:size=10" , "NotoColorEmoji:size=10"};
 static const char dmenufont[]              =   "SourceCodeProMedium:size=10";
 static const char col_Selected_FG[]        =   "#ffffff";
-static const char col_statusbarBG[]        =   "#101010";
-static const char col_statusbarMiddle[]    =   "#224488";
-static const char col_selectedBorder[]     =   "#101010";
-static const char col_notselectedBorder[]  =   "#101010";
-static const char col_statusbarFG[]        =   "#ffffff";
+static const char col_statusbarBG[]        =   "#1d2130";
+static const char col_statusbarMiddle[]    =   "#7aa2f7";
+static const char col_selectedBorder[]     =   "#1d2130";
+static const char col_notselectedBorder[]  =   "#1d2130";
+static const char col_statusbarFG[]        =   "#1f2335";
 static const char col_dmenuFG[]            =   "#bbbbbb";
 
 
