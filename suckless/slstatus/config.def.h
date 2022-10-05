@@ -71,4 +71,5 @@ static const struct arg args[] = {
     {run_command, " %s", "mpcM"},
     {run_command, " %s", "getDate"},
     {run_command, " %s", "battery.sh"},
+    {run_command, " %s", "volume.sh"},
 };
