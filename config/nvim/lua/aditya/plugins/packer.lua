@@ -7,7 +7,6 @@ return require("packer").startup(function(use)
     use 'nvim-lua/plenary.nvim'
     use 'L3MON4D3/LuaSnip'
     -- use 'saadparwaiz1/cmp_luasnip'
-    use { 'rrethy/vim-hexokinase', run = 'make hexokinase' }
 
     use 'tpope/vim-commentary'
     use 'mattn/emmet-vim'
@@ -39,7 +38,6 @@ return require("packer").startup(function(use)
     -- use 'easymotion/vim-easymotion'
 
     use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'}
-    use 'mzlogin/vim-markdown-toc'
 
     use 'fatih/vim-go'
 
@@ -61,6 +59,8 @@ return require("packer").startup(function(use)
 
     use 'aditya-K2/spellfloat'
     use 'aditya-K2/termtoggle.nvim'
+
+    use 'dstein64/vim-startuptime'
 
     --Maximizer
     use 'szw/vim-maximizer'
