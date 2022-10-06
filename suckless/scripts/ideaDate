@@ -1,0 +1,4 @@
+#!/bin/sh
+
+grep -Fxq "$(date '+%a %d %b, %Y')" $HOME/ideas || printf "\n$(date '+%a %d %b, %Y')\n----------------------------------" >>  ~/ideas
+# grep -Fxq "$(date '+%a %d %b, %Y')" $HOME/ideas || printf "\n$(date '+%a %d %b, %Y')" >>  ~/ideas

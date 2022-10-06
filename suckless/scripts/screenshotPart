@@ -1,0 +1,7 @@
+#!/bin/sh
+fileName=$(date '+%b%d(%a)%I:%M%S%p')
+directoryName=$(cat /home/aditya/suckless/scripts/directoryfile)
+
+escrotum -s $directoryName/$fileName.png &&
+notify-send -t 1200 -i /D/Downloads/screenshot.png "Screenshot Captured" "Destination: $directoryName\nFile Name: $fileName"
+printf "$directoryName/$fileName.png" | xclip -selection clipboard

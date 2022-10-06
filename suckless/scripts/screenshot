@@ -1,0 +1,5 @@
+#!/bin/sh
+fileName=$(date '+%b%d(%a)%I:%M%S%p')
+directoryName=$(cat /home/aditya/suckless/scripts/directoryfile)
+
+ffmpeg -f x11grab -video_size 1920x1080 -i $DISPLAY -vframes 1 $directoryName/$fileName.png && notify-send -t 1200 -i /D/Downloads/screenshot.png "Screenshot Captured" "Destination: $directoryName\nFile Name: $fileName"
