@@ -1,0 +1,2 @@
+#!/bin/sh
+printf "^c#4cff58^ ^c#c0ffb2^$(transmission-remote -st | grep Uploaded | awk -F ':' 'NR==1{print $2}' | sed 's/\\ //g')"

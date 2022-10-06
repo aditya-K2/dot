@@ -1,0 +1,19 @@
+#!/bin/sh
+
+choice=$(printf "Shutdown\nReboot" | dmenu -c -l 5 -i -p "Are you sure?")
+
+if [ "$choice" = "Shutdown" ]; then
+	shutdown=$(printf "Yes\nNo" | dmenu -c -l 5 -i -p "Are you sure you want to Shutdown?")
+	if [ "$shutdown" = "Yes" ]; then
+		echo "none" > /home/aditya/suckless/scripts/xsetCommand
+		poweroff
+	fi
+elif [ "$choice" = "Reboot" ]; then
+	shutdown=$(printf "Yes\nNo" | dmenu -c -l 5 -i -p "Are you sure you want to Reboot?")
+	if [ "$shutdown" = "Yes" ]; then
+		echo "none" > /home/aditya/suckless/scripts/xsetCommand
+		reboot
+	fi
+fi
+
+

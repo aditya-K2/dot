@@ -1,0 +1,6 @@
+#!/bin/sh
+if [[ "$(mpc status | sed -n 2p | awk '{print $1;}')" == "[playing]" ]]; then
+    printf "^c$ORANGE_COLOR^  ^c$LIGHT_BLUE_COLOR^%s -^c$GREEN_COLOR^ %s^c$WHITE_COLOR^" "$(mpc current -f %artist%)" "$(mpc current -f %title%)"
+else
+    printf "^c$RED_COLOR^  ^c$LIGHT_BLUE_COLOR^%s -^c$GREEN_COLOR^ %s^c$WHITE_COLOR^" "$(mpc current -f %artist%)" "$(mpc current -f %title%)"
+fi

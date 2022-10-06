@@ -1,0 +1,5 @@
+#!/bin/sh
+networkName=$(nmcli -m multiline d wifi list | awk '/SSID/ {print $2}' | dmenu -i -p "Choose The Network") &&
+password=$(printf " " | dmenu -p "Enter The Password") &&
+nmcli d wifi connect "$networkName" password "$password" 
+

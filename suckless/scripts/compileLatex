@@ -1,0 +1,4 @@
+#!/bin/sh
+
+pdflatex -shell-escape $1 &&
+zathura "${1%.latex}.pdf" --fork
