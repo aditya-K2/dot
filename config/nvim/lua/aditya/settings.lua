@@ -3,17 +3,7 @@ vim.g["vscode_style"]="dark"
 vim.g["user_emmet_leader_key"]               = ","
 vim.g["user_emmet_mode"]                     = "n"
 vim.g["color_coded_enabled "]                = 1
-vim.g["floaterm_autoinsert"]                 = 1
-vim.g["floaterm_width"]                      = 0.8
-vim.g["floaterm_height"]                     = 0.8
-vim.g["floaterm_wintitle"]                   = 0
-vim.g["floaterm_autoclose"]                  = 1
-vim.g["airline#extensions#tabline#enabled "] = 1
-vim.g["airline_theme "]                      = 'minimalist'
-vim.g["vimspector_enable_mappings "]         = 'HUMAN'
 vim.g["go_def_mapping_enabled"]              = false
-vim.g["oceanic_next_terminal_bold"] = 1
-vim.g["oceanic_next_terminal_italic"] = 1
 
 vim.cmd [[
     syntax enable
@@ -24,7 +14,7 @@ vim.cmd [[
 vim.opt.background="dark"
 vim.opt.termguicolors=true
 
-vim.opt.colorcolumn=vim.fn.join(vim.fn.range(120, 999),",")
+-- vim.opt.colorcolumn=vim.fn.join(vim.fn.range(120, 999),",")
 vim.opt.hidden = true                                       -- Required to keep multiple buffers open multiple buffers
 vim.opt.wrap = false
 vim.opt.pumheight = 10                                      -- Makes popup menu smaller

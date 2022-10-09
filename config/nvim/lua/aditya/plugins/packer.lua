@@ -5,7 +5,7 @@ return require("packer").startup(function(use)
     use 'lewis6991/impatient.nvim'
     use 'nvim-lua/popup.nvim'
     use 'nvim-lua/plenary.nvim'
-    use 'L3MON4D3/LuaSnip'
+    -- use 'L3MON4D3/LuaSnip'
     -- use 'saadparwaiz1/cmp_luasnip'
 
     use 'tpope/vim-commentary'
