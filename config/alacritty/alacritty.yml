@@ -6,7 +6,7 @@ window:
       x: 5
       y: 5
 
-  opacity: 0.99
+  opacity: 1
 
 shell:
   program: /bin/zsh
@@ -15,16 +15,16 @@ font:
   size: 6.5
 
   normal:
-    family: Sauce Code Pro Nerd Font
-    style: Light
+    family: JetBrains Mono Nerd Font
+    style: Thin
   bold:
-    family: Sauce Code Pro Nerd Font
+    family: JetBrains Mono Nerd Font
     style: Normal
   italic:
-    family: Sauce Code Pro Nerd Font
-    style: Italic
+    family: JetBrains Mono Nerd Font
+    style: Thin Italic
   bold_italic:
-    family: Sauce Code Pro Nerd Font
+    family: JetBrains Mono Nerd Font
     style: Bold Italic
   offset:
    x: 0
