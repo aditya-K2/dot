@@ -191,15 +191,11 @@ alias smci='sudo make clean install'
 
 # git aliases
 
-alias gp='git push'
 alias gd='git diff'
 alias gsf='git config --global --add safe.directory "$(pwd)"'
 alias gg='git log --graph --pretty=oneline --abbrev-commit'
-alias gl='git log'
-alias gb='git branch'
 alias gco='git checkout'
 alias gst='git status'
-alias gq='git add . && git commit -m "quick commit"'
 
 # ZSH_ALIASES_END
 

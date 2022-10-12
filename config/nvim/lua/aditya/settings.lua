@@ -14,7 +14,7 @@ vim.cmd [[
 vim.opt.background="dark"
 vim.opt.termguicolors=true
 
--- vim.opt.colorcolumn=vim.fn.join(vim.fn.range(120, 999),",")
+vim.opt.colorcolumn=vim.fn.join(vim.fn.range(120, 999),",")
 vim.opt.hidden = true                                       -- Required to keep multiple buffers open multiple buffers
 vim.opt.wrap = false
 vim.opt.pumheight = 10                                      -- Makes popup menu smaller
