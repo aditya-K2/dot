@@ -15,16 +15,16 @@ font:
   size: 6.5
 
   normal:
-    family: JetBrains Mono Nerd Font
-    style: Thin
+    family: Sauce Code Pro Nerd Font
+    style: Light
   bold:
-    family: JetBrains Mono Nerd Font
+    family: Sauce Code Pro Nerd Font
     style: Normal
   italic:
-    family: JetBrains Mono Nerd Font
+    family: Sauce Code Pro Nerd Font
     style: Thin Italic
   bold_italic:
-    family: JetBrains Mono Nerd Font
+    family: Sauce Code Pro Nerd Font
     style: Bold Italic
   offset:
    x: 0
