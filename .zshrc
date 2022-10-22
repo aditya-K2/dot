@@ -27,6 +27,7 @@ export KEYTIMEOUT=1
 export PATH=$PATH:$HOME/suckless/scripts
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.cargo/bin
+export PATH=$PATH:$(go env GOPATH)/bin
 export EDITOR='nvim'
 export JDTLS_HOME=$HOME/suckless/jdtls/
 
@@ -192,6 +193,7 @@ alias smci='sudo make clean install'
 # git aliases
 
 alias gd='git diff'
+alias gb='git branch'
 alias gsf='git config --global --add safe.directory "$(pwd)"'
 alias gg='git log --graph --pretty=oneline --abbrev-commit'
 alias gco='git checkout'
@@ -219,6 +221,9 @@ function __ccgCompletions(){
 source "/H/code/lbdsa/dsa.zsh"
 
 # Functions
+bh() {
+    brow -q "title,url" -c | fzf --height 10 | awk -F '|' '{print $2}' | xargs -r -d '\n' brave
+}
 
 mpvf(){
     locate "$1" | fzf --height 10 | xargs -r -d '\n' mpv
