@@ -1,0 +1,6 @@
+[submodule "suckless/lua-language-server"]
+	path = suckless/lua-language-server
+	url = https://github.com/sumneko/lua-language-server.git
+[submodule "suckless/zsh-syntax-highlighting"]
+	path = suckless/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
