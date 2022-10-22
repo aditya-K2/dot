@@ -53,7 +53,7 @@ end
 -- lua lsp configuration because it's different from others 🌝
 -- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
 local sumneko_root_path = "/home/aditya/suckless/lua-language-server"
-local sumneko_binary =  "/home/aditya/suckless/lua-language-server/bin/Linux/lua-language-server"
+local sumneko_binary =  "/home/aditya/suckless/lua-language-server/bin/lua-language-server"
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
