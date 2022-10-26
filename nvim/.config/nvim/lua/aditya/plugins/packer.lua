@@ -20,7 +20,7 @@ return require("packer").startup(function(use)
     -- use 'folke/tokyonight.nvim'
     -- use 'chriskempson/base16-vim'
     -- use 'tomasiser/vim-code-dark'
-    use 'Mofiqul/vscode.nvim'
+    -- use 'Mofiqul/vscode.nvim'
     -- use "rebelot/kanagawa.nvim"
     -- use 'Soares/base16.nvim'
     -- use 'chriskempson/base16-vim'
@@ -30,6 +30,7 @@ return require("packer").startup(function(use)
     -- use 'ishan9299/nvim-solarized-lua'
     -- use 'davidosomething/vim-colors-meh'
     -- use 'Shatur/neovim-ayu'
+    use 'https://gitlab.com/madyanov/gruber.vim'
 
     -- use 'mhinz/vim-startify'
     -- use 'nvim-lualine/lualine.nvim'
