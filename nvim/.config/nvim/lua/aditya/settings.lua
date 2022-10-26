@@ -8,7 +8,7 @@ vim.g["go_def_mapping_enabled"]              = false
 vim.cmd [[
     syntax enable
     syntax on
-    colorscheme vscode
+    colorscheme gruber
 ]]
 
 vim.opt.background="dark"
@@ -32,7 +32,6 @@ vim.opt.updatetime=300                                      -- Faster completion
 vim.opt.timeoutlen=500                                      -- By default timeoutlen is 1000 ms
 vim.opt.clipboard="unnamedplus"                             -- Copy paste between vim and everything else
 vim.opt.nu = true
-vim.opt.rnu = true
 vim.opt.errorbells = false
 vim.opt.tabstop=4
 vim.opt.softtabstop=4
@@ -70,7 +69,7 @@ vim.cmd( "hi DiagnosticFloatingWarn guifg=#ffa500 ctermbg=NONE gui=italic " )
 vim.cmd( "hi DiagnosticFloatingHint guifg=#1d6a70 ctermbg=NONE gui=italic " )
 vim.cmd( "hi DiagnosticSignError guifg=#ff3939 " )
 vim.cmd( "hi DiagnosticSignHint guifg=#1d6a70 " )
-vim.cmd( "hi Normal guibg=#1e1e1e gui=NONE" )
+-- vim.cmd( "hi Normal guibg=#1e1e1e gui=NONE" )
 vim.cmd( "hi LineNr guibg=NONE" )
 vim.cmd( "hi SignColumn guibg=NONE" )
 vim.cmd( "hi NonText guibg=NONE guifg=#535e5a" )
