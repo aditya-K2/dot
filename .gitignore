@@ -15,4 +15,4 @@ suckless/suckless/dwm/config.h
 suckless/suckless/dwm/*.o
 suckless/suckless/dwm/dwm
 suckless/suckless/slstatus/config.h
-gomp/.config/gomp/default_art.png
+gomp
