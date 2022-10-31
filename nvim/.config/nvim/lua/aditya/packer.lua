@@ -3,16 +3,18 @@ vim.cmd [[ packadd packer.nvim ]]
 return require("packer").startup(function(use)
     use 'wbthomason/packer.nvim'
     use 'lewis6991/impatient.nvim'
-    -- use 'nvim-lua/popup.nvim'
-    -- use 'nvim-lua/plenary.nvim'
-    -- use 'L3MON4D3/LuaSnip'
-    -- use 'saadparwaiz1/cmp_luasnip'
 
     use 'tpope/vim-commentary'
     use 'mattn/emmet-vim'
 
     -- Telescope
     use { 'nvim-telescope/telescope.nvim', tag = '0.1.0', requires = { {'nvim-lua/plenary.nvim'} } }
+
+    -- Status Line
+    use {
+      'nvim-lualine/lualine.nvim',
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    }
 
     -- Color Schemes
     -- use 'mhartington/oceanic-next'
@@ -31,12 +33,6 @@ return require("packer").startup(function(use)
     -- use 'davidosomething/vim-colors-meh'
     -- use 'Shatur/neovim-ayu'
     use 'https://gitlab.com/madyanov/gruber.vim'
-
-    -- use 'mhinz/vim-startify'
-    -- use 'nvim-lualine/lualine.nvim'
-    -- use 'kyazdani42/nvim-web-devicons'
-
-    -- use 'easymotion/vim-easymotion'
 
     use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'}
 

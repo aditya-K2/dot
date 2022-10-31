@@ -1,5 +1,7 @@
 require("impatient")
-require("aditya.plugins")
+require("aditya.packer")
+require("aditya.telescope")
+require("aditya.treesitter")
 require("aditya.settings")
 require("aditya.mappings")
 require("aditya.lsp")
