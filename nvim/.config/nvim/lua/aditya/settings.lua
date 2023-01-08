@@ -14,7 +14,7 @@ vim.cmd [[
 vim.opt.background="dark"
 vim.opt.termguicolors=true
 
-COLUMNS = 120
+COLUMNS = 80
 -- vim.opt.colorcolumn=vim.fn.join(vim.fn.range(COLUMNS, 999),",")
 vim.opt.colorcolumn={COLUMNS}
 vim.opt.hidden = true                                       -- Required to keep multiple buffers open multiple buffers
@@ -23,7 +23,6 @@ vim.opt.pumheight = 10                                      -- Makes popup menu 
 vim.opt.mouse="a"                                           -- Enable your mouse
 vim.opt.splitbelow = true                                   -- Horizontal splits will automatically be below
 vim.opt.splitright = true                                   -- Vertical splits will automatically be to the right
-vim.opt.showtabline=2                                       -- Always show tabs
 vim.opt.swapfile = false
 vim.opt.showmode = false                                    -- We don't need to see things like -- INSERT -- anymore
 vim.opt.backup = false                                      -- This is recommended by coc
@@ -31,6 +30,7 @@ vim.opt.writebackup = false                                 -- This is recommend
 vim.opt.updatetime=300                                      -- Faster completion
 vim.opt.timeoutlen=500                                      -- By default timeoutlen is 1000 ms
 vim.opt.clipboard="unnamedplus"                             -- Copy paste between vim and everything else
+vim.opt.winbar="%m %f"
 vim.opt.nu = true
 vim.opt.errorbells = false
 vim.opt.tabstop=4
@@ -42,7 +42,6 @@ vim.opt.list = true
 vim.opt.listchars = { eol = '↴', tab = '» ', trail = '~' --[[, space = "." ]] }
 vim.opt.compatible = false
 vim.opt.cursorline = true
-vim.opt.showtabline=2
 vim.opt.showmode = false
 vim.opt.completeopt="menu"
 vim.opt.spelloptions="camel"
@@ -74,8 +73,9 @@ vim.cmd( "hi LineNr guibg=NONE" )
 vim.cmd( "hi SignColumn guibg=NONE" )
 vim.cmd( "hi NonText guibg=NONE guifg=#535e5a" )
 -- vim.cmd( "hi Pmenu guibg=#101010" )
--- vim.cmd( "hi Comment guifg=#4a4a4a" )
--- vim.cmd( "hi StatusLine guibg=#24231d" )
+vim.cmd( "hi Comment gui=italic" )
+vim.cmd( "hi Winbar guibg=#4e4e43" )
+vim.cmd( "hi WinbarNC guibg=#30302c" )
 vim.cmd( "hi ColorColumn guibg=#494743" )
 -- vim.cmd( "hi CursorLine guibg=#1e1e1e" )
 vim.cmd( "hi Visual guibg=#05233d" )

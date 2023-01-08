@@ -12,6 +12,19 @@ local function vnoremap(lhs, rhs)
     vim.api.nvim_set_keymap("v", lhs, rhs, {noremap = true})
 end
 
+local function ClangFormatBuffer()
+    if vim.api.nvim_buf_get_option(0, "modified") then
+        local cpos  = vim.fn.getpos('.')
+        vim.cmd("%!clang-format")
+        vim.fn.setpos('.', cpos)
+    end
+end
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = { "*.cpp" , "*.cc" },
+    callback = ClangFormatBuffer,
+})
+
 nnoremap ("<TAB>" , ":bnext<CR>")
 nnoremap ("<S-TAB>" , ":bprevious<CR>")
 nnoremap ("Y" , "y$")
@@ -36,13 +49,11 @@ vim.cmd( "autocmd BufRead,BufNewFile .zshrc set filetype=bash" )
 vim.cmd( "autocmd BufRead,BufNewFile *.html set noexpandtab")
 
 vim.cmd( "autocmd BufRead,BufNewFile *.md set wrap" )
-vim.cmd( "autocmd BufRead,BufNewFile *.md set spell spelllang=en_us" )
 vim.cmd( "autocmd BufRead,BufNewFile *.md nnoremap <C-o> :call Spellfloat()<CR>" )
 vim.cmd( "autocmd BufRead,BufNewFile *.md  nmap <leader>mm :!pandoc % -o output.pdf --highlight-style breezedark && zathura output.pdf &<CR>" )
 vim.cmd( "autocmd BufRead,BufNewFile *.md nmap <leader>mc :!pandoc % -o output.pdf --highlight-style breezedark &<CR>" )
 
 vim.cmd( "autocmd BufRead,BufNewFile *.latex set wrap" )
-vim.cmd( "autocmd BufRead,BufNewFile *.latex set spell spelllang=en_us" )
 vim.cmd( "autocmd BufRead,BufNewFile *.latex nnoremap <C-o> :call Spellfloat()<CR>" )
 vim.cmd( "autocmd BufRead,BufNewFile *.latex nmap <leader>mm :!compileLatex % <CR>" )
 vim.cmd( "autocmd BufRead,BufNewFile *.latex nmap <leader>mc :!pdflatex -shell-escape % <CR>" )
