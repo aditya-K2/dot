@@ -81,6 +81,10 @@ __fzfcmd() {
     printf "fzf --height 10"
 }
 
+__dmenucmd() {
+    printf "dmenu -i -f -l 10"
+}
+
 # CTRL-R - Paste the selected command from history into the command line
 fzf-history-widget() {
   local selected num
@@ -108,30 +112,17 @@ bindkey -M viins '^R' fzf-history-widget
 
 # ZSH_ALIASES_START
 
-# Mnemonics C :
+# Mnemonic C :
 
 alias cdwm='cd $HOME/suckless/dwm'
 alias cdwmblocks='cd $HOME/suckless/dwmblocks '
 alias cst='cd $HOME/suckless/st'
-alias cscripts='cd $HOME/suckless/scripts'
-alias cdd='cd /D/Downloads/'
-alias cpo='cd /H/code/competitive'
 alias cnotes='cd /random/notes'
 alias cl='cd /random/collegeStuff'
 alias cm='cd /random/collegeStuff/md'
 alias cmusic='cd /D/Downloads/Music/'
-alias cf='cd /F/RTDownloads'
-alias cs='cd $HOME/suckless'
-alias cr='cd /random/'
-alias crt='cd /random/RTDownloads'
 alias cn='cd ~/.config/nvim '
 alias cgom='cd /H/code/gomp'
-alias cgs='cd /H/code/gspt'
-alias cgui="cd /H/code/docScanner"
-alias cmanga='cd /random/Manga/'
-alias cds='cd /H/code/competitive/DSA'
-alias cdsa='cd /H/code/competitive/DSA'
-alias crandom='cd /random'
 alias cdot='cd /H/code/dotfiles/'
 
 # utils aliases
@@ -164,10 +155,21 @@ alias sb='source ~/.zshrc '
 
 # suckless aliases
 
-alias dco='cd $HOME/suckless/dwm && rm -f config.h && nvim config.def.h'
-alias dbo='cd $HOME/suckless/slstatus && rm -f config.h && nvim config.def.h'
-alias sto='cd $HOME/suckless/st && rm -f config.h && nvim config.def.h'
-alias dmo='cd $HOME/suckless/dmenu && rm -f config.h && nvim config.def.h'
+dco() {
+    cd $HOME/suckless/dwm && rm -f config.h && nvim config.def.h
+}
+
+dbo() {
+    cd $HOME/suckless/slstatus && rm -f config.h && nvim config.def.h
+}
+
+sto() {
+    cd $HOME/suckless/st && rm -f config.h && nvim config.def.h
+}
+
+dmo() {
+    cd $HOME/suckless/dmenu && rm -f config.h && nvim config.def.h
+}
 
 # Disk Space Aliases
 
@@ -198,6 +200,7 @@ alias gsf='git config --global --add safe.directory "$(pwd)"'
 alias gg='git log --graph --pretty=oneline --abbrev-commit'
 alias gco='git checkout'
 alias gst='git status'
+alias gsh='git stash'
 
 # ZSH_ALIASES_END
 
@@ -221,17 +224,31 @@ function __ccgCompletions(){
 source "/H/code/lbdsa/dsa.zsh"
 
 # Functions
+
+allContent() {
+    du -a /random/RTDownloads /F/FTDownloads | grep ".m[k,p][v,4]$" | awk -F'\t' '{print $2}'
+}
+
 bh() {
     brow -q "title,url" -c | fzf --height 10 | awk -F '|' '{print $2}' | xargs -r -d '\n' brave
 }
 
+program() {
+    if [[ "$1" == "-d" ]]; then
+        printf "__dmenucmd"
+    else
+        printf "__fzfcmd"
+    fi
+}
+
 mpvf(){
-    locate "$1" | fzf --height 10 | xargs -r -d '\n' mpv
+    allContent | $($(program "$1" ))  | xargs -r -d '\n' mpv
+
 }
 
 note(){
     if [[ "$1" == "-d" ]]; then
-        nvim /random/notes/thots/$(date "+%a_%d_%b.md")
+        nvim /random/notes/journals/$(date "+%a_%d_%b.md")
     elif [[ "$1" != "" ]]; then
         nvim /random/notes/thots/"$1"
     else
@@ -372,15 +389,19 @@ asmc(){
     ld "/tmp/${1%.asm}.o" -o "/tmp/${1%.asm}" &&
     "/tmp/${1%.asm}"
 }
+
 fs(){
     fzf  --height 10 | xargs -r $EDITOR
 }
+
 allFiles(){
     du -a "$1" | awk '{print $2}'
 }
+
 fsc(){
     fzf  --height 20 | xargs -r codium --add
 }
+
 fco(){
 
     local dir="NOT SET"
@@ -411,10 +432,6 @@ fn(){
     allFiles "$HOME/.config/nvim/" | fzf  --height 10 | xargs -r $EDITOR
 }
 
-nf(){
-    allFiles "$HOME/.config/nvim/"| fzf  --height 10 | xargs -r $EDITOR
-}
-
 gpp(){
     g++ $1 && ./a.out
 }
@@ -440,30 +457,22 @@ rsc(){
 mkvtomp4(){
     ffmpeg -i "$1" -codec copy "${1%.*}.mp4"
 }
-rsv(){
-    mpv /dev/video0
-}
+
 ap(){
     searchTerm=$(printf "$1" | sed "s/ /%20/g")
     brave "https://archlinux.org/packages/?sort=&q=$searchTerm&maintainer=&flagged=" &
 }
+
 aur(){
     searchTerm=$(printf "$1" | sed "s/ /%20/g")
     brave "https://aur.archlinux.org/packages/?O=0&K=$searchTerm" &
 }
+
 aw(){
     searchTerm=$(printf "$1" | sed "s/ /%20/g")
     brave "https://wiki.archlinux.org/index.php?search=$searchTerm&title=Special%3ASearch&go=Go" &
 }
-autopush(){
-    if [[ "$2" == "" ]]; then
-        git add . && git commit -m "$1" && git push origin master
-    elif [[ "$2" == "-n" ]]; then
-        git add . && git commit -m "$1"
-    else
-        git add . && git commit -m "$1" && git push origin "$2"
-    fi
-}
+
 all(){
     ls *.$1
 }
@@ -501,7 +510,7 @@ zstyle ':vcs_info:*' check-for-changes true
 # zstyle ':vcs_info:git:*' formats " %r/%S %b %m%u%c "
 zstyle ':vcs_info:git:*' formats " %{$fg[magenta]%}%b"
 
-PROMPT=" %{$fg[cyan]%}%~%{$reset_color%}"
+PROMPT="%{$fg[yellow]%}%B%1d%{$reset_color%}"
 PROMPT+="\$vcs_info_msg_0_ "
 
 # Prompt Ends
