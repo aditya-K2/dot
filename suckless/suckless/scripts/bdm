@@ -1,2 +1,3 @@
 #!/bin/sh
-brow -q "title,url" -c | dmenu -i -f -l 10  | awk -F '|' '{print $2}' | xargs -r -d '\n' brave
+__sel="$(brow -q "title,url" -c | dmenu -i -f -l 10)"
+[[ "$__sel" =~ http.*$ ]] && echo "$BASH_REMATCH" | xargs -r -d '\n' brave
