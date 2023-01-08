@@ -1,5 +1,5 @@
 #!/bin/sh
-fileName=$(date '+%b%d(%a)%I:%M%S%p')
+fileName=$(date '+%b%d(%a)%I%M%S%p')
 directoryName=$(cat /home/aditya/suckless/scripts/directoryfile)
 
 escrotum -s $directoryName/$fileName.png &&
