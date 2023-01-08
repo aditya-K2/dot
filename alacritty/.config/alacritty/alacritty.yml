@@ -12,52 +12,39 @@ shell:
   program: /bin/zsh
 
 font:
-  size: 6.5
+  size: 7
 
   normal:
-    family: Cascadia Code
+    family: Consolas
     style: Light
   bold:
-    family: Cascadia Code
+    family: Consolas
     style: Normal
   italic:
-    family: Cascadia Code
+    family: Consolas
     style: Italic
   bold_italic:
-    family: Cascadia Code
+    family: Consolas
     style: Bold Italic
   offset:
    x: 0
-   y: 0
+   y: 3
 
-# Tokyo Night - alacritty color config
+# Colors (Dark plus)
 colors:
-    # Default colors
-    primary:
-      background: '0x1e1e1e'
-      foreground: '0xa9b1d6'
+  primary:
+    background: '0x1E1E1E'
+    foreground: '0xD4D4D4'
 
-    # Normal colors
-    normal:
-      black:   '0x32344a'
-      red:     '0xf7768e'
-      green:   '0x9ece6a'
-      yellow:  '0xe0af68'
-      blue:    '0x7aa2f7'
-      magenta: '0xad8ee6'
-      cyan:    '0x449dab'
-      white:   '0x787c99'
-
-    # Bright colors
-    bright:
-      black:   '0x444b6a'
-      red:     '0xff7a93'
-      green:   '0xb9f27c'
-      yellow:  '0xff9e64'
-      blue:    '0x7da6ff'
-      magenta: '0xbb9af7'
-      cyan:    '0x0db9d7'
-      white:   '0xacb0d0'
+  normal:
+    black:   '0x1E1E1E'
+    red:     '0xF44747'
+    green:   '0x608B4E'
+    yellow:  '0xf5f543'
+    blue:    '0x569CD6'
+    magenta: '0xC586C0'
+    cyan:    '0x9CDCFE'
+    white:   '0xD4D4D4'
 
 draw_bold_text_with_bright_colors: false
 
