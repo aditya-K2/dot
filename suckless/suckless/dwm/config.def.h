@@ -109,7 +109,7 @@ static const char *torrentcli[]      = { "t", "alacritty", "-t", "tremc" , "-e",
 static const char *fileManager[]     = { "n", "/usr/bin/pcmanfm", NULL };
 static const char *colorChooser[]    = { "c", "/usr/bin/kcolorchooser", NULL };
 static const char *scratchpadcmd[]   = { "s", "alacritty", "-t", "scratchpad" , "-e", "scratchtmux", NULL};
-static const char *ideascmd[]        = { "i", "alacritty", "-t", "Ideas" , "-e", "nvim", "/home/aditya/ideas", NULL};
+static const char *ideascmd[]        = { "i", "alacritty", "-t", "Ideas" , "-e", "nvim", "/random/notes/thots/🥷 Tech Ideas/Ideas.md.md", NULL};
 static const char *gompcmd[]         = { "y", "st", "-t", "gomp" , "-e", "/H/code/gomp/gomp", NULL};
 
 static Key keys[] = {
@@ -124,7 +124,8 @@ static Key keys[] = {
   { MODKEY,                                 XK_n,                        togglescratch,         {.v = fileManager } },
   { MODKEY,                                 XK_q,                        togglescratch,         {.v = torrentcli } },
   { MODKEY|ControlMask|ShiftMask,           XK_c,                        togglescratch,         {.v = colorChooser } },
-  { MODKEY,                                 XK_o,                        togglescratch,         {.v = ideascmd } },
+  { MODKEY|ShiftMask,                       XK_o,                        togglescratch,         {.v = ideascmd } },
+  { MODKEY,                                 XK_o,                        spawn,                 SHCMD("todo") },
   { Mod1Mask,                               XK_q,                        spawn,                 SHCMD("torrentInfo") },
   { MODKEY|ShiftMask,                       XK_y,                        spawn,                 SHCMD("spotify") },
   { MODKEY|ShiftMask,                       XK_p,                        spawn,                 SHCMD("openPDF") },
