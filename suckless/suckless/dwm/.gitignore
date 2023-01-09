@@ -3,3 +3,4 @@
 *.rej
 dwm
 config.h
+*.patch
