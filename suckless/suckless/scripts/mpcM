@@ -1,6 +1,6 @@
 #!/bin/sh
 __clr_="$RED_COLOR"
-__CFILE_="$HOME/suckless/scripts/currentSong"
+__CFILE_="$HOME/suckless/scripts/lastPlayedSong"
 __cmd=__current_song__cmd
 __current_song__cmd() {
     cat "$__CFILE_"
