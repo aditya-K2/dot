@@ -8,7 +8,7 @@ vim.g["go_def_mapping_enabled"]              = false
 vim.cmd [[
     syntax enable
     syntax on
-    colorscheme gruber
+    colorscheme scruber
 ]]
 
 vim.opt.background="dark"

@@ -59,7 +59,8 @@ return require("packer").startup(function(use)
     -- use 'ishan9299/nvim-solarized-lua'
     -- use 'davidosomething/vim-colors-meh'
     -- use 'Shatur/neovim-ayu'
-    use 'https://gitlab.com/madyanov/gruber.vim'
+    -- use 'https://gitlab.com/madyanov/gruber.vim'
+    use 'aditya-K2/scruber.vim'
 
     use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'}
 

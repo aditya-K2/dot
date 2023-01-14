@@ -15,14 +15,32 @@ end
 local function ClangFormatBuffer()
     if vim.api.nvim_buf_get_option(0, "modified") then
         local cpos  = vim.fn.getpos('.')
-        vim.cmd("%!clang-format")
+        local file = vim.fn.expand("%")
+        vim.fn.jobstart({"clang-format", file}, {
+          stdout_buffered = true,
+          on_stdout = function(_, data)
+            if data then
+              vim.api.nvim_buf_set_lines(0, 0, -1, false, data)
+            end
+          end})
         vim.fn.setpos('.', cpos)
+        vim.cmd("w")
     end
 end
 
 vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = { "*.cpp" , "*.cc" },
+    group = vim.api.nvim_create_augroup("ClangFormatG", {clear = true}),
+    pattern = { "*.cpp" , "*.cc", "*/trex/*" },
     callback = ClangFormatBuffer,
+})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+    pattern = { "*.cpp" , "*.cc"},
+    callback = function()
+        vim.opt.tabstop=2
+        vim.opt.softtabstop=2
+        vim.opt.shiftwidth=2
+    end,
 })
 
 nnoremap ("<TAB>" , ":bnext<CR>")
