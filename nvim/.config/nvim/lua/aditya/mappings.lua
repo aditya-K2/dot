@@ -28,18 +28,21 @@ local function ClangFormatBuffer()
     end
 end
 
+local ccgroup = vim.api.nvim_create_augroup("__aditya__CCGroup", {clear = true})
+
 vim.api.nvim_create_autocmd("BufWritePre", {
-    group = vim.api.nvim_create_augroup("ClangFormatG", {clear = true}),
+    group = ccgroup,
     pattern = { "*.cpp" , "*.cc", "*/trex/*" },
     callback = ClangFormatBuffer,
 })
 
 vim.api.nvim_create_autocmd("BufEnter", {
+    group = ccgroup,
     pattern = { "*.cpp" , "*.cc"},
     callback = function()
-        vim.opt.tabstop=2
-        vim.opt.softtabstop=2
-        vim.opt.shiftwidth=2
+        vim.api.nvim_buf_set_option(0, "tabstop", 2)
+        vim.api.nvim_buf_set_option(0, "softtabstop", 2)
+        vim.api.nvim_buf_set_option(0, "shiftwidth", 2)
     end,
 })
 
