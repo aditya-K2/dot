@@ -21,10 +21,10 @@ local function ClangFormatBuffer()
           on_stdout = function(_, data)
             if data then
               vim.api.nvim_buf_set_lines(0, 0, -1, false, data)
+              vim.fn.setpos('.', cpos)
+              vim.api.nvim_command("noautocmd write")
             end
           end})
-        vim.fn.setpos('.', cpos)
-        vim.cmd("w")
     end
 end
 
