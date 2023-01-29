@@ -1,13 +1,8 @@
-#     ____  _____/ /_  __________
-#    /_  / / ___/ __ \/ ___/ ___/
-#     / /_(__  ) / / / /  / /__
-#    /___/____/_/ /_/_/   \___/
-#
 autoload -U colors && colors
 
 # History in cache directory:
-HISTSIZE=100000
-SAVEHIST=100000
+HISTSIZE=10000
+SAVEHIST=10000
 HISTFILE=~/.cache/zsh/history
 
 # Basic auto/tab complete:
@@ -20,34 +15,18 @@ _comp_options+=(globdots)        # Include hidden files.
 # vi mode
 bindkey -v
 
-# Exports
-
 export KEYTIMEOUT=1
-# export CGO_ENABLED=1
-export PATH=$PATH:$HOME/suckless/scripts
-export PATH=$PATH:$HOME/.local/bin
-export PATH=$PATH:$HOME/.cargo/bin
-export PATH=$PATH:$(go env GOPATH)/bin
-export EDITOR='nvim'
-export JDTLS_HOME=$HOME/suckless/jdtls/
-
 source "$HOME/env.sh"
 
 # Key Bindings
 
-bindkey '^R' history-incremental-search-backward
 bindkey '^H' backward-kill-word
-bindkey -M vicmd '/' history-incremental-search-backward
 # Use nvim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
-bindkey -s '^o' 'openFFF\n'
-bindkey -s '^y' 'fff /D/Downloads/\n'
-bindkey -s '^a' 'fff /D/Downloads/\n'
-
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
@@ -70,11 +49,6 @@ zle-line-init() {
 zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
-
-# Edit line in nvim with ctrl-e:
-autoload edit-command-line; zle -N edit-command-line
-bindkey '^e' edit-command-line
-bindkey -M vicmd '^R' history-incremental-search-backward
 
 # Use fzf for Reverse Searching History
 __fzfcmd() {
@@ -103,6 +77,7 @@ fzf-history-widget() {
 }
 
 # Mappings for Reverse Searching
+
 zle     -N            fzf-history-widget
 bindkey -M emacs '^R' fzf-history-widget
 bindkey -M vicmd '^R' fzf-history-widget
@@ -112,32 +87,18 @@ bindkey -M viins '^R' fzf-history-widget
 
 # ZSH_ALIASES_START
 
-# Mnemonic C :
-
-alias cdwm='cd $HOME/suckless/dwm'
-alias cdwmblocks='cd $HOME/suckless/dwmblocks '
-alias cst='cd $HOME/suckless/st'
-alias cnotes='cd /random/notes'
-alias cl='cd /random/collegeStuff'
-alias cm='cd /random/collegeStuff/md'
-alias cmusic='cd /D/Downloads/Music/'
-alias cn='cd ~/.config/nvim '
-alias cgom='cd /H/code/gomp'
-alias cdot='cd /H/code/dotfiles/'
-
 # utils aliases
 
-alias mutt='neomutt'
 alias diff='diff --color'
-alias ls='exa'
-alias la='exa -a '
-alias ll='exa -l --icons'
+# alias ls='exa'
+# alias la='exa -a '
+# alias ll='exa -l --icons'
+alias ll='ls -l'
 alias grep='grep --color'
 alias rm='rm -iv'
 alias cp='cp -v'
 alias mv='mv -v'
 alias zathura='zathura --fork'
-alias sl='ls'
 alias code='codium'
 
 # Edit aliases
@@ -148,28 +109,8 @@ alias xb='nvim ~/.xmobarrc'
 alias en='nvim ~/.config/nvim '
 alias ea='nvim ~/.config/alacritty/alacritty.yml '
 alias et='nvim ~/.tmux.conf'
-alias es='nvim ~/.config/starship.toml'
 alias eb='nvim ~/.bashrc '
-alias em='nvim ~/.config/mutt/muttrc '
 alias sb='source ~/.zshrc '
-
-# suckless aliases
-
-dco() {
-    cd $HOME/suckless/dwm && rm -f config.h && nvim config.def.h
-}
-
-dbo() {
-    cd $HOME/suckless/slstatus && rm -f config.h && nvim config.def.h
-}
-
-sto() {
-    cd $HOME/suckless/st && rm -f config.h && nvim config.def.h
-}
-
-dmo() {
-    cd $HOME/suckless/dmenu && rm -f config.h && nvim config.def.h
-}
 
 # Disk Space Aliases
 
@@ -180,13 +121,10 @@ alias dg='du -h --max-depth 1 | grep G '
 
 alias wlist='nmcli d wifi list'
 alias wconnect='nmcli d wifi connect'
-alias wk='nmcli d wifi list && nmcli d wifi connect "kurdunkar home" '
 alias wr='nmcli d wifi list && nmcli d wifi connect "realme X7 Max" '
-alias wo='nmcli d wifi list && nmcli d wifi connect oppo '
 
 # Random Aliases
 
-alias aco='cd $HOME/.config/awesome ; nvim rc.lua'
 alias yt='youtube-dl'
 alias tsm='transmission-remote'
 alias pg='ping google.com'
@@ -200,10 +138,8 @@ alias gsf='git config --global --add safe.directory "$(pwd)"'
 alias gg='git log --graph --pretty=oneline --abbrev-commit'
 alias gco='git checkout'
 alias gst='git status'
-alias gsh='git stash'
 
 # ZSH_ALIASES_END
-
 
 # completion Functions
 
@@ -230,7 +166,9 @@ allContent() {
 }
 
 bh() {
-    brow -q "title,url" -c | fzf --height 10 | awk -F '|' '{print $2}' | xargs -r -d '\n' brave
+    setopt local_options BASH_REMATCH
+    __sel="$(brow -q "title,url" -c | $(__fzfcmd))"
+    [[ "$__sel" =~ http.*$ ]] && echo "$BASH_REMATCH" | xargs -r -d '\n' brave
 }
 
 program() {
@@ -242,21 +180,24 @@ program() {
 }
 
 mpvf(){
-    allContent | $($(program "$1" ))  | xargs -r -d '\n' mpv
-
+    local __sel="$(allContent | $($(program "$1" )))"
+    [[ "$1" == "-p" ]] &&
+        __openCmd="pcmanfm" __sel="`dirname "$__sel"`" ||
+        __openCmd="mpv"
+    printf "$__sel" | xargs -r -d '\n' $__openCmd
 }
 
 note(){
     if [[ "$1" == "-d" ]]; then
         nvim /random/notes/journals/$(date "+%a_%d_%b.md")
     elif [[ "$1" != "" ]]; then
-        nvim /random/notes/thots/"$1"
+        nvim /random/notes/thots/"$1.md"
     else
-        allFiles /random/notes/thots | fzf --height 10 | xargs -r $EDITOR
+        allFiles /random/notes/thots | $(__fzfcmd) | xargs -r $EDITOR
     fi
 }
 
-audioConvert(){
+webmTomp3(){
     for i in *.webm
     do
         ffmpeg -i "$i" -b:a 320k "${i%.webm}.mp3" &&
@@ -320,13 +261,8 @@ sc(){
     elif [[ "$1" == "-g" ]]; then
         cd $HOME/suckless/scripts/
     else
-        allFiles $HOME/suckless/scripts | fzf --height 10 | xargs -r $EDITOR
+        allFiles $HOME/suckless/scripts | $(__fzfcmd) | xargs -r $EDITOR
     fi
-}
-
-openFFF() {
-    fff "$@"
-    cd "$(cat "${XDG_CACHE_HOME:=${HOME}/.cache}/fff/.fff_d")"
 }
 
 tsma(){
@@ -334,21 +270,20 @@ tsma(){
 }
 
 lzf(){
-    locate "$1" | fzf --height 10
+    locate "$1" | $(__fzfcmd)
 }
 
 fg(){
-    optionS=$(rg --column --line-number --hidden --ignore-case --no-heading . | fzf --height 10 | awk '{print $1}' | awk -F ":" '{print $1 "-" $2}')
+    optionS=$(rg --column --line-number --hidden --ignore-case --no-heading . | $(__fzfcmd) | awk '{print $1}' | awk -F ":" '{print $1 "-" $2}')
     if [[ "$optionS" != "" ]]; then
         nvim ${optionS%-*} -c "normal ${optionS#*-}Gzz"
     fi
 }
-ntem(){
-    nvim /tmp/$1
-}
+
 poke(){
     cat $HOME/suckless/colorscripts/$(ls $HOME/suckless/colorscripts/ | shuf -n 1)
 }
+
 cco(){
     if [[ "$1" == "-m" ]];  then
         printf "Making Directory $2\n"
@@ -366,21 +301,18 @@ cco(){
 ccg(){
     cd /H/code/college/$1
 }
-pom(){
-    (pgrep pomodoro | xargs kill -INT ) || pomodoro &
-}
 
 ez(){
-    nvim -c "normal $(cat ~/.zshrc -n | fzf --height 10| awk '{print $1}')Gzz" ~/.zshrc
+    nvim -c "normal $(cat ~/.zshrc -n | $(__fzfcmd) | awk '{print $1}')Gzz" ~/.zshrc
 }
 
 fo(){
     if [ -z ${1} ]; then
-        selectedFile="$(fzf --height 10)" &&
-        nvim -c "$(cat -n $selectedFile | fzf --height 10 | awk '{print $1}')" "$selectedFile"
+        selectedFile="$($(__fzfcmd))" &&
+        nvim -c "$(cat -n $selectedFile | $(__fzfcmd) | awk '{print $1}')" "$selectedFile"
     else
-        selectedFile="$(du -a $1 | awk '{print $2}' |fzf --height 10)" &&
-        nvim -c "$(cat -n $selectedFile | fzf --height 10 | awk '{print $1}')" "$selectedFile"
+        selectedFile="$(du -a $1 | awk '{print $2}' |$(__fzfcmd))" &&
+        nvim -c "$(cat -n $selectedFile | $(__fzfcmd) | awk '{print $1}')" "$selectedFile"
     fi
 }
 
@@ -473,10 +405,6 @@ aw(){
     brave "https://wiki.archlinux.org/index.php?search=$searchTerm&title=Special%3ASearch&go=Go" &
 }
 
-all(){
-    ls *.$1
-}
-
 # Prompt Starts
 
 ## autoload vcs and colors
@@ -491,28 +419,11 @@ precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
 
-# add a function to check for untracked files in the directory.
-# from https://github.com/zsh-users/zsh/blob/master/Misc/vcs_info-examples
-zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
-#
-+vi-git-untracked(){
-    if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
-        git status --porcelain | grep '??' &> /dev/null ; then
-        # This will show the marker if there are any untracked files in repo.
-        # If instead you want to show the marker only if there are untracked
-        # files in $PWD, use:
-        #[[ -n $(git ls-files --others --exclude-standard) ]] ; then
-        hook_com[staged]+='!' # signify new files with a bang
-    fi
-}
+zstyle ':vcs_info:git:*' formats " %{$fg[magenta]%}%b%{$reset_color%}"
 
-zstyle ':vcs_info:*' check-for-changes true
-# zstyle ':vcs_info:git:*' formats " %r/%S %b %m%u%c "
-zstyle ':vcs_info:git:*' formats " %{$fg[magenta]%}%b"
+p_color=red
 
-PROMPT="%{$fg[yellow]%}%B%1d%{$reset_color%}"
+PROMPT="%{$fg[$p_color]%}%B%d%{$reset_color%}"
 PROMPT+="\$vcs_info_msg_0_ "
 
 # Prompt Ends
-
-source $HOME/suckless/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
