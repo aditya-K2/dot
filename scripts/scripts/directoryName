@@ -1,0 +1,13 @@
+#!/bin/sh
+date=$(date '+%b%d(%a)')
+response=$(printf "Enter Folder Name\nChange Default Directory" | dmenu -i -c -l 5 -p "Screenshot:")
+if [ "$response" = "Enter Folder Name" ]; then
+	chosendirectoryS=$(printf "" | dmenu -c -l 5 -p "Please enter the folder name:") &&
+    mkdir /home/aditya/Pictures/Screenshots/$chosendirectoryS$date &&
+	printf "/home/aditya/Pictures/Screenshots/$chosendirectoryS$date"> /home/aditya/suckless/scripts/directoryfile
+elif [ "$response" = "Change Default Directory" ]; then
+	chosendirectory=$(printf "/random\n/F\n/D\n/home/aditya/Pictures/Screenshots" | dmenu -c -l 5 -p "Enter Absolute Path: ") && 
+	printf "$chosendirectory"> /home/aditya/suckless/scripts/directoryfile
+fi
+
+
