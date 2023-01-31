@@ -6,29 +6,26 @@ window:
       x: 5
       y: 5
 
-  opacity: 1
+  opacity: 0.98
 
 shell:
   program: /bin/zsh
 
 font:
-  size: 7
+  size: 9.5
 
   normal:
-    family: Consolas
-    style: Light
+    family: JetBrains Mono Nerd Font
+    style: Thin
   bold:
-    family: Consolas
+    family: JetBrains Mono Nerd Font
     style: Normal
   italic:
-    family: Consolas
-    style: Italic
+    family: JetBrains Mono Nerd Font
+    style: Thin Italic
   bold_italic:
-    family: Consolas
-    style: Bold Italic
-  offset:
-   x: 0
-   y: 3
+    family: JetBrains Mono Nerd Font
+    style: Italic
 
 # Colors (Dark plus)
 colors:
