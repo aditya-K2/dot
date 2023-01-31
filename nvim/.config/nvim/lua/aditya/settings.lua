@@ -8,7 +8,7 @@ vim.g["go_def_mapping_enabled"]              = false
 vim.cmd [[
     syntax enable
     syntax on
-    colorscheme scruber
+    colorscheme vscode
 ]]
 
 vim.opt.background="dark"
@@ -68,14 +68,15 @@ vim.cmd( "hi DiagnosticFloatingWarn guifg=#ffa500 ctermbg=NONE gui=italic " )
 vim.cmd( "hi DiagnosticFloatingHint guifg=#1d6a70 ctermbg=NONE gui=italic " )
 vim.cmd( "hi DiagnosticSignError guifg=#ff3939 " )
 vim.cmd( "hi DiagnosticSignHint guifg=#1d6a70 " )
--- vim.cmd( "hi Normal guibg=#1e1e1e gui=NONE" )
+vim.cmd( "hi Normal guibg=NONE" )
 vim.cmd( "hi LineNr guibg=NONE" )
 vim.cmd( "hi SignColumn guibg=NONE" )
 vim.cmd( "hi NonText guibg=NONE guifg=#535e5a" )
 -- vim.cmd( "hi Pmenu guibg=#101010" )
 vim.cmd( "hi Comment gui=italic" )
 vim.cmd( "hi Winbar guibg=#4e4e43" )
+vim.cmd( "hi Statusline guibg=#31312a guifg=#7295b4 gui=bold" )
 vim.cmd( "hi WinbarNC guibg=#30302c" )
 vim.cmd( "hi ColorColumn guibg=#494743" )
--- vim.cmd( "hi CursorLine guibg=#1e1e1e" )
+vim.cmd( "hi CursorLine guibg=#1e1e1e" )
 vim.cmd( "hi Visual guibg=#05233d" )

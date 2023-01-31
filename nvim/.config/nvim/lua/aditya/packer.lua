@@ -30,18 +30,18 @@ return require("packer").startup(function(use)
     end
     }
 
-    -- Status Line
-    use {
-      'nvim-lualine/lualine.nvim',
-      requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-      config = function()
-        require('lualine').setup{
-            options = {
-                theme = "seoul256"
-            }
-        }
-      end
-    }
+    -- -- Status Line
+    -- use {
+    --   'nvim-lualine/lualine.nvim',
+    --   requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    --   config = function()
+    --     require('lualine').setup{
+    --         options = {
+    --             theme = "solarized-dark"
+    --         }
+    --     }
+    --   end
+    -- }
 
     -- Color Schemes
     -- use 'mhartington/oceanic-next'
@@ -49,7 +49,7 @@ return require("packer").startup(function(use)
     -- use 'folke/tokyonight.nvim'
     -- use 'chriskempson/base16-vim'
     -- use 'tomasiser/vim-code-dark'
-    -- use 'Mofiqul/vscode.nvim'
+    use 'Mofiqul/vscode.nvim'
     -- use "rebelot/kanagawa.nvim"
     -- use 'Soares/base16.nvim'
     -- use 'chriskempson/base16-vim'
@@ -60,7 +60,7 @@ return require("packer").startup(function(use)
     -- use 'davidosomething/vim-colors-meh'
     -- use 'Shatur/neovim-ayu'
     -- use 'https://gitlab.com/madyanov/gruber.vim'
-    use 'aditya-K2/scruber.vim'
+    -- use 'aditya-K2/scruber.vim'
 
     use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'}
 
