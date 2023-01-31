@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Sauce Code Pro Nerd Font:pixelsize=17:antialias=true:autohint=true";
+static char *font = "JetBrains Mono Nerd Font:pixelsize=13:antialias=true:autohint=true";
 static int borderpx = 5;
 
 /* disable bold, italic and roman fonts globally */
