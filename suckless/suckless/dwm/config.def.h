@@ -22,7 +22,7 @@ static const int DFW                       =   800;
 static const int DFH                       =   600;
 static const int DFX                       =   550;
 static const int DFY                       =   250;
-static const char *fonts[]                 =   { "Sauce Code Pro Nerd Font:size=10" , "NotoColorEmoji:size=10"};
+static const char *fonts[]                 =   { "Sauce Code Pro Nerd Font:size=9" , "NotoColorEmoji:size=9"};
 static const char dmenufont[]              =   "SourceCodeProMedium:size=10";
 static const char col_statusbarFG[]        =   "#ffffff";
 static const char col_statusbarBG[]        =   "#1e1e1e";
@@ -51,7 +51,6 @@ static const Rule rules[] = {
  { "Firefox",            NULL,       NULL,      3,          0,           -1 ,       DFX,   DFY,   DFW,   DFH,             5,         0},
  { "TelegramDesktop",    NULL,       NULL,      1<<2,       0,           -1 ,       DFX,   DFY,   DFW,   DFH,             5,         0},
  { "qBittorrent",        NULL,       NULL,      1<<3,       0,           -1 ,       DFX,   DFY,   DFW,   DFH,             5,         0},
- { "Spotify",            NULL,       NULL,      1<<5,       0,           -1 ,       DFX,   DFY,   DFW,   DFH,             5,         0},
  { "zoom",               NULL,       NULL,      1<<6,       0,           -1 ,       DFX,   DFY,   DFW,   DFH,             5,         0},
  { "figma-linux",        NULL,       NULL,      1<<4,       0,           -1 ,       DFX,   DFY,   DFW,   DFH,             5,         0},
  { "discord",            NULL,       NULL,      1<<7,       0,           -1 ,       DFX,   DFY,   DFW,   DFH,             5,         0},
@@ -158,8 +157,8 @@ static Key keys[] = {
   { MODKEY|ShiftMask,                       XK_k,                        focusstackhid,         {.i = -1 } },
   { MODKEY|ShiftMask,                       XK_minus,                    incnmaster,            {.i = +1 } },
   { MODKEY,                                 XK_d,                        incnmaster,            {.i = -1 } },
-  { MODKEY,                                 XK_h,                        setmfact,              {.f = +0.05} },
-  { MODKEY,                                 XK_l,                        setmfact,              {.f = -0.05} },
+  { MODKEY,                                 XK_h,                        setmfact,              {.f = -0.05} },
+  { MODKEY,                                 XK_l,                        setmfact,              {.f = +0.05} },
   { MODKEY,                                 XK_Tab,                      view,                  {0} },
   { MODKEY|ShiftMask,                       XK_c,                        killclient,            {0} },
   { MODKEY,                                 XK_c,                        killclient,            {0} },
