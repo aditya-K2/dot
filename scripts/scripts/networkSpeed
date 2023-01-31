@@ -1,0 +1,23 @@
+#!/bin/sh
+
+update() {
+    sum=0
+    for arg; do
+        read -r i < "$arg"
+        sum=$(( sum + i ))
+    done
+    cache=${XDG_CACHE_HOME:-$HOME/.cache}/${1##*/}
+    [ -f "$cache" ] && read -r old < "$cache" || old=0
+    printf %d\\n "$sum" > "$cache"
+    printf %d\\n $(( sum - old ))
+}
+
+rx=$(update /sys/class/net/[ew]*/statistics/rx_bytes)
+tx=$(update /sys/class/net/[ew]*/statistics/tx_bytes)
+
+dAColor="^c$GREEN_COLOR^"
+dTColor="^c$LIGHT_BLUE_COLOR^"
+uAColor="^c$BLUE_COLOR^"
+uTColor="^c$LIGHT_BLUE_COLOR^"
+
+printf "$dAColor  $dTColor %s $uAColor  $uTColor %s " $(numfmt --to=iec $rx) $(numfmt --to=iec $tx)

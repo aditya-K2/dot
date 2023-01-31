@@ -1,0 +1,4 @@
+#!/bin/sh
+SESSION_NAME="spad"
+
+tmux has-session -t "$SESSION_NAME" 2>/dev/null && tmux attach-session -t "$SESSION_NAME" || tmux new -s "$SESSION_NAME"
