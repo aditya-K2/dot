@@ -46,6 +46,14 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end,
 })
 
+vim.api.nvim_create_autocmd("BufEnter", {
+    group = ccgroup,
+    pattern = { "*/waybar/config" },
+    callback = function()
+        vim.cmd("set filetype=jsonc")
+    end
+})
+
 nnoremap ("<TAB>" , ":bnext<CR>")
 nnoremap ("<S-TAB>" , ":bprevious<CR>")
 nnoremap ("Y" , "y$")
