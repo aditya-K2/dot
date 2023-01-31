@@ -1,2 +1,0 @@
-#!/bin/sh
-printf "^c#1ed760^  ^c#b2e4ff^%s -^c#63ff8a^ %s^c#ffffff^" "$(playerctl --player=spotifyd metadata artist)" "$(playerctl --player=spotifyd metadata title)" > $HOME/suckless/scripts/currentSong

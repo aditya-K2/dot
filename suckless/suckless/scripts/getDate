@@ -1,9 +1,0 @@
-#!/bin/sh
-
-# if [[ "$(mpc status | sed -n 2p | awk '{print $1;}')" != "[playing]" ]]; then
-#     textColor="$ORANGE_COLOR"
-# else
-textColor="$LIGHT_BLUE_COLOR"
-# fi
-
-printf "^c$BLUE_COLOR^   ^c$textColor^$(date '+%a %d %b, %I:%M:%S')"
