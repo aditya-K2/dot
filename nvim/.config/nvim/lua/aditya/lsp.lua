@@ -1,4 +1,3 @@
---
 local nvim_lsp = require('lspconfig')
 
 -- Use an on_attach function to only map the following keys
@@ -50,60 +49,37 @@ for _, lsp in ipairs(servers) do
   }
 end
 
--- lua lsp configuration because it's different from others 🌝
--- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
-local sumneko_root_path = "/home/aditya/lsp/lua-language-server"
-local sumneko_binary =  "/home/aditya/lsp/lua-language-server/bin/lua-language-server"
+vim.diagnostic.config {
+virtual_text = false,
+float = {
+  source = 'always',
+  focusable = true,
+  focus = false,
+  border = 'single',
+}}
 
-local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
+local diagnostics_show_pop_up = function()
+    return vim.diagnostic.open_float(0, { scope = "cursor" })
+end
 
--- Lua Language Server
---
-require'lspconfig'.sumneko_lua.setup {
-  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
-  on_attach = on_attach,
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-        -- Setup your lua path
-        path = runtime_path,
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
-}
+local diagnostics_popup_handler = function()
+    local current_cursor = vim.api.nvim_win_get_cursor(0)
+    local last_popup_cursor = vim.w.lsp_diagnostics_last_cursor or { nil, nil }
 
--- Diagnostic Errors Settings and Appearances
+    -- Show the popup diagnostics window,
+    -- but only once for the current cursor location (unless moved afterwards).
+    if not (current_cursor[1] == last_popup_cursor[1] and current_cursor[2] == last_popup_cursor[2]) then
+      vim.w.lsp_diagnostics_last_cursor = current_cursor
+      local _, winnr = diagnostics_show_pop_up()
+    end
+end
 
--- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
---   vim.lsp.diagnostic.on_publish_diagnostics, {
---     signs = true,
---     virtual_text = true,
---     underline = true,
---     float = {
---         show_header = true,
---         source = 'if_many',
---         border = 'rounded',
---         focusable = false,
---     },
---     update_in_insert = false,
---   }
--- )
+vim.api.nvim_create_autocmd("CursorHold", {
+    group = vim.api.nvim_create_augroup("__DG_ON_HOVER__", { clear = true }),
+    callback = diagnostics_popup_handler
+})
+
+-----------------------------------------------------------------------------
 
 --Enable (broadcasting) snippet capability for completion
 local capabilities = vim.lsp.protocol.make_client_capabilities()
