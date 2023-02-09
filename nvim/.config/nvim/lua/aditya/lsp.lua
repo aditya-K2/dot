@@ -49,17 +49,22 @@ for _, lsp in ipairs(servers) do
   }
 end
 
+local diagnostics_padding = 0
+local enable_hover_over_diagnostics = false
+
 vim.diagnostic.config {
-virtual_text = false,
-float = {
-  source = 'always',
-  focusable = true,
-  focus = false,
-  border = 'single',
-}}
+    virtual_text = false,
+    float = {
+        source = 'always',
+        focusable = true,
+        focus = false,
+        pad_top = diagnostics_padding,
+        pad_bottom = diagnostics_padding,
+    }
+}
 
 local diagnostics_show_pop_up = function()
-    return vim.diagnostic.open_float(0, { scope = "cursor" })
+    return vim.diagnostic.open_float(0, { scope = "line" })
 end
 
 local diagnostics_popup_handler = function()
@@ -74,11 +79,12 @@ local diagnostics_popup_handler = function()
     end
 end
 
-vim.api.nvim_create_autocmd("CursorHold", {
-    group = vim.api.nvim_create_augroup("__DG_ON_HOVER__", { clear = true }),
-    callback = diagnostics_popup_handler
-})
-
+if enable_hover_over_diagnostics then
+    vim.api.nvim_create_autocmd("CursorHold", {
+        group = vim.api.nvim_create_augroup("__DG_ON_HOVER__", { clear = true }),
+        callback = diagnostics_popup_handler
+    })
+end
 -----------------------------------------------------------------------------
 
 --Enable (broadcasting) snippet capability for completion
