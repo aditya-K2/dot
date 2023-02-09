@@ -61,6 +61,7 @@ nnoremap ("<C-\\>" , ":vsplit <CR>")
 nnoremap ("<leader><CR>" , ":split<CR>")
 nnoremap ("<leader>fc" , "<cmd> lua require('telescope.builtin').find_files{cwd='/H/code', prompt='cpFiles'}<CR>")
 nnoremap ("<leader>m" , ":MaximizerToggle <CR>")
+nnoremap ("U", "<cmd>lua vim.diagnostic.open_float(0, { scope = \"line\" })<CR>")
 
 -- nnoremap ("<S-m>"      , ":lua vim.lsp.diagnostic.show_line_diagnostics()<CR>")
 nnoremap ("<M-m>"      , ":lua require('termtoggle').TermToggle()<CR>")

@@ -137,6 +137,7 @@ alias gb='git branch'
 alias gsf='git config --global --add safe.directory "$(pwd)"'
 alias gg='git log --graph --pretty=oneline --abbrev-commit'
 alias gco='git checkout'
+alias gs='git status'
 alias gst='git status'
 
 # ZSH_ALIASES_END
@@ -255,13 +256,13 @@ extract(){
 sc(){
     if [[ "$1" == "-m" ]]; then
         fileName=$2
-        echo "#!/bin/sh" > $HOME/suckless/scripts/$fileName &&
-        chmod +x $HOME/suckless/scripts/$fileName &&
-        nvim $HOME/suckless/scripts/$fileName
+        echo "#!/bin/sh" > $HOME/scripts/$fileName &&
+        chmod +x $HOME/scripts/$fileName &&
+        nvim $HOME/scripts/$fileName
     elif [[ "$1" == "-g" ]]; then
-        cd $HOME/suckless/scripts/
+        cd $HOME/scripts/
     else
-        allFiles $HOME/suckless/scripts | $(__fzfcmd) | xargs -r $EDITOR
+        allFiles $HOME/scripts | $(__fzfcmd) | xargs -r $EDITOR
     fi
 }
 
@@ -366,16 +367,6 @@ fn(){
 
 gpp(){
     g++ $1 && ./a.out
-}
-
-gc(){
-    if [[ "$1" == "-m" ]]; then
-        git clone $2
-    elif [[ "$1" == "-p" ]]; then
-        git clone https://github.com/aditya-K2/$2 && cd $2
-    else
-        git clone "https://github.com/$1"
-    fi
 }
 
 rsc(){

@@ -6,13 +6,14 @@ window:
       x: 5
       y: 5
 
-  opacity: 0.98
+  opacity: 1
 
 shell:
   program: /bin/zsh
 
 font:
-  size: 9.5
+  # size: 8.5
+  size: 5.5
 
   normal:
     family: JetBrains Mono Nerd Font
