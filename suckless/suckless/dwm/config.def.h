@@ -24,20 +24,19 @@ static const int DFX                       =   550;
 static const int DFY                       =   250;
 static const char *fonts[]                 =   { "Sauce Code Pro Nerd Font:size=9" , "NotoColorEmoji:size=9"};
 static const char dmenufont[]              =   "SourceCodeProMedium:size=10";
-static const char col_statusbarFG[]        =   "#ffffff";
-static const char col_statusbarBG[]        =   "#1e1e1e";
-static const char col_statusbarMiddle[]    =   "#373737";
-static const char col_selectedBorder[]     =   "#1d2130";
-static const char col_notselectedBorder[]  =   "#1d2130";
-static const char col_Selected_FG[]        =   "#fef49c";
+static const char col_statusbar_fg[]        =   "#ffffff";
+static const char col_statusbar_bg[]        =   "#1e1e1e";
+static const char col_current_fg[]         =   "#ffffff";
+static const char col_current_bg[]         =   "#31312a";
+static const char col_border[]             =   "#1d2130";
 static const char col_dmenuFG[]            =   "#bbbbbb";
 
 
 static const char *colors[][3]      = {
     /*               fg         bg         border   */
-   [SchemeNorm] = { col_statusbarFG,    col_statusbarBG    ,  col_notselectedBorder},
-   [SchemeSel]  = { col_Selected_FG,    col_statusbarMiddle,  col_selectedBorder},
-   [SchemeHid]  = { col_statusbarFG,    col_statusbarBG    ,  col_notselectedBorder  },
+   [SchemeNorm] = { col_statusbar_fg,  col_statusbar_bg  ,col_border},
+   [SchemeSel]  = { col_current_fg,    col_current_bg    ,col_border},
+   [SchemeHid]  = { col_statusbar_fg,  col_statusbar_bg  ,col_border},
 };
 
 /* tagging */
