@@ -15,7 +15,7 @@ return require("packer").startup(function(use)
           pickers = {
             find_files = {
               theme = "ivy",
-              layout_config = { height = 0.3 }
+              layout_config = { height = 0.2 }
             },
             live_grep = {
               theme = "ivy",
@@ -30,26 +30,13 @@ return require("packer").startup(function(use)
     end
     }
 
-    -- -- Status Line
-    -- use {
-    --   'nvim-lualine/lualine.nvim',
-    --   requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-    --   config = function()
-    --     require('lualine').setup{
-    --         options = {
-    --             theme = "solarized-dark"
-    --         }
-    --     }
-    --   end
-    -- }
-
     -- Color Schemes
     -- use 'mhartington/oceanic-next'
     -- use 'navarasu/onedark.nvim'
     -- use 'folke/tokyonight.nvim'
-    -- use 'chriskempson/base16-vim'
     -- use 'tomasiser/vim-code-dark'
-    use 'Mofiqul/vscode.nvim'
+    -- use 'Mofiqul/vscode.nvim'
+    use 'RRethy/nvim-base16'
     -- use "rebelot/kanagawa.nvim"
     -- use 'Soares/base16.nvim'
     -- use 'chriskempson/base16-vim'
@@ -65,6 +52,11 @@ return require("packer").startup(function(use)
     use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'}
 
     use 'fatih/vim-go'
+    use {'akinsho/flutter-tools.nvim', requires = 'nvim-lua/plenary.nvim',
+    config = function()
+        flutter_tools = true
+        require("flutter-tools").setup{}
+    end}
 
     -- Tree Sitter
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
