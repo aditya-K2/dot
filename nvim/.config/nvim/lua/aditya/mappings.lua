@@ -28,17 +28,22 @@ local function ClangFormatBuffer()
     end
 end
 
-local ccgroup = vim.api.nvim_create_augroup("__aditya__CCGroup", {clear = true})
+local function format_buffer()
+    vim.lsp.buf.format()
+end
+
+local format_group = vim.api.nvim_create_augroup("__aditya__format_group", {clear = true})
+local fg_pattern = { "*.cpp" , "*.cc", "*.dart" }
 
 vim.api.nvim_create_autocmd("BufWritePre", {
-    group = ccgroup,
-    pattern = { "*.cpp" , "*.cc", "*/trex/*" },
-    callback = ClangFormatBuffer,
+    group = format_group,
+    pattern = fg_pattern,
+    callback = format_buffer,
 })
 
 vim.api.nvim_create_autocmd("BufEnter", {
-    group = ccgroup,
-    pattern = { "*.cpp" , "*.cc"},
+    group = format_group,
+    pattern = fg_pattern,
     callback = function()
         vim.api.nvim_buf_set_option(0, "tabstop", 2)
         vim.api.nvim_buf_set_option(0, "softtabstop", 2)
@@ -47,7 +52,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 vim.api.nvim_create_autocmd("BufEnter", {
-    group = ccgroup,
+    group = format_group,
     pattern = { "*/waybar/config" },
     callback = function()
         vim.cmd("set filetype=jsonc")
