@@ -16,7 +16,10 @@ _comp_options+=(globdots)        # Include hidden files.
 bindkey -v
 
 export KEYTIMEOUT=1
+
 source "$HOME/env.sh"
+source "$HOME/alias.sh"
+source "/H/code/lbdsa/dsa.zsh"
 
 # Key Bindings
 
@@ -85,70 +88,20 @@ bindkey -M viins '^R' fzf-history-widget
 
 ############
 
-# ZSH_ALIASES_START
-
-# utils aliases
-
-alias diff='diff --color'
-# alias ls='exa'
-# alias la='exa -a '
-# alias ll='exa -l --icons'
-alias ll='ls -l'
-alias grep='grep --color'
-alias rm='rm -iv'
-alias cp='cp -v'
-alias mv='mv -v'
-alias zathura='zathura --fork'
-alias code='codium'
-
-# Edit aliases
-
-alias ex='nvim ~/.xinitrc '
-alias xm='nvim ~/.xmonad/xmonad.hs'
-alias xb='nvim ~/.xmobarrc'
-alias en='nvim ~/.config/nvim '
-alias ea='nvim ~/.config/alacritty/alacritty.yml '
-alias et='nvim ~/.tmux.conf'
-alias eb='nvim ~/.bashrc '
-alias sb='source ~/.zshrc '
-
-# Disk Space Aliases
-
-alias dm='du -h --max-depth 1 | grep M '
-alias dg='du -h --max-depth 1 | grep G '
-
-# Wifi Related Aliases
-
-alias wlist='nmcli d wifi list'
-alias wconnect='nmcli d wifi connect'
-alias wr='nmcli d wifi list && nmcli d wifi connect "realme X7 Max" '
-
-# Random Aliases
-
-alias yt='youtube-dl'
-alias tsm='transmission-remote'
-alias pg='ping google.com'
-alias smci='sudo make clean install'
-
-# git aliases
-
-alias gd='git diff'
-alias gb='git branch'
-alias gsf='git config --global --add safe.directory "$(pwd)"'
-alias gg='git log --graph --pretty=oneline --abbrev-commit'
-alias gco='git checkout'
-alias gs='git status'
-alias gst='git status'
-
-# ZSH_ALIASES_END
 
 # completion Functions
 
 compdef __ccoCompletions cco
+compdef __noteCompletions note
 
 function __ccoCompletions(){
     _arguments -C \
         "1: :($(ls /H/code))" \
+}
+
+function __noteCompletions(){
+    _arguments -C \
+        "1: :($(ls /random/notes/thots))" \
 }
 
 compdef __ccgCompletions ccg
@@ -158,9 +111,13 @@ function __ccgCompletions(){
         "1: :($(ls /H/code/college/))" \
 }
 
-source "/H/code/lbdsa/dsa.zsh"
 
-# Functions
+# functions
+
+tl() {
+    _session="$(tmux list-sessions | $(__fzfcmd) | awk -F: '{print $1}')"
+    tmux attach-session -t $_session
+}
 
 allContent() {
     du -a /random/RTDownloads /F/FTDownloads | grep ".m[k,p][v,4]$" | awk -F'\t' '{print $2}'
@@ -192,7 +149,7 @@ note(){
     if [[ "$1" == "-d" ]]; then
         nvim /random/notes/journals/$(date "+%a_%d_%b.md")
     elif [[ "$1" != "" ]]; then
-        nvim /random/notes/thots/"$1.md"
+        nvim /random/notes/thots/"$1"
     else
         allFiles /random/notes/thots | $(__fzfcmd) | xargs -r $EDITOR
     fi
@@ -206,7 +163,7 @@ webmTomp3(){
     done
 }
 
-ytm (){
+ytm(){
     mkdir /random/Music/$1 &&
     cd /random/Music/$1 &&
 
@@ -216,7 +173,6 @@ ytm (){
     do
         ffmpeg -i "$i" -b:a 320k "${i%.webm}.mp3" &&
         rm "$i"
-
     done
 }
 
@@ -335,7 +291,7 @@ fsc(){
     fzf  --height 20 | xargs -r codium --add
 }
 
-fco(){
+conf(){
 
     local dir="NOT SET"
     # Args
@@ -396,6 +352,9 @@ aw(){
     brave "https://wiki.archlinux.org/index.php?search=$searchTerm&title=Special%3ASearch&go=Go" &
 }
 
+local BRANCH_COLOR="magenta"
+local PROMPT_COLOR=green
+
 # Prompt Starts
 
 ## autoload vcs and colors
@@ -410,11 +369,10 @@ precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
 
-zstyle ':vcs_info:git:*' formats " %{$fg[magenta]%}%b%{$reset_color%}"
+zstyle ':vcs_info:git:*' formats " %{$fg[$BRANCH_COLOR]%}%b%{$reset_color%}"
 
-p_color=red
 
-PROMPT="%{$fg[$p_color]%}%B%d%{$reset_color%}"
+PROMPT="%{$fg[$PROMPT_COLOR]%}%B%d%{$reset_color%}"
 PROMPT+="\$vcs_info_msg_0_ "
 
 # Prompt Ends
