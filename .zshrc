@@ -4,6 +4,7 @@ autoload -U colors && colors
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.cache/zsh/history
+_FZF_HEIGHT_=6
 
 # Basic auto/tab complete:
 autoload -U compinit
@@ -20,6 +21,7 @@ export KEYTIMEOUT=1
 source "$HOME/env.sh"
 source "$HOME/alias.sh"
 source "/H/code/lbdsa/dsa.zsh"
+[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 
 # Key Bindings
 
@@ -53,9 +55,10 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
+
 # Use fzf for Reverse Searching History
 __fzfcmd() {
-    printf "fzf --height 10"
+    printf "fzf --height $_FZF_HEIGHT_"
 }
 
 __dmenucmd() {
@@ -89,34 +92,23 @@ bindkey -M viins '^R' fzf-history-widget
 ############
 
 
-# completion Functions
-
 compdef __ccoCompletions cco
-compdef __noteCompletions note
-
 function __ccoCompletions(){
     _arguments -C \
         "1: :($(ls /H/code))" \
 }
 
+compdef __noteCompletions note
 function __noteCompletions(){
     _arguments -C \
         "1: :($(ls /random/notes/thots))" \
 }
 
-compdef __ccgCompletions ccg
-
-function __ccgCompletions(){
-    _arguments -C \
-        "1: :($(ls /H/code/college/))" \
-}
-
-
 # functions
 
 tl() {
-    _session="$(tmux list-sessions | $(__fzfcmd) | awk -F: '{print $1}')"
-    tmux attach-session -t $_session
+    local _session="$(tmux list-sessions | $(__fzfcmd) | awk -F: '{print $1}')"
+    [[ "$_session" != "" ]] && tmux attach-session -t $_session
 }
 
 allContent() {
@@ -151,7 +143,7 @@ note(){
     elif [[ "$1" != "" ]]; then
         nvim /random/notes/thots/"$1"
     else
-        allFiles /random/notes/thots | $(__fzfcmd) | xargs -r $EDITOR
+        allFiles /random/notes/thots | $(__fzfcmd) | xargs -r -d '\n' $EDITOR
     fi
 }
 
@@ -218,7 +210,7 @@ sc(){
     elif [[ "$1" == "-g" ]]; then
         cd $HOME/scripts/
     else
-        allFiles $HOME/scripts | $(__fzfcmd) | xargs -r $EDITOR
+        allFiles $HOME/scripts | $(__fzfcmd) | xargs -r -d '\n' $EDITOR
     fi
 }
 
@@ -248,19 +240,16 @@ cco(){
         printf "Changing Directory to $2\n"
         cd "/H/code/$2"
     elif [[ "$1" == "-f" ]];  then
-        dir=$(ls /H/code/ | fzf  --height 10 )
+        dir=$(ls /H/code/ | $(__fzfcmd) )
         cd "/H/code/$dir"
     else
         cd /H/code/$1
     fi
 }
 
-ccg(){
-    cd /H/code/college/$1
-}
-
 ez(){
-    nvim -c "normal $(cat ~/.zshrc -n | $(__fzfcmd) | awk '{print $1}')Gzz" ~/.zshrc
+    __sel=$(cat ~/.zshrc -n | $(__fzfcmd) | awk '{print $1}')
+    [[ "$__sel" != "" ]] && nvim -c "$(printf "normal %sGzz" $__sel)" ~/.zshrc
 }
 
 fo(){
@@ -280,7 +269,7 @@ asmc(){
 }
 
 fs(){
-    fzf  --height 10 | xargs -r $EDITOR
+    $(__fzfcmd) | xargs -r -d '\n' $EDITOR
 }
 
 allFiles(){
@@ -288,7 +277,7 @@ allFiles(){
 }
 
 fsc(){
-    fzf  --height 20 | xargs -r codium --add
+    $(__fzfcmd) | xargs -r -d '\n' codium --add
 }
 
 conf(){
@@ -306,7 +295,7 @@ conf(){
 
     # Dir
     if [[ "$dir" == "NOT SET" ]]; then
-        local dir=$(ls $HOME/.config/ | fzf  --height 10 )
+        local dir=$(ls $HOME/.config/ | $(__fzfcmd) )
     fi
 
     if [[ "$GO_TO_DIR" == "1" ]]; then
@@ -318,7 +307,7 @@ conf(){
 }
 
 fn(){
-    allFiles "$HOME/.config/nvim/" | fzf  --height 10 | xargs -r $EDITOR
+    allFiles "$HOME/.config/nvim/" | $(__fzfcmd) | xargs -r -d '\n' $EDITOR
 }
 
 gpp(){
@@ -352,8 +341,8 @@ aw(){
     brave "https://wiki.archlinux.org/index.php?search=$searchTerm&title=Special%3ASearch&go=Go" &
 }
 
-local BRANCH_COLOR="magenta"
-local PROMPT_COLOR=green
+local BRANCH_COLOR=red
+local PROMPT_COLOR=blue
 
 # Prompt Starts
 
@@ -369,10 +358,10 @@ precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
 
-zstyle ':vcs_info:git:*' formats " %{$fg[$BRANCH_COLOR]%}%b%{$reset_color%}"
+zstyle ':vcs_info:git:*' formats " %B%{$fg[$BRANCH_COLOR]%}%b%{$reset_color%}"
 
 
-PROMPT="%{$fg[$PROMPT_COLOR]%}%B%d%{$reset_color%}"
+PROMPT="%{$fg[$PROMPT_COLOR]%}%B%2~%{$reset_color%}"
 PROMPT+="\$vcs_info_msg_0_ "
 
 # Prompt Ends
