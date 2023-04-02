@@ -22,20 +22,20 @@ static const int DFW                       =   800;
 static const int DFH                       =   600;
 static const int DFX                       =   550;
 static const int DFY                       =   250;
-static const char *fonts[]                 =   { "Sauce Code Pro Nerd Font:size=9" , "NotoColorEmoji:size=9"};
-static const char dmenufont[]              =   "SourceCodeProMedium:size=10";
-static const char col_statusbar_fg[]        =   "#ffffff";
-static const char col_statusbar_bg[]        =   "#1e1e1e";
-static const char col_current_fg[]         =   "#ffffff";
-static const char col_current_bg[]         =   "#31312a";
+static const char *fonts[]                 =   { "Sauce Code Pro Nerd Font:size=9" };
+static const char dmenufont[]              =   "Sauce Code Pro Nerd Font:size=9";
+static const char col_statusbar_fg[]       =   "#ffffff";
+static const char col_statusbar_bg[]       =   "#111111";
+static const char col_primary_fg[]         =   "#ffffff";
+static const char col_primary_bg[]         =   "#358c8c";
 static const char col_border[]             =   "#1d2130";
-static const char col_dmenuFG[]            =   "#bbbbbb";
+static const int BORDER_PX = 0;
 
 
 static const char *colors[][3]      = {
-    /*               fg         bg         border   */
+    /*              fg                 bg                 border   */
    [SchemeNorm] = { col_statusbar_fg,  col_statusbar_bg  ,col_border},
-   [SchemeSel]  = { col_current_fg,    col_current_bg    ,col_border},
+   [SchemeSel]  = { col_primary_fg,    col_primary_bg    ,col_border},
    [SchemeHid]  = { col_statusbar_fg,  col_statusbar_bg  ,col_border},
 };
 
@@ -62,12 +62,12 @@ static const Rule rules[] = {
 
                                                  /* Scratch Pads */
 
- { NULL,                 NULL,       "pcmanfm",              0,      1,           -1 ,       DFX,         DFY,   DFW,         DFH,             2,         'n'},
- { NULL,                 NULL,       "scratchpad",           0,      1,           -1,        DFX,         DFY,   DFW,         DFH,             2,         's'},
- { NULL,                 NULL,       "gomp",                 0,      1,           -1,        DFX - 50 ,   DFY,   DFW + 50 ,   DFH,             2,         'y'},
- { NULL,                 NULL,       "tremc",                0,      1,           -1,        DFX - 50 ,   DFY,   DFW + 50 ,   DFH,             2,         't'},
- { NULL,                 NULL,       "Select Color",         0,      1,           -1,        DFX - 50 ,   DFY,   DFW + 50 ,   DFH,             2,         'c'},
- { NULL,                 NULL,       "Ideas",                0,      1,           -1,        DFX - 50 ,   DFY,   DFW + 50 ,   DFH,             2,         'i'},
+ { NULL,    NULL,     "aditya - Thunar",      0,      1,           -1 ,       DFX,         DFY,   DFW,         DFH,     BORDER_PX,   'n'},
+ { NULL,    NULL,     "scratchpad",           0,      1,           -1,        DFX,         DFY,   DFW,         DFH,     BORDER_PX,   's'},
+ { NULL,    NULL,     "gomp",                 0,      1,           -1,        DFX - 50 ,   DFY,   DFW + 50 ,   DFH,     BORDER_PX,   'y'},
+ { NULL,    NULL,     "tremc",                0,      1,           -1,        DFX - 50 ,   DFY,   DFW + 50 ,   DFH,     BORDER_PX,   't'},
+ { NULL,    NULL,     "Select Color",         0,      1,           -1,        DFX - 50 ,   DFY,   DFW + 50 ,   DFH,     BORDER_PX,   'c'},
+ { NULL,    NULL,     "Ideas",                0,      1,           -1,        DFX - 50 ,   DFY,   DFW + 50 ,   DFH,     BORDER_PX,   'i'},
 
 };
 
@@ -100,11 +100,11 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2]              = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[]        = { "dmenu_run", "-p", ">", "-m", dmenumon, "-fn", dmenufont};
+static const char *dmenucmd[]        = { "dmenu_run", "-p", ">", "-m", dmenumon, "-fn", dmenufont, "-sb", col_primary_bg};
 static const char *termcmd[]         = { "/usr/bin/alacritty", NULL };
 static const char *web[]             = { "/usr/bin/brave", NULL };
 static const char *torrentcli[]      = { "t", "alacritty", "-t", "tremc" , "-e", "tremc", NULL};
-static const char *fileManager[]     = { "n", "/usr/bin/pcmanfm", NULL };
+static const char *fileManager[]     = { "n", "/usr/bin/thunar", NULL };
 static const char *colorChooser[]    = { "c", "/usr/bin/kcolorchooser", NULL };
 static const char *scratchpadcmd[]   = { "s", "alacritty", "-t", "scratchpad" , "-e", "scratchtmux", NULL};
 static const char *ideascmd[]        = { "i", "alacritty", "-t", "Ideas" , "-e", "nvim", "/random/notes/thots/🥷 Tech Ideas/Ideas.md.md", NULL};
@@ -119,7 +119,7 @@ static Key keys[] = {
   { MODKEY|ShiftMask,                       XK_Return,                   spawn,                 SHCMD("alacritty -e tmux") },
   { MODKEY,                                 XK_space,                    togglescratch,         {.v = scratchpadcmd } },
   { Mod1Mask,                               XK_y,                        togglescratch,         {.v = gompcmd } },
-  { MODKEY,                                 XK_n,                        togglescratch,         {.v = fileManager } },
+  { MODKEY,                                 XK_e,                        togglescratch,         {.v = fileManager } },
   { MODKEY,                                 XK_q,                        togglescratch,         {.v = torrentcli } },
   { MODKEY|ControlMask|ShiftMask,           XK_c,                        togglescratch,         {.v = colorChooser } },
   { MODKEY|ShiftMask,                       XK_o,                        togglescratch,         {.v = ideascmd } },
@@ -143,7 +143,7 @@ static Key keys[] = {
   { MODKEY,                                 XK_F9,                       spawn,                 SHCMD("xbacklight -dec 10")},
   { 0,                                      XF86XK_MonBrightnessUp,      spawn,                 SHCMD("xbacklight -inc 10")},
   { 0,                                      XF86XK_MonBrightnessDown,    spawn,                 SHCMD("xbacklight -dec 10")},
-  { MODKEY,                                 XK_e,                        spawn,                 SHCMD("getEmoji")},
+  { MODKEY|ShiftMask,                       XK_e,                        spawn,                 SHCMD("getEmoji")},
   { MODKEY,                                 XK_i,                        spawn,                 SHCMD("copyq menu")},
   { MODKEY,                                 XK_g,                        setlayout,             {.v = &layouts[3]} },
   { MODKEY,                                 XK_r,                        setlayout,             {.v = &layouts[4]} },
