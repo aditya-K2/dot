@@ -117,7 +117,7 @@ function __ccoCompletions(){
 compdef __noteCompletions note
 function __noteCompletions(){
     _arguments -C \
-        "1: :($(ls /random/notes/thots))" \
+        "1: :($(ls $NOTES_DIR/thots))" \
 }
 
 # functions
@@ -148,7 +148,7 @@ tl() {
     [[ "$_session" != "" ]] && tmux attach-session -t $_session
 }
 
-allContent() {
+all_content() {
     du -a /random/RTDownloads /F/FTDownloads | grep ".m[k,p][v,4]$" | awk -F'\t' '{print $2}'
 }
 
@@ -167,7 +167,7 @@ program() {
 }
 
 mpvf(){
-    local __sel="$(allContent | $($(program "$1" )))"
+    local __sel="$(all_content | $($(program "$1" )))"
     [[ "$1" == "-p" ]] &&
         __openCmd="pcmanfm" __sel="`dirname "$__sel"`" ||
         __openCmd="mpv"
@@ -176,28 +176,15 @@ mpvf(){
 
 note(){
     if [[ "$1" == "-d" ]]; then
-        nvim /random/notes/journals/$(date "+%a_%d_%b.md")
+        nvim $NOTES_DIR/journals/$(date "+%a_%d_%b.md")
     elif [[ "$1" != "" ]]; then
-        nvim /random/notes/thots/"$1"
+        nvim $NOTES_DIR/thots/"$1"
     else
-        allFiles /random/notes/thots | $(__fzfcmd) | xargs -r -d '\n' $EDITOR
+        all_files $NOTES_DIR/thots | $(__fzfcmd) | xargs -r -d '\n' $EDITOR
     fi
 }
 
-webmTomp3(){
-    for i in *.webm
-    do
-        ffmpeg -i "$i" -b:a 320k "${i%.webm}.mp3" &&
-        rm "$i"
-    done
-}
-
-ytm(){
-    mkdir /random/Music/$1 &&
-    cd /random/Music/$1 &&
-
-    youtube-dl -f 251 "$2"
-
+webmtomp3(){
     for i in *.webm
     do
         ffmpeg -i "$i" -b:a 320k "${i%.webm}.mp3" &&
@@ -247,7 +234,7 @@ sc(){
     elif [[ "$1" == "-g" ]]; then
         cd $HOME/scripts/
     else
-        allFiles $HOME/scripts | $(__fzfcmd) | xargs -r -d '\n' $EDITOR
+        all_files $HOME/scripts | $(__fzfcmd) | xargs -r -d '\n' $EDITOR
     fi
 }
 
@@ -299,7 +286,7 @@ fo(){
         selectedFile="$($(__fzfcmd))" &&
         nvim -c "$(cat -n $selectedFile | $(__fzfcmd) | awk '{print $1}')" "$selectedFile"
     else
-        selectedFile="$(du -a $1 | awk '{print $2}' |$(__fzfcmd))" &&
+        selectedFile="$(all_files $1 | awk '{print $2}' |$(__fzfcmd))" &&
         nvim -c "$(cat -n $selectedFile | $(__fzfcmd) | awk '{print $1}')" "$selectedFile"
     fi
 }
@@ -314,7 +301,7 @@ fs(){
     $(__fzfcmd) | xargs -r -d '\n' $EDITOR
 }
 
-allFiles(){
+all_files(){
     du -a "$1" | awk '{print $2}'
 }
 
@@ -347,7 +334,7 @@ conf(){
 }
 
 fn(){
-    allFiles "$HOME/.config/nvim/" | $(__fzfcmd) | xargs -r -d '\n' $EDITOR
+    all_files "$HOME/.config/nvim/" | $(__fzfcmd) | xargs -r -d '\n' $EDITOR
 }
 
 gpp(){
