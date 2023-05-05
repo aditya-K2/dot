@@ -1,10 +1,13 @@
 autoload -U colors && colors
 
+setopt HIST_SAVE_NO_DUPS
+
 # History in cache directory:
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=100000
+SAVEHIST=100000
 HISTFILE=~/.cache/zsh/history
-_FZF_HEIGHT_=6
+_FZF_HEIGHT_=7
+_FZF_OPTIONS_="--border=none --info=hidden --no-scrollbar --color=light --reverse"
 
 # Basic auto/tab complete:
 autoload -U compinit
@@ -58,7 +61,7 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # Use fzf for Reverse Searching History
 __fzfcmd() {
-    printf "fzf --height $_FZF_HEIGHT_"
+    printf "fzf --height $_FZF_HEIGHT_ $_FZF_OPTIONS_"
 }
 
 __dmenucmd() {
@@ -91,6 +94,19 @@ bindkey -M viins '^R' fzf-history-widget
 
 ############
 
+compdef __confCompletions conf
+function __confCompletions(){
+    _arguments -C \
+        "1: :($(ls $HOME/.config))" \
+        "2: :($(ls $HOME/.config))" \
+}
+
+compdef __venvCompletions venv
+function __venvCompletions(){
+    _arguments -C \
+        "1: :(new source -f)" \
+        "2: :($(ls $VENV_DIRECTORY))" \
+}
 
 compdef __ccoCompletions cco
 function __ccoCompletions(){
@@ -105,6 +121,27 @@ function __noteCompletions(){
 }
 
 # functions
+venv() {
+    case "$1" in
+        "new")
+            [[ "$2" != "" ]] && virtualenv "$VENV_DIRECTORY/$2" &&
+                source "$VENV_DIRECTORY/$2/bin/activate" ||
+                printf "Empty Name Provided!"
+            ;;
+        "remove")
+            [[ "$2" != "" ]] && \rm -rf "$VENV_DIRECTORY/$2" &&
+                printf "Removed $2 Succesfully!" ||
+                printf "Empty Name Provided!"
+            ;;
+        "-f")
+            local sel="$( ls $VENV_DIRECTORY | $(__fzfcmd) )"
+            [[ "$sel" != "" ]] && source "$VENV_DIRECTORY/$sel/bin/activate"
+            ;;
+        *)
+            source "$VENV_DIRECTORY/$2/bin/activate"
+            ;;
+    esac
+}
 
 tl() {
     local _session="$(tmux list-sessions | $(__fzfcmd) | awk -F: '{print $1}')"
@@ -248,8 +285,13 @@ cco(){
 }
 
 ez(){
-    __sel=$(cat ~/.zshrc -n | $(__fzfcmd) | awk '{print $1}')
-    [[ "$__sel" != "" ]] && nvim -c "$(printf "normal %sGzz" $__sel)" ~/.zshrc
+    local file="$(cat ~/.zshrc -n | $(__fzfcmd))"
+    [[ "$file" != "" ]] && (
+        local line_nr="$(awk '{print $1}' <<< "$file")"
+        local line="$(awk -F$line_nr '{print $2}' <<< "$file")"
+        grep "source" <<< "$line" &&
+            nvim "$(envsubst <<< $(awk -F\" '{print $2}' <<< "$line" | sed "s/\ //g"))" ||
+        (nvim -c "$(printf "normal %sGzz" $line_nr)" ~/.zshrc))
 }
 
 fo(){
@@ -281,7 +323,6 @@ fsc(){
 }
 
 conf(){
-
     local dir="NOT SET"
     # Args
     for i in "$@"
@@ -303,7 +344,6 @@ conf(){
     else
         nvim ~/.config/$dir
     fi
-
 }
 
 fn(){
