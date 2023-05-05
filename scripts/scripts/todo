@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-TODO_FILE="$HOME/todofile"
+TODO_FILE="$HOME/.cache/todofile"
 
 ! [[ -e $TODO_FILE ]] && touch "$TODO_FILE"
 
