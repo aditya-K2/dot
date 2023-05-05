@@ -1,6 +1,7 @@
 #!/bin/sh
 
 batteryPercentage=$(cat /sys/class/power_supply/BAT0/capacity)
+charging=$(acpi | awk '{print $3}')
 NFILE="$HOME/scripts/nfile"
 minValue=20
 
@@ -8,4 +9,4 @@ minValue=20
 
 ! [[ $batteryPercentage -lt $minValue ]] && rm "$NFILE"
 
-printf " ^c$YELLOW_COLOR^  $batteryPercentage"
+printf " ^c$YELLOW_COLOR^  $batteryPercentage $( [ $charging == "Charging," ] && echo " " )"
