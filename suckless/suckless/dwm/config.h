@@ -24,8 +24,8 @@ static const char *fonts[]                 =   { "Sauce Code Pro Nerd Font:size=
 static const char dmenufont[]              =   "Sauce Code Pro Nerd Font:size=9:style=Normal";
 static const char col_statusbar_fg[]       =   "#ffffff";
 static const char col_statusbar_bg[]       =   "#111111";
-static const char col_primary_fg[]         =   "#ffffff";
-static const char col_primary_bg[]         =   "#358c8c";
+static const char col_primary_fg[]         =   "#ffee00";
+static const char col_primary_bg[]         =   "#000000";
 static const char col_border[]             =   "#1d2130";
 static const int BORDER_PX = 0;
 
@@ -75,13 +75,13 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 
 static const Layout layouts[] = {
     /* symbol     arrange function */
-    { "[T]",      tile },    /* first entry is default */
-    { "[F]",      NULL },    /* no layout function means floating behavior */
-    { "[M]",      monocle },
-    { "[G]",      grid },
-    { "[@]",      spiral },
-    { "[\\]",     dwindle },
-    { "TTT",      bstack },
+    { "[Tile]",      tile },    /* first entry is default */
+    { "[Float]",      NULL },    /* no layout function means floating behavior */
+    { "[Mono]",      monocle },
+    { "[Grid]",      grid },
+    { "[Spiral]",      spiral },
+    { "[Dwindle]",     dwindle },
+    { "[BStack]",      bstack },
 };
 
 /* key definitions */
