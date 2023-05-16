@@ -1,0 +1,1244 @@
+diff --git a/.tmux.conf b/.tmux.conf
+index 68f1230..8da5aaa 100644
+--- a/.tmux.conf
++++ b/.tmux.conf
+@@ -15,8 +15,8 @@ setw -g mode-keys vi
+ # vi for command status
+ set -g status-keys vi
+ 
+-bind -n C-k previous-window
+-bind -n C-j next-window
++bind -n M-[ previous-window
++bind -n M-] next-window
+ # bind -n C-space  copy-mode
+ 
+ set -g default-terminal "tmux-256color"
+@@ -43,3 +43,7 @@ set -g mouse on
+ set -g history-limit 30000
+ set -sg escape-time 0
+ set -g default-shell /bin/zsh
++
++CURRENT_WIN_FG=black
++CURRENT_WIN_BG=green
++set -g window-status-current-format "#[bg=$CURRENT_WIN_BG,fg=$CURRENT_WIN_FG,bold] #{window_index}:#[fg=$CURRENT_WIN_FG]#{window_name}#[fg=$CURRENT_WIN_FG]#{window_flags} "
+diff --git a/.zshrc b/.zshrc
+index 16f19ee..a381ea2 100644
+--- a/.zshrc
++++ b/.zshrc
+@@ -7,7 +7,7 @@ HISTSIZE=100000
+ SAVEHIST=100000
+ HISTFILE=~/.cache/zsh/history
+ _FZF_HEIGHT_=7
+-_FZF_OPTIONS_="--border=none --info=hidden --no-scrollbar --color=light --reverse"
++_FZF_OPTIONS_="--border=none --info=hidden --no-scrollbar --color=dark --reverse --ansi"
+ 
+ # Basic auto/tab complete:
+ autoload -U compinit
+@@ -94,6 +94,7 @@ bindkey -M viins '^R' fzf-history-widget
+ 
+ ############
+ 
++# Completion Functions
+ compdef __confCompletions conf
+ function __confCompletions(){
+     _arguments -C \
+@@ -104,7 +105,7 @@ function __confCompletions(){
+ compdef __venvCompletions venv
+ function __venvCompletions(){
+     _arguments -C \
+-        "1: :(new source -f)" \
++        "1: :(new remove source -f)" \
+         "2: :($(ls $VENV_DIRECTORY))" \
+ }
+ 
+@@ -144,7 +145,7 @@ venv() {
+ }
+ 
+ tl() {
+-    local _session="$(tmux list-sessions | $(__fzfcmd) | awk -F: '{print $1}')"
++    local _session="$(tmux list-sessions 2>/dev/null | $(__fzfcmd) | awk -F: '{print $1}')"
+     [[ "$_session" != "" ]] && tmux attach-session -t $_session
+ }
+ 
+@@ -247,16 +248,12 @@ lzf(){
+ }
+ 
+ fg(){
+-    optionS=$(rg --column --line-number --hidden --ignore-case --no-heading . | $(__fzfcmd) | awk '{print $1}' | awk -F ":" '{print $1 "-" $2}')
++    optionS=$(rg --column --colors='match:fg:white' --colors 'match:style:nobold' --color=always --line-number --hidden --ignore-case --no-heading . | $(__fzfcmd) | awk '{print $1}' | awk -F ":" '{print $1 "-" $2}')
+     if [[ "$optionS" != "" ]]; then
+         nvim ${optionS%-*} -c "normal ${optionS#*-}Gzz"
+     fi
+ }
+ 
+-poke(){
+-    cat $HOME/suckless/colorscripts/$(ls $HOME/suckless/colorscripts/ | shuf -n 1)
+-}
+-
+ cco(){
+     if [[ "$1" == "-m" ]];  then
+         printf "Making Directory $2\n"
+@@ -276,21 +273,12 @@ ez(){
+     [[ "$file" != "" ]] && (
+         local line_nr="$(awk '{print $1}' <<< "$file")"
+         local line="$(awk -F$line_nr '{print $2}' <<< "$file")"
+-        grep "source" <<< "$line" &&
++        line="$(sed "s/\t//g" <<< "$line")"
++        grep "^source" <<< "$line" 1>/dev/null 2>/dev/null &&
+             nvim "$(envsubst <<< $(awk -F\" '{print $2}' <<< "$line" | sed "s/\ //g"))" ||
+         (nvim -c "$(printf "normal %sGzz" $line_nr)" ~/.zshrc))
+ }
+ 
+-fo(){
+-    if [ -z ${1} ]; then
+-        selectedFile="$($(__fzfcmd))" &&
+-        nvim -c "$(cat -n $selectedFile | $(__fzfcmd) | awk '{print $1}')" "$selectedFile"
+-    else
+-        selectedFile="$(all_files $1 | awk '{print $2}' |$(__fzfcmd))" &&
+-        nvim -c "$(cat -n $selectedFile | $(__fzfcmd) | awk '{print $1}')" "$selectedFile"
+-    fi
+-}
+-
+ asmc(){
+     nasm -f elf64 -o "/tmp/${1%.asm}.o" "$1" &&
+     ld "/tmp/${1%.asm}.o" -o "/tmp/${1%.asm}" &&
+@@ -334,11 +322,11 @@ conf(){
+ }
+ 
+ fn(){
+-    all_files "$HOME/.config/nvim/" | $(__fzfcmd) | xargs -r -d '\n' $EDITOR
++    all_files "$HOME/.config/nvim/"| grep -v "lazy-lock.json" | $(__fzfcmd) | xargs -r -d '\n' $EDITOR
+ }
+ 
+ gpp(){
+-    g++ $1 && ./a.out
++    g++ $1 -o "/tmp/${1%.cc}.out" && "/tmp/${1%.cc}.out"
+ }
+ 
+ rsc(){
+diff --git a/alacritty/.config/alacritty/alacritty.yml b/alacritty/.config/alacritty/alacritty.yml
+index 73443f1..6034aec 100644
+--- a/alacritty/.config/alacritty/alacritty.yml
++++ b/alacritty/.config/alacritty/alacritty.yml
+@@ -3,8 +3,8 @@ env:
+ 
+ window:
+   padding:
+-      x: 5
+-      y: 5
++      x: 1
++      y: 2
+ 
+   opacity: 1
+ 
+@@ -12,37 +12,52 @@ shell:
+   program: /bin/zsh
+ 
+ font:
+-  # size: 8.5
+   size: 5.5
++  # size: 8.5
+ 
+   normal:
+     family: JetBrains Mono Nerd Font
+-    style: Thin
++    style: Normal
+   bold:
+     family: JetBrains Mono Nerd Font
+-    style: Normal
++    style: Bold
+   italic:
+     family: JetBrains Mono Nerd Font
+-    style: Thin Italic
++    style: Light Italic
+   bold_italic:
+     family: JetBrains Mono Nerd Font
+-    style: Italic
++    style: Bold Italic
++  # offset:
++  #   x: 1
+ 
+-# Colors (Dark plus)
++# Colors (Solarized Dark)
+ colors:
++  # Default colors
+   primary:
+-    background: '0x1E1E1E'
+-    foreground: '0xD4D4D4'
++    background: '0x111313'
++    foreground: '0xffffff'
+ 
++  # Normal colors
+   normal:
+-    black:   '0x1E1E1E'
+-    red:     '0xF44747'
+-    green:   '0x608B4E'
+-    yellow:  '0xf5f543'
+-    blue:    '0x569CD6'
+-    magenta: '0xC586C0'
+-    cyan:    '0x9CDCFE'
+-    white:   '0xD4D4D4'
++    black:   '0x073642'
++    red:     '0xdc322f'
++    green:   '0x859900'
++    yellow:  '0xb58900'
++    blue:    '0x268bd2'
++    magenta: '0xd33682'
++    cyan:    '0x2aa198'
++    white:   '0xeee8d5'
++
++  # Bright colors
++  bright:
++    black:   '0x002b36'
++    red:     '0xcb4b16'
++    green:   '0x586e75'
++    yellow:  '0x657b83'
++    blue:    '0x839496'
++    magenta: '0x6c71c4'
++    cyan:    '0x93a1a1'
++    white:   '0xfdf6e3'
+ 
+ draw_bold_text_with_bright_colors: false
+ 
+diff --git a/nvim/.config/nvim/.gitignore b/nvim/.config/nvim/.gitignore
+index 7cd38ad..db59d31 100644
+--- a/nvim/.config/nvim/.gitignore
++++ b/nvim/.config/nvim/.gitignore
+@@ -1,3 +1,4 @@
+ plugin
+ spell
+ .luarc.json
++lazy-lock.json
+diff --git a/nvim/.config/nvim/init.lua b/nvim/.config/nvim/init.lua
+index 691d3b3..107545c 100644
+--- a/nvim/.config/nvim/init.lua
++++ b/nvim/.config/nvim/init.lua
+@@ -1,5 +1,5 @@
+-require("impatient")
+-require("aditya.packer")
++require("aditya.lazy")
+ require("aditya.settings")
+ require("aditya.mappings")
++-- require("aditya.compe")
+ require("aditya.lsp")
+diff --git a/nvim/.config/nvim/lua/aditya/lsp.lua b/nvim/.config/nvim/lua/aditya/lsp.lua
+index 0ae706d..7a0b3dc 100644
+--- a/nvim/.config/nvim/lua/aditya/lsp.lua
++++ b/nvim/.config/nvim/lua/aditya/lsp.lua
+@@ -14,14 +14,10 @@ local on_attach = function(client, bufnr)
+   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+   buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+   buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+-  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+-  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+-  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+   buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+   buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+   buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+   buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+   buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+   buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+@@ -32,21 +28,22 @@ end
+ -- map buffer local keybindings when the language server attaches
+ 
+ local servers = {
+-    "clangd",
+-    "dartls",
+-    "vimls",
+-    "pyright",
+-    "gopls",
+-    "tsserver",
+-    "cmake"
++  "clangd",
++  "dartls",
++  "vimls",
++  -- "yamlls",
++  "pyright",
++  "gopls",
++  "tsserver",
++  "cmake"
+ }
+ 
+ for _, lsp in ipairs(servers) do
+   nvim_lsp[lsp].setup {
+-    on_attach = on_attach,
+-    flags = {
+-      debounce_text_changes = 150,
+-    }
++  on_attach = on_attach,
++  flags = {
++    debounce_text_changes = 150,
++  }
+   }
+ end
+ 
+@@ -54,39 +51,49 @@ local diagnostics_padding = 0
+ local enable_hover_over_diagnostics = false
+ 
+ vim.diagnostic.config {
+-    virtual_text = true,
+-    float = {
+-        source = 'always',
+-        focusable = true,
+-        focus = false,
+-        pad_top = diagnostics_padding,
+-        pad_bottom = diagnostics_padding,
+-    }
++  virtual_text = true,
++  float = {
++    source = 'always',
++    focusable = true,
++    focus = false,
++    pad_top = diagnostics_padding,
++    pad_bottom = diagnostics_padding,
++  }
+ }
+ 
+ local diagnostics_show_pop_up = function()
+-    return vim.diagnostic.open_float(0, { scope = "line" })
++  return vim.diagnostic.open_float(0, { scope = "line" })
+ end
+ 
+ local diagnostics_popup_handler = function()
+-    local current_cursor = vim.api.nvim_win_get_cursor(0)
+-    local last_popup_cursor = vim.w.lsp_diagnostics_last_cursor or { nil, nil }
++  local current_cursor = vim.api.nvim_win_get_cursor(0)
++  local last_popup_cursor = vim.w.lsp_diagnostics_last_cursor or { nil, nil }
+ 
+-    -- Show the popup diagnostics window,
+-    -- but only once for the current cursor location (unless moved afterwards).
+-    if not (current_cursor[1] == last_popup_cursor[1] and current_cursor[2] == last_popup_cursor[2]) then
+-      vim.w.lsp_diagnostics_last_cursor = current_cursor
+-      local _, winnr = diagnostics_show_pop_up()
+-    end
++  -- Show the popup diagnostics window,
++  -- but only once for the current cursor location (unless moved afterwards).
++  if not (current_cursor[1] == last_popup_cursor[1] and current_cursor[2] == last_popup_cursor[2]) then
++    vim.w.lsp_diagnostics_last_cursor = current_cursor
++    local _, winnr = diagnostics_show_pop_up()
++  end
+ end
+ 
+ if enable_hover_over_diagnostics then
+-    vim.api.nvim_create_autocmd("CursorHold", {
+-        group = vim.api.nvim_create_augroup("__DG_ON_HOVER__", { clear = true }),
+-        callback = diagnostics_popup_handler
+-    })
++  vim.api.nvim_create_autocmd("CursorHold", {
++    group = vim.api.nvim_create_augroup("__DG_ON_HOVER__", { clear = true }),
++    callback = diagnostics_popup_handler
++  })
+ end
+ 
++require('lspconfig').yamlls.setup {
++  settings = {
++    yaml = {
++      schemas = {
++        ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json"] = "/*.k8s.yaml",
++      },
++    },
++  }
++}
++
+ -----------------------------------------------------------------------------
+ 
+ --Enable (broadcasting) snippet capability for completion
+diff --git a/nvim/.config/nvim/lua/aditya/mappings.lua b/nvim/.config/nvim/lua/aditya/mappings.lua
+index cc14507..9e74ade 100644
+--- a/nvim/.config/nvim/lua/aditya/mappings.lua
++++ b/nvim/.config/nvim/lua/aditya/mappings.lua
+@@ -12,19 +12,21 @@ local function vnoremap(lhs, rhs)
+     vim.api.nvim_set_keymap("v", lhs, rhs, {noremap = true})
+ end
+ 
+-local function ClangFormatBuffer()
+-    if vim.api.nvim_buf_get_option(0, "modified") then
+-        local cpos  = vim.fn.getpos('.')
+-        local file = vim.fn.expand("%")
+-        vim.fn.jobstart({"clang-format", file}, {
+-          stdout_buffered = true,
+-          on_stdout = function(_, data)
+-            if data then
+-              vim.api.nvim_buf_set_lines(0, 0, -1, false, data)
+-              vim.fn.setpos('.', cpos)
+-              vim.api.nvim_command("noautocmd write")
+-            end
++local function format_func(formatter)
++    return function()
++        if vim.api.nvim_buf_get_option(0, "modified") then
++            local cpos  = vim.fn.getpos('.')
++            local file = vim.fn.expand("%")
++            vim.fn.jobstart({formatter, file}, {
++              stdout_buffered = true,
++              on_stdout = function(_, data)
++                if data then
++                  vim.api.nvim_buf_set_lines(0, 0, -1, false, data)
++                  vim.fn.setpos('.', cpos)
++                  vim.api.nvim_command("noautocmd write")
++                end
+           end})
++        end
+     end
+ end
+ 
+@@ -33,12 +35,21 @@ local function format_buffer()
+ end
+ 
+ local format_group = vim.api.nvim_create_augroup("__aditya__format_group", {clear = true})
+-local fg_pattern = { "*.cpp" , "*.cc", "*.dart" }
++local fg_pattern = { "*.cpp" , "*.cc" }
++local show_spaces = { "*.yaml", "*.py" }
+ 
+ vim.api.nvim_create_autocmd("BufWritePre", {
+     group = format_group,
+     pattern = fg_pattern,
+-    callback = format_buffer,
++    callback = format_func("clang-format"),
++})
++
++vim.api.nvim_create_autocmd("BufEnter", {
++    group = format_group,
++    pattern = show_spaces,
++    callback = function()
++        vim.cmd("setlocal listchars+=space:.")
++    end,
+ })
+ 
+ vim.api.nvim_create_autocmd("BufEnter", {
+@@ -59,6 +70,14 @@ vim.api.nvim_create_autocmd("BufEnter", {
+     end
+ })
+ 
++vim.api.nvim_create_autocmd("BufEnter", {
++    group = format_group,
++    pattern = { "*.tf" },
++    callback = function()
++        vim.cmd("set filetype=hcl")
++    end
++})
++
+ nnoremap ("<TAB>" , ":bnext<CR>")
+ nnoremap ("<S-TAB>" , ":bprevious<CR>")
+ nnoremap ("Y" , "y$")
+@@ -93,9 +112,9 @@ vim.cmd( "autocmd BufRead,BufNewFile *.latex nnoremap <C-o> :call Spellfloat()<C
+ vim.cmd( "autocmd BufRead,BufNewFile *.latex nmap <leader>mm :!compileLatex % <CR>" )
+ vim.cmd( "autocmd BufRead,BufNewFile *.latex nmap <leader>mc :!pdflatex -shell-escape % <CR>" )
+ 
+-nmap ("<leader>fn" , "<cmd> lua require('telescope.builtin').find_files{cwd='/home/aditya/.config/nvim', prompt='cpFiles'}<CR>")
+-nmap ("<leader>fs" , ":Telescope find_files <CR>")
+-nmap ("<leader>fg" , ":Telescope live_grep <CR>")
++nmap ("<leader>fn" , ":Files ~/.config/nvim/<CR>")
++nmap ("<leader>fs" , ":Files<CR>")
++nmap ("<leader>fg" , ":Rg <CR>")
+ nmap ("<leader>fh" , ":Telescope help_tags <CR>")
+ 
+ vim.api.nvim_set_keymap("i", "<C-BS>" , "<C-w>", {})
+diff --git a/nvim/.config/nvim/lua/aditya/packer.lua b/nvim/.config/nvim/lua/aditya/packer.lua
+deleted file mode 100644
+index 4a8d958..0000000
+--- a/nvim/.config/nvim/lua/aditya/packer.lua
++++ /dev/null
+@@ -1,88 +0,0 @@
+-vim.cmd [[ packadd packer.nvim ]]
+-
+-return require("packer").startup(function(use)
+-    use 'wbthomason/packer.nvim'
+-    use 'lewis6991/impatient.nvim'
+-
+-    use 'tpope/vim-commentary'
+-    use 'mattn/emmet-vim'
+-
+-    -- Telescope
+-    use { 'nvim-telescope/telescope.nvim', tag = '0.1.0', requires = { {'nvim-lua/plenary.nvim'} },
+-    config = function()
+-        -- Telescope Settings
+-        require("telescope").setup {
+-          pickers = {
+-            find_files = {
+-              theme = "ivy",
+-              layout_config = { height = 0.2 }
+-            },
+-            live_grep = {
+-              theme = "ivy",
+-              layout_config = { height = 0.3 }
+-            },
+-            help_tags = {
+-              theme = "ivy",
+-              layout_config = { height = 0.3 }
+-            }
+-          },
+-        }
+-    end
+-    }
+-
+-    -- Color Schemes
+-    -- use 'mhartington/oceanic-next'
+-    -- use 'navarasu/onedark.nvim'
+-    -- use 'folke/tokyonight.nvim'
+-    -- use 'tomasiser/vim-code-dark'
+-    -- use 'Mofiqul/vscode.nvim'
+-    use 'RRethy/nvim-base16'
+-    -- use "rebelot/kanagawa.nvim"
+-    -- use 'Soares/base16.nvim'
+-    -- use 'chriskempson/base16-vim'
+-    -- use {"ellisonleao/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
+-    -- use { "briones-gabriel/darcula-solid.nvim", requires = "rktjmp/lush.nvim" }
+-    -- use {'shaunsingh/oxocarbon.nvim', branch = 'fennel'}
+-    -- use 'ishan9299/nvim-solarized-lua'
+-    -- use 'davidosomething/vim-colors-meh'
+-    -- use 'Shatur/neovim-ayu'
+-    -- use 'https://gitlab.com/madyanov/gruber.vim'
+-    -- use 'aditya-K2/scruber.vim'
+-
+-    use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'}
+-
+-    use 'fatih/vim-go'
+-    use {'akinsho/flutter-tools.nvim', requires = 'nvim-lua/plenary.nvim',
+-    config = function()
+-        flutter_tools = true
+-        require("flutter-tools").setup{}
+-    end}
+-
+-    -- Tree Sitter
+-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
+-    config = function()
+-        -- treesitter highlighting
+-        require'nvim-treesitter.configs'.setup { highlight = { enable = true } }
+-    end }
+-    use 'nvim-treesitter/playground'
+-
+-    -- Lsp
+-    use 'neovim/nvim-lspconfig'
+-    -- use 'ray-x/lsp_signature.nvim'
+-
+-    -- Cmp
+-    -- use 'hrsh7th/nvim-cmp'
+-    -- use 'hrsh7th/cmp-buffer'
+-    -- use 'hrsh7th/cmp-path'
+-    -- use 'hrsh7th/cmp-nvim-lua'
+-    -- use 'hrsh7th/cmp-nvim-lsp'
+-    -- use 'onsails/lspkind-nvim'
+-
+-    use 'aditya-K2/spellfloat'
+-    use 'aditya-K2/termtoggle.nvim'
+-
+-    use 'dstein64/vim-startuptime'
+-
+-    --Maximizer
+-    use 'szw/vim-maximizer'
+-end)
+diff --git a/nvim/.config/nvim/lua/aditya/settings.lua b/nvim/.config/nvim/lua/aditya/settings.lua
+index 0b8a584..3b36943 100644
+--- a/nvim/.config/nvim/lua/aditya/settings.lua
++++ b/nvim/.config/nvim/lua/aditya/settings.lua
+@@ -4,16 +4,19 @@ vim.g["user_emmet_leader_key"]               = ","
+ vim.g["user_emmet_mode"]                     = "n"
+ vim.g["color_coded_enabled "]                = 1
+ vim.g["go_def_mapping_enabled"]              = false
++vim.g["indent_blankline_filetype"]           = { "yaml", "lua" }
++vim.g["fzf_preview_window"]                  = {}
++vim.g["fzf_layout"]                          = { down = '15%' }
++
++vim.opt.background="dark"
++vim.opt.termguicolors=true
+ 
+ vim.cmd [[
+     syntax enable
+     syntax on
+-    colorscheme base16-bright
++    colorscheme darkblue
+ ]]
+ 
+-vim.opt.background="dark"
+-vim.opt.termguicolors=true
+-
+ COLUMNS = 80
+ -- vim.opt.colorcolumn=vim.fn.join(vim.fn.range(COLUMNS, 999),",")
+ vim.opt.colorcolumn={COLUMNS}
+@@ -48,36 +51,48 @@ vim.opt.spelloptions="camel"
+ vim.opt.guifont="Source Code Pro:h8"
+ vim.opt.expandtab=true
+ vim.opt.laststatus=3
++-- vim.cmd("set mouse=")
+ 
+ -- LSP Diagnostics
+ 
+-vim.cmd("sign define DiagnosticSignError texthl=DiagnosticSignError text=>>"  )
+-vim.cmd("sign define DiagnosticSignWarn  texthl=DiagnosticSignWarn  text=>>"  )
+-vim.cmd("sign define DiagnosticSignInfo  texthl=DiagnosticSignInfo  text=>>"  )
+-vim.cmd("sign define DiagnosticSignHint  texthl=DiagnosticSignHint  text=>>"  )
++vim.cmd("sign define DiagnosticSignError texthl=DiagnosticSignError text=>"  )
++vim.cmd("sign define DiagnosticSignWarn  texthl=DiagnosticSignWarn  text=>"  )
++vim.cmd("sign define DiagnosticSignInfo  texthl=DiagnosticSignInfo  text=>"  )
++vim.cmd("sign define DiagnosticSignHint  texthl=DiagnosticSignHint  text=>"  )
++
++-- Diagnostics Highlights
++
++-- vim.cmd( "hi DiagnosticsDefaultError guibg=NONE " )
++-- vim.cmd( "hi DiagnosticVirtualTextError guifg=#ff3939 ctermbg=NONE gui=italic " )
++-- vim.cmd( "hi DiagnosticVirtualTextWarn guifg=#ffa500 ctermbg=NONE gui=italic " )
++-- vim.cmd( "hi DiagnosticVirtualTextHint guifg=#1d6a70 ctermbg=NONE gui=italic " )
++-- vim.cmd( "hi DiagnosticFloatingError guifg=#ff3939 ctermbg=NONE gui=italic " )
++-- vim.cmd( "hi DiagnosticFloatingWarn guifg=#ffa500 ctermbg=NONE gui=italic " )
++-- vim.cmd( "hi DiagnosticFloatingHint guifg=#1d6a70 ctermbg=NONE gui=italic " )
++-- vim.cmd( "hi DiagnosticSignError guifg=#ff3939 " )
++-- vim.cmd( "hi DiagnosticSignHint guifg=#1d6a70 " )
+ 
+ -- Highlights
+ 
+-vim.cmd( "hi SpellBad guifg=#703435 gui=none " )
+-vim.cmd( "hi DiagnosticsDefaultError guibg=NONE " )
+-vim.cmd( "hi DiagnosticVirtualTextError guifg=#ff3939 ctermbg=NONE gui=italic " )
+-vim.cmd( "hi DiagnosticVirtualTextWarn guifg=#ffa500 ctermbg=NONE gui=italic " )
+-vim.cmd( "hi DiagnosticVirtualTextHint guifg=#1d6a70 ctermbg=NONE gui=italic " )
+-vim.cmd( "hi DiagnosticFloatingError guifg=#ff3939 ctermbg=NONE gui=italic " )
+-vim.cmd( "hi DiagnosticFloatingWarn guifg=#ffa500 ctermbg=NONE gui=italic " )
+-vim.cmd( "hi DiagnosticFloatingHint guifg=#1d6a70 ctermbg=NONE gui=italic " )
+-vim.cmd( "hi DiagnosticSignError guifg=#ff3939 " )
+-vim.cmd( "hi DiagnosticSignHint guifg=#1d6a70 " )
+ vim.cmd( "hi Normal guibg=black" )
+-vim.cmd( "hi LineNr guibg=NONE" )
+-vim.cmd( "hi SignColumn guibg=NONE" )
+-vim.cmd( "hi NonText guibg=NONE guifg=#535e5a" )
+--- vim.cmd( "hi Pmenu guibg=#101010" )
+-vim.cmd( "hi Comment gui=italic" )
+-vim.cmd( "hi Winbar guibg=#4e4e43" )
+-vim.cmd( "hi Statusline guibg=#31312a guifg=#7295b4 gui=bold" )
+-vim.cmd( "hi WinbarNC guibg=#30302c" )
+-vim.cmd( "hi ColorColumn guibg=#494743" )
+-vim.cmd( "hi CursorLine guibg=#111111" )
+-vim.cmd( "hi CursorLineNr guibg=#111111" )
+-vim.cmd( "hi Visual guibg=#05233d" )
++-- -- vim.cmd( "hi EndOfBuffer guibg=NONE" )
++-- vim.cmd( "hi LineNr guibg=NONE guifg=grey" )
++-- vim.cmd( "hi CursorLineNr guifg=yellow guibg=None" )
++-- vim.cmd( "hi SignColumn guibg=#262626" )
++vim.cmd( "hi NonText guibg=NONE guifg=#535e5a gui=None" )
++-- vim.cmd( "hi Pmenu guibg=#262526" )
++vim.cmd( "hi Comment guifg=grey gui=italic" )
++-- -- vim.cmd( "hi Winbar guibg=#4e4e43" )
++-- vim.cmd( "hi Statusline guibg=#1177aa guifg=white" )
++-- vim.cmd( "hi WinbarNC guibg=#30302c" )
++vim.cmd( "hi MatchParen guifg=black guibg=orange")
++vim.cmd( "hi CursorLine guibg=#282f2d" )
++-- vim.cmd( "hi CursorLineNr guibg=#111111" )
++-- vim.cmd( "hi Visual guibg=#05233d" )
++-- vim.cmd( "hi SpellBad guifg=#703435 gui=none " )
++-- vim.cmd( "hi ColorColumn guibg=darkred" )
++vim.cmd( "hi String guifg=#89b3d9" )
++vim.cmd( "hi Identifier guifg=#f0f0f0" )
++-- vim.cmd( "hi Function guifg=#deb03e" )
++vim.cmd( "hi @method.call guifg=#90fff0" )
++-- vim.cmd("hi @parameter guibg=None guifg=grey")
+diff --git a/scripts/scripts/getDate b/scripts/scripts/getDate
+index 972d6d6..a4d4589 100644
+--- a/scripts/scripts/getDate
++++ b/scripts/scripts/getDate
+@@ -3,8 +3,8 @@
+ # if [[ "$(mpc status | sed -n 2p | awk '{print $1;}')" != "[playing]" ]]; then
+ #     textColor="$ORANGE_COLOR"
+ # else
+-__dateClr__="$GREEN_COLOR"
++__dateClr__="$RED_COLOR"
+ __timeClr__="$GREEN_COLOR"
+ # fi
+ 
+-printf "^c$BLUE_COLOR^   ^c$__dateClr__^$(date "+%a %d %b, ^c$__timeClr__^%I:%M:%S")"
++printf "^c$BLUE_COLOR^   ^c$__dateClr__^$(date "+%a %d %b, ^c$__timeClr__^%I:%M:%S")"
+diff --git a/suckless/suckless/dmenu/config.def.h b/suckless/suckless/dmenu/config.def.h
+index b669ba0..aa27c03 100644
+--- a/suckless/suckless/dmenu/config.def.h
++++ b/suckless/suckless/dmenu/config.def.h
+@@ -7,15 +7,15 @@ static int min_width = 500;                    /* minimum width when centered */
+ static int fuzzy = 1;                      /* -F  option; if 0, dmenu doesn't use fuzzy matching     */
+ /* -fn option overrides fonts[0]; default X11 font or font set */
+ static const char *fonts[] = {
+-	"Sauce Code Pro Nerd Font:size=10",
+-	"NotoColorEmoji:size=10"
++	"Sauce Code Pro Nerd Font:size=9",
++	"NotoColorEmoji:size=9"
+ };
+ static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
+ static const char *colors[SchemeLast][2] = {
+ 					/*     fg         bg       */
+ 	[SchemeNorm] = { "#bbbbbb", "#000000" },
+-	[SchemeSel] = { "#ffffff", "#000000" },
+-	[SchemeSelHighlight] = { "#ffc978", "#383838" },
++	[SchemeSel] = { "#ffffff", "#222222" },
++	[SchemeSelHighlight] = { "#ffc978", "#358c8c" },
+ 	[SchemeNormHighlight] = { "#c41693", "#222222" },
+ 	[SchemeOut] = { "#000000", "#00ffff" },
+ 	[SchemeOutHighlight] = { "#ffc978", "#00ffff" },
+diff --git a/suckless/suckless/dmenu/config.h b/suckless/suckless/dmenu/config.h
+index b669ba0..aa27c03 100644
+--- a/suckless/suckless/dmenu/config.h
++++ b/suckless/suckless/dmenu/config.h
+@@ -7,15 +7,15 @@ static int min_width = 500;                    /* minimum width when centered */
+ static int fuzzy = 1;                      /* -F  option; if 0, dmenu doesn't use fuzzy matching     */
+ /* -fn option overrides fonts[0]; default X11 font or font set */
+ static const char *fonts[] = {
+-	"Sauce Code Pro Nerd Font:size=10",
+-	"NotoColorEmoji:size=10"
++	"Sauce Code Pro Nerd Font:size=9",
++	"NotoColorEmoji:size=9"
+ };
+ static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
+ static const char *colors[SchemeLast][2] = {
+ 					/*     fg         bg       */
+ 	[SchemeNorm] = { "#bbbbbb", "#000000" },
+-	[SchemeSel] = { "#ffffff", "#000000" },
+-	[SchemeSelHighlight] = { "#ffc978", "#383838" },
++	[SchemeSel] = { "#ffffff", "#222222" },
++	[SchemeSelHighlight] = { "#ffc978", "#358c8c" },
+ 	[SchemeNormHighlight] = { "#c41693", "#222222" },
+ 	[SchemeOut] = { "#000000", "#00ffff" },
+ 	[SchemeOutHighlight] = { "#ffc978", "#00ffff" },
+diff --git a/suckless/suckless/dmenu/dmenu b/suckless/suckless/dmenu/dmenu
+index e6e1ed5..cbf8d8e 100644
+Binary files a/suckless/suckless/dmenu/dmenu and b/suckless/suckless/dmenu/dmenu differ
+diff --git a/suckless/suckless/dmenu/dmenu.o b/suckless/suckless/dmenu/dmenu.o
+index 554cc4e..c87e5a6 100644
+Binary files a/suckless/suckless/dmenu/dmenu.o and b/suckless/suckless/dmenu/dmenu.o differ
+diff --git a/suckless/suckless/dmenu/drw.o b/suckless/suckless/dmenu/drw.o
+index 7cbe2ac..7b6fd99 100644
+Binary files a/suckless/suckless/dmenu/drw.o and b/suckless/suckless/dmenu/drw.o differ
+diff --git a/suckless/suckless/dmenu/stest b/suckless/suckless/dmenu/stest
+index 5bdeb32..2ea6c38 100644
+Binary files a/suckless/suckless/dmenu/stest and b/suckless/suckless/dmenu/stest differ
+diff --git a/suckless/suckless/dmenu/stest.o b/suckless/suckless/dmenu/stest.o
+index 4ffa357..b5e34a1 100644
+Binary files a/suckless/suckless/dmenu/stest.o and b/suckless/suckless/dmenu/stest.o differ
+diff --git a/suckless/suckless/dmenu/util.o b/suckless/suckless/dmenu/util.o
+index 3b48c2f..a36344b 100644
+Binary files a/suckless/suckless/dmenu/util.o and b/suckless/suckless/dmenu/util.o differ
+diff --git a/suckless/suckless/dwm/config.h b/suckless/suckless/dwm/config.h
+index 1bd81a2..d623825 100644
+--- a/suckless/suckless/dwm/config.h
++++ b/suckless/suckless/dwm/config.h
+@@ -34,7 +34,6 @@ static const char *colors[][3]      = {
+     /*              fg                 bg                 border   */
+    [SchemeNorm] = { col_statusbar_fg,  col_statusbar_bg  ,col_border},
+    [SchemeSel]  = { col_primary_fg,    col_primary_bg    ,col_border},
+-   [SchemeHid]  = { col_statusbar_fg,  col_statusbar_bg  ,col_border},
+ };
+ 
+ /* tagging */
+@@ -148,10 +147,8 @@ static Key keys[] = {
+   { MODKEY|ShiftMask,                       XK_r,                        setlayout,             {.v = &layouts[5]} },
+   { MODKEY,                                 XK_z,                        spawn,                 SHCMD("unzipFiles")},
+   { MODKEY,                                 XK_b,                        togglebar,             {0} },
+-  { MODKEY,                                 XK_j,                        focusstackvis,         {.i = +1 } },
+-  { MODKEY,                                 XK_k,                        focusstackvis,         {.i = -1 } },
+-  { MODKEY|ShiftMask,                       XK_j,                        focusstackhid,         {.i = +1 } },
+-  { MODKEY|ShiftMask,                       XK_k,                        focusstackhid,         {.i = -1 } },
++  { MODKEY,                                 XK_j,                        focusstack,            {.i = +1 } },
++  { MODKEY,                                 XK_k,                        focusstack,            {.i = -1 } },
+   { MODKEY|ShiftMask,                       XK_minus,                    incnmaster,            {.i = +1 } },
+   { MODKEY,                                 XK_d,                        incnmaster,            {.i = -1 } },
+   { MODKEY,                                 XK_h,                        setmfact,              {.f = -0.05} },
+@@ -174,8 +171,6 @@ static Key keys[] = {
+   { MODKEY|ShiftMask,                       XK_equal,                    setgaps,               {.i = 0  } },
+   { MODKEY|ShiftMask,                       XK_u,                        setlayout,             {.v = &layouts[6]} },
+   { MODKEY|ShiftMask,                       XK_space,                    togglefloating,        {0} },
+-  { MODKEY,                                 XK_s,                        show,                  {0} },
+-  { MODKEY,                                 XK_t,                        hide,                  {0} },
+   TAGKEYS(                                  XK_1,                        0)
+   TAGKEYS(                                  XK_2,                        1)
+   TAGKEYS(                                  XK_3,                        2)
+@@ -194,7 +189,6 @@ static Button buttons[] = {
+     /* click                event mask      button          function        argument */
+     { ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
+     { ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
+-    { ClkWinTitle,          0,              Button1,        togglewin,      {0} },
+     { ClkWinTitle,          0,              Button2,        zoom,           {0} },
+     { ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+     { ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
+diff --git a/suckless/suckless/dwm/dwm.c b/suckless/suckless/dwm/dwm.c
+index f678f06..2babf55 100644
+--- a/suckless/suckless/dwm/dwm.c
++++ b/suckless/suckless/dwm/dwm.c
+@@ -36,9 +36,6 @@
+ #include <X11/Xlib.h>
+ #include <X11/Xproto.h>
+ #include <X11/Xutil.h>
+-#ifdef XINERAMA
+-#include <X11/extensions/Xinerama.h>
+-#endif /* XINERAMA */
+ #include <X11/Xft/Xft.h>
+ 
+ #include "drw.h"
+@@ -50,7 +47,6 @@
+ #define INTERSECT(x,y,w,h,m)    (MAX(0, MIN((x)+(w),(m)->wx+(m)->ww) - MAX((x),(m)->wx)) \
+                                * MAX(0, MIN((y)+(h),(m)->wy+(m)->wh) - MAX((y),(m)->wy)))
+ #define ISVISIBLE(C)            ((C->tags & C->mon->tagset[C->mon->seltags]))
+-#define HIDDEN(C)               ((getstate(C->win) == IconicState))
+ #define LENGTH(X)               (sizeof X / sizeof X[0])
+ #define MOUSEMASK               (BUTTONMASK|PointerMotionMask)
+ #define WIDTH(X)                ((X)->w + 2 * (X)->bw)
+@@ -76,7 +72,7 @@
+ 
+ /* enums */
+ enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
+-enum { SchemeNorm, SchemeSel, SchemeHid }; /* color schemes */
++enum { SchemeNorm, SchemeSel }; /* color schemes */
+ enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
+        NetSystemTray, NetSystemTrayOP, NetSystemTrayOrientation, NetSystemTrayOrientationHorz,
+        NetWMFullscreen, NetActiveWindow, NetWMWindowType,
+@@ -138,8 +134,6 @@ struct Monitor {
+ 	int nmaster;
+ 	int num;
+ 	int by;               /* bar geometry */
+-	int btw;              /* width of tasks portion of bar */
+-	int bt;               /* number of tasks */
+ 	int mx, my, mw, mh;   /* screen size */
+ 	int wx, wy, ww, wh;   /* window area  */
+ 	int gappx;            /* gaps between windows */
+@@ -148,7 +142,6 @@ struct Monitor {
+ 	unsigned int tagset[2];
+ 	int showbar;
+ 	int topbar;
+-	int hidsel;
+ 	Client *clients;
+ 	Client *sel;
+ 	Client *stack;
+@@ -203,9 +196,7 @@ static void expose(XEvent *e);
+ static void focus(Client *c);
+ static void focusin(XEvent *e);
+ static void focusmon(const Arg *arg);
+-static void focusstackvis(const Arg *arg);
+-static void focusstackhid(const Arg *arg);
+-static void focusstack(int inc, int vis);
++static void focusstack(const Arg *arg);
+ static Atom getatomprop(Client *c, Atom prop);
+ static int getrootptr(int *x, int *y);
+ static long getstate(Window w);
+@@ -213,8 +204,6 @@ static unsigned int getsystraywidth();
+ static int gettextprop(Window w, Atom atom, char *text, unsigned int size);
+ static void grabbuttons(Client *c, int focused);
+ static void grabkeys(void);
+-static void hide(const Arg *arg);
+-static void hidewin(Client *c);
+ static void incnmaster(const Arg *arg);
+ static void keypress(XEvent *e);
+ static void killclient(const Arg *arg);
+@@ -248,8 +237,6 @@ static void setlayout(const Arg *arg);
+ static void setmfact(const Arg *arg);
+ static void setup(void);
+ static void seturgent(Client *c, int urg);
+-static void show(const Arg *arg);
+-static void showwin(Client *c);
+ static void showhide(Client *c);
+ static void sigchld(int unused);
+ static void spawn(const Arg *arg);
+@@ -264,7 +251,6 @@ static void togglescratch(const Arg *arg);
+ static void togglefullscr(const Arg *arg);
+ static void toggletag(const Arg *arg);
+ static void toggleview(const Arg *arg);
+-static void togglewin(const Arg *arg);
+ static void unfocus(Client *c, int setfocus);
+ static void unmanage(Client *c, int destroyed);
+ static void unmapnotify(XEvent *e);
+@@ -516,24 +502,10 @@ buttonpress(XEvent *e)
+ 			arg.ui = 1 << i;
+ 		} else if (ev->x < x + blw)
+ 			click = ClkLtSymbol;
+-		else if (ev->x > selmon->ww - (int)TEXTW(stext) - getsystraywidth() + lrpad - 2)
++		else if (ev->x > selmon->ww - (int)TEXTW(stext) - getsystraywidth())
+ 			click = ClkStatusText;
+-		else {
+-			x += blw;
+-			c = m->clients;
+-
+-			if (c) {
+-				do {
+-					if (!ISVISIBLE(c))
+-						continue;
+-					else
+-						x += (1.0 / (double)m->bt) * m->btw;
+-				} while (ev->x > x && (c = c->next));
+-
+-				click = ClkWinTitle;
+-				arg.v = c;
+-			}
+-		}
++		else
++			click = ClkWinTitle;
+ 	} else if ((c = wintoclient(ev->window))) {
+ 		focus(c);
+ 		restack(selmon);
+@@ -543,7 +515,7 @@ buttonpress(XEvent *e)
+ 	for (i = 0; i < LENGTH(buttons); i++)
+ 		if (click == buttons[i].click && buttons[i].func && buttons[i].button == ev->button
+ 		&& CLEANMASK(buttons[i].mask) == CLEANMASK(ev->state))
+-			buttons[i].func((click == ClkTagBar || click == ClkWinTitle) && buttons[i].arg.i == 0 ? &arg : &buttons[i].arg);
++			buttons[i].func(click == ClkTagBar && buttons[i].arg.i == 0 ? &arg : &buttons[i].arg);
+ }
+ 
+ void
+@@ -954,9 +926,11 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
+ void
+ drawbar(Monitor *m)
+ {
+-	int x, w, tw = 0, stw = 0, n = 0 , scm;
++	int x, w, tw = 0, stw = 0;
+ 	unsigned int i, occ = 0, urg = 0;
+ 	Client *c;
++	int boxs = drw->fonts->h / 9;
++	int boxw = drw->fonts->h / 6 + 2;
+ 
+ 	if(showsystray && m == systraytomon(m) && !systrayonleft)
+ 		stw = getsystraywidth();
+@@ -967,8 +941,6 @@ drawbar(Monitor *m)
+ 	}
+ 
+ 	for (c = m->clients; c; c = c->next) {
+-		if (ISVISIBLE(c))
+-			n++;
+ 		occ |= c->tags;
+ 		if (c->isurgent)
+ 			urg |= c->tags;
+@@ -988,37 +960,17 @@ drawbar(Monitor *m)
+ 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
+ 
+ 	if ((w = m->ww - tw - stw - x) > bh) {
+-		if (n > 0) {
+-			int remainder = w % n;
+-			int tabw = (1.0 / (double)n) * w + 1;
+-			for (c = m->clients; c; c = c->next) {
+-				if (!ISVISIBLE(c))
+-					continue;
+-				if (m->sel == c)
+-					scm = SchemeSel;
+-				else if (HIDDEN(c))
+-					scm = SchemeHid;
+-				else
+-					scm = SchemeNorm;
+-				drw_setscheme(drw, scheme[scm]);
+-
+-				if (remainder >= 0) {
+-					if (remainder == 0) {
+-						tabw--;
+-					}
+-					remainder--;
+-				}
+-    			drw_text(drw, x, 0, tabw, bh, lrpad / 2, c->name, 0);
+-				x += tabw;
+-			}
++		if (m->sel) {
++			drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
++			drw_text(drw, x, 0, w, bh, lrpad / 2, m->sel->name, 0);
++			if (m->sel->isfloating)
++				drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
+ 		} else {
+ 			drw_setscheme(drw, scheme[SchemeNorm]);
+ 			drw_rect(drw, x, 0, w, bh, 1, 1);
+ 		}
+ 	}
+ 
+-	m->bt = n;
+-	m->btw = w;
+ 	drw_map(drw, m->barwin, 0, 0, m->ww - stw, bh);
+ }
+ 
+@@ -1067,17 +1019,9 @@ void
+ focus(Client *c)
+ {
+ 	if (!c || !ISVISIBLE(c))
+-		for (c = selmon->stack; c && (!ISVISIBLE(c) || HIDDEN(c)); c = c->snext);
+-	if (selmon->sel && selmon->sel != c) {
++		for (c = selmon->stack; c && !ISVISIBLE(c); c = c->snext);
++	if (selmon->sel && selmon->sel != c)
+ 		unfocus(selmon->sel, 0);
+-
+-		if (selmon->hidsel) {
+-			hidewin(selmon->sel);
+-			if (c)
+-				arrange(c->mon);
+-			selmon->hidsel = 0;
+-		}
+-	}
+ 	if (c) {
+ 		if (c->mon != selmon)
+ 			selmon = c->mon;
+@@ -1121,57 +1065,28 @@ focusmon(const Arg *arg)
+ }
+ 
+ void
+-focusstackvis(const Arg *arg)
+-{
+-	focusstack(arg->i, 0);
+-}
+-
+-void
+-focusstackhid(const Arg *arg)
+-{
+-	focusstack(arg->i, 1);
+-}
+-
+-void
+-focusstack(int inc, int hid)
++focusstack(const Arg *arg)
+ {
+ 	Client *c = NULL, *i;
+ 
+-	if (!selmon->sel && !hid)
+-		return;
+-	if (!selmon->clients)
++	if (!selmon->sel)
+ 		return;
+-
+-	if (inc > 0) {
+-		if (selmon->sel)
+-			for (c = selmon->sel->next;
+-					 c && (!ISVISIBLE(c) || (!hid && HIDDEN(c)));
+-					 c = c->next);
++	if (arg->i > 0) {
++		for (c = selmon->sel->next; c && !ISVISIBLE(c); c = c->next);
+ 		if (!c)
+-			for (c = selmon->clients;
+-					 c && (!ISVISIBLE(c) || (!hid && HIDDEN(c)));
+-					 c = c->next);
++			for (c = selmon->clients; c && !ISVISIBLE(c); c = c->next);
+ 	} else {
+-		if (selmon->sel) {
+-			for (i = selmon->clients; i != selmon->sel; i = i->next)
+-				if (ISVISIBLE(i) && !(!hid && HIDDEN(i)))
+-					c = i;
+-		} else
+-			c = selmon->clients;
++		for (i = selmon->clients; i != selmon->sel; i = i->next)
++			if (ISVISIBLE(i))
++				c = i;
+ 		if (!c)
+ 			for (; i; i = i->next)
+-				if (ISVISIBLE(i) && !(!hid && HIDDEN(i)))
++				if (ISVISIBLE(i))
+ 					c = i;
+ 	}
+-
+ 	if (c) {
+ 		focus(c);
+ 		restack(selmon);
+-
+-		if (HIDDEN(c)) {
+-			showwin(c);
+-			c->mon->hidsel = 1;
+-		}
+ 	}
+ }
+ 
+@@ -1300,36 +1215,6 @@ grabkeys(void)
+ 	}
+ }
+ 
+-void
+-hide(const Arg *arg)
+-{
+-	hidewin(selmon->sel);
+-	focus(NULL);
+-	arrange(selmon);
+-}
+-
+-void
+-hidewin(Client *c) {
+-	if (!c || HIDDEN(c))
+-		return;
+-
+-	Window w = c->win;
+-	static XWindowAttributes ra, ca;
+-
+-	// more or less taken directly from blackbox's hide() function
+-	XGrabServer(dpy);
+-	XGetWindowAttributes(dpy, root, &ra);
+-	XGetWindowAttributes(dpy, w, &ca);
+-	// prevent UnmapNotify events
+-	XSelectInput(dpy, root, ra.your_event_mask & ~SubstructureNotifyMask);
+-	XSelectInput(dpy, w, ca.your_event_mask & ~StructureNotifyMask);
+-	XUnmapWindow(dpy, w);
+-	setclientstate(c, IconicState);
+-	XSelectInput(dpy, root, ra.your_event_mask);
+-	XSelectInput(dpy, w, ca.your_event_mask);
+-	XUngrabServer(dpy);
+-}
+-
+ void
+ incnmaster(const Arg *arg)
+ {
+@@ -1337,18 +1222,6 @@ incnmaster(const Arg *arg)
+ 	arrange(selmon);
+ }
+ 
+-#ifdef XINERAMA
+-static int
+-isuniquegeom(XineramaScreenInfo *unique, size_t n, XineramaScreenInfo *info)
+-{
+-	while (n--)
+-		if (unique[n].x_org == info->x_org && unique[n].y_org == info->y_org
+-		&& unique[n].width == info->width && unique[n].height == info->height)
+-			return 0;
+-	return 1;
+-}
+-#endif /* XINERAMA */
+-
+ void
+ keypress(XEvent *e)
+ {
+@@ -1434,14 +1307,12 @@ manage(Window w, XWindowAttributes *wa)
+ 	XChangeProperty(dpy, root, netatom[NetClientList], XA_WINDOW, 32, PropModeAppend,
+ 		(unsigned char *) &(c->win), 1);
+ 	XMoveResizeWindow(dpy, c->win, c->x + 2 * sw, c->y, c->w, c->h); /* some windows require this */
+-	if (!HIDDEN(c))
+-		setclientstate(c, NormalState);
++	setclientstate(c, NormalState);
+ 	if (c->mon == selmon)
+ 		unfocus(selmon->sel, 0);
+ 	c->mon->sel = c;
+ 	arrange(c->mon);
+-	if (!HIDDEN(c))
+-		XMapWindow(dpy, c->win);
++	XMapWindow(dpy, c->win);
+ 	focus(NULL);
+ }
+ 
+@@ -1570,7 +1441,7 @@ movemouse(const Arg *arg)
+ Client *
+ nexttiled(Client *c)
+ {
+-	for (; c && (c->isfloating || !ISVISIBLE(c) || HIDDEN(c)); c = c->next);
++	for (; c && (c->isfloating || !ISVISIBLE(c)); c = c->next);
+ 	return c;
+ }
+ 
+@@ -1633,16 +1504,6 @@ propertynotify(XEvent *e)
+ void
+ quit(const Arg *arg)
+ {
+-	// fix: reloading dwm keeps all the hidden clients hidden
+-	Monitor *m;
+-	Client *c;
+-	for (m = mons; m; m = m->next) {
+-		if (m) {
+-			for (c = m->stack; c; c = c->next)
+-				if (c && HIDDEN(c)) showwin(c);
+-		}
+-	}
+-
+ 	running = 0;
+ }
+ 
+@@ -2077,25 +1938,6 @@ seturgent(Client *c, int urg)
+ 	XFree(wmh);
+ }
+ 
+-void
+-show(const Arg *arg)
+-{
+-	if (selmon->hidsel)
+-		selmon->hidsel = 0;
+-	showwin(selmon->sel);
+-}
+-
+-void
+-showwin(Client *c)
+-{
+-	if (!c || !HIDDEN(c))
+-		return;
+-
+-	XMapWindow(dpy, c->win);
+-	setclientstate(c, NormalState);
+-	arrange(c->mon);
+-}
+-
+ void
+ showhide(Client *c)
+ {
+@@ -2291,23 +2133,6 @@ toggleview(const Arg *arg)
+ 	}
+ }
+ 
+-void
+-togglewin(const Arg *arg)
+-{
+-	Client *c = (Client*)arg->v;
+-
+-	if (c == selmon->sel) {
+-		hidewin(c);
+-		focus(NULL);
+-		arrange(c->mon);
+-	} else {
+-		if (HIDDEN(c))
+-			showwin(c);
+-		focus(c);
+-		restack(selmon);
+-	}
+-}
+-
+ void
+ unfocus(Client *c, int setfocus)
+ {
+@@ -2425,63 +2250,6 @@ int
+ updategeom(void)
+ {
+ 	int dirty = 0;
+-
+-#ifdef XINERAMA
+-	if (XineramaIsActive(dpy)) {
+-		int i, j, n, nn;
+-		Client *c;
+-		Monitor *m;
+-		XineramaScreenInfo *info = XineramaQueryScreens(dpy, &nn);
+-		XineramaScreenInfo *unique = NULL;
+-
+-		for (n = 0, m = mons; m; m = m->next, n++);
+-		/* only consider unique geometries as separate screens */
+-		unique = ecalloc(nn, sizeof(XineramaScreenInfo));
+-		for (i = 0, j = 0; i < nn; i++)
+-			if (isuniquegeom(unique, j, &info[i]))
+-				memcpy(&unique[j++], &info[i], sizeof(XineramaScreenInfo));
+-		XFree(info);
+-		nn = j;
+-		if (n <= nn) { /* new monitors available */
+-			for (i = 0; i < (nn - n); i++) {
+-				for (m = mons; m && m->next; m = m->next);
+-				if (m)
+-					m->next = createmon();
+-				else
+-					mons = createmon();
+-			}
+-			for (i = 0, m = mons; i < nn && m; m = m->next, i++)
+-				if (i >= n
+-				|| unique[i].x_org != m->mx || unique[i].y_org != m->my
+-				|| unique[i].width != m->mw || unique[i].height != m->mh)
+-				{
+-					dirty = 1;
+-					m->num = i;
+-					m->mx = m->wx = unique[i].x_org;
+-					m->my = m->wy = unique[i].y_org;
+-					m->mw = m->ww = unique[i].width;
+-					m->mh = m->wh = unique[i].height;
+-					updatebarpos(m);
+-				}
+-		} else { /* less monitors available nn < n */
+-			for (i = nn; i < n; i++) {
+-				for (m = mons; m && m->next; m = m->next);
+-				while ((c = m->clients)) {
+-					dirty = 1;
+-					m->clients = c->next;
+-					detachstack(c);
+-					c->mon = mons;
+-					attach(c);
+-					attachstack(c);
+-				}
+-				if (m == selmon)
+-					selmon = mons;
+-				cleanupmon(m);
+-			}
+-		}
+-		free(unique);
+-	} else
+-#endif /* XINERAMA */
+ 	{ /* default monitor setup */
+ 		if (!mons)
+ 			mons = createmon();
