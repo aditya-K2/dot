@@ -4,15 +4,18 @@ vim.g["user_emmet_leader_key"]               = ","
 vim.g["user_emmet_mode"]                     = "n"
 vim.g["color_coded_enabled "]                = 1
 vim.g["go_def_mapping_enabled"]              = false
+vim.g["indent_blankline_filetype"]           = { "yaml", "lua" }
+vim.g["fzf_preview_window"]                  = {}
+vim.g["fzf_layout"]                          = { down = '15%' }
+
+vim.opt.background="dark"
+vim.opt.termguicolors=true
 
 vim.cmd [[
     syntax enable
     syntax on
-    colorscheme base16-bright
+    colorscheme darkblue
 ]]
-
-vim.opt.background="dark"
-vim.opt.termguicolors=true
 
 COLUMNS = 80
 -- vim.opt.colorcolumn=vim.fn.join(vim.fn.range(COLUMNS, 999),",")
@@ -48,36 +51,49 @@ vim.opt.spelloptions="camel"
 vim.opt.guifont="Source Code Pro:h8"
 vim.opt.expandtab=true
 vim.opt.laststatus=3
+-- vim.cmd("set mouse=")
 
 -- LSP Diagnostics
 
-vim.cmd("sign define DiagnosticSignError texthl=DiagnosticSignError text=>>"  )
-vim.cmd("sign define DiagnosticSignWarn  texthl=DiagnosticSignWarn  text=>>"  )
-vim.cmd("sign define DiagnosticSignInfo  texthl=DiagnosticSignInfo  text=>>"  )
-vim.cmd("sign define DiagnosticSignHint  texthl=DiagnosticSignHint  text=>>"  )
+vim.cmd("sign define DiagnosticSignError texthl=DiagnosticSignError text=>"  )
+vim.cmd("sign define DiagnosticSignWarn  texthl=DiagnosticSignWarn  text=>"  )
+vim.cmd("sign define DiagnosticSignInfo  texthl=DiagnosticSignInfo  text=>"  )
+vim.cmd("sign define DiagnosticSignHint  texthl=DiagnosticSignHint  text=>"  )
+
+-- Diagnostics Highlights
+
+-- vim.cmd( "hi DiagnosticsDefaultError guibg=NONE " )
+-- vim.cmd( "hi DiagnosticVirtualTextError guifg=#ff3939 ctermbg=NONE gui=italic " )
+-- vim.cmd( "hi DiagnosticVirtualTextWarn guifg=#ffa500 ctermbg=NONE gui=italic " )
+-- vim.cmd( "hi DiagnosticVirtualTextHint guifg=#1d6a70 ctermbg=NONE gui=italic " )
+-- vim.cmd( "hi DiagnosticFloatingError guifg=#ff3939 ctermbg=NONE gui=italic " )
+-- vim.cmd( "hi DiagnosticFloatingWarn guifg=#ffa500 ctermbg=NONE gui=italic " )
+-- vim.cmd( "hi DiagnosticFloatingHint guifg=#1d6a70 ctermbg=NONE gui=italic " )
+-- vim.cmd( "hi DiagnosticSignError guifg=#ff3939 " )
+-- vim.cmd( "hi DiagnosticSignHint guifg=#1d6a70 " )
 
 -- Highlights
 
-vim.cmd( "hi SpellBad guifg=#703435 gui=none " )
-vim.cmd( "hi DiagnosticsDefaultError guibg=NONE " )
-vim.cmd( "hi DiagnosticVirtualTextError guifg=#ff3939 ctermbg=NONE gui=italic " )
-vim.cmd( "hi DiagnosticVirtualTextWarn guifg=#ffa500 ctermbg=NONE gui=italic " )
-vim.cmd( "hi DiagnosticVirtualTextHint guifg=#1d6a70 ctermbg=NONE gui=italic " )
-vim.cmd( "hi DiagnosticFloatingError guifg=#ff3939 ctermbg=NONE gui=italic " )
-vim.cmd( "hi DiagnosticFloatingWarn guifg=#ffa500 ctermbg=NONE gui=italic " )
-vim.cmd( "hi DiagnosticFloatingHint guifg=#1d6a70 ctermbg=NONE gui=italic " )
-vim.cmd( "hi DiagnosticSignError guifg=#ff3939 " )
-vim.cmd( "hi DiagnosticSignHint guifg=#1d6a70 " )
 vim.cmd( "hi Normal guibg=black" )
-vim.cmd( "hi LineNr guibg=NONE" )
-vim.cmd( "hi SignColumn guibg=NONE" )
-vim.cmd( "hi NonText guibg=NONE guifg=#535e5a" )
--- vim.cmd( "hi Pmenu guibg=#101010" )
-vim.cmd( "hi Comment gui=italic" )
-vim.cmd( "hi Winbar guibg=#4e4e43" )
-vim.cmd( "hi Statusline guibg=#31312a guifg=#7295b4 gui=bold" )
-vim.cmd( "hi WinbarNC guibg=#30302c" )
-vim.cmd( "hi ColorColumn guibg=#494743" )
-vim.cmd( "hi CursorLine guibg=#111111" )
-vim.cmd( "hi CursorLineNr guibg=#111111" )
-vim.cmd( "hi Visual guibg=#05233d" )
+-- -- vim.cmd( "hi EndOfBuffer guibg=NONE" )
+vim.cmd( "hi LineNr guifg=#65a616" )
+vim.cmd( "hi CursorLineNr guifg=yellow guibg=None" )
+-- vim.cmd( "hi SignColumn guibg=#262626" )
+vim.cmd( "hi NonText guibg=NONE guifg=#535e5a gui=italic" )
+-- vim.cmd( "hi Pmenu guibg=#262526" )
+vim.cmd( "hi Comment guifg=grey gui=italic" )
+-- -- vim.cmd( "hi Winbar guibg=#4e4e43" )
+-- vim.cmd( "hi Statusline guibg=#1177aa guifg=white" )
+-- vim.cmd( "hi WinbarNC guibg=#30302c" )
+vim.cmd( "hi MatchParen guifg=black guibg=orange")
+vim.cmd( "hi CursorLine guibg=#282f2d" )
+-- vim.cmd( "hi CursorLineNr guibg=#111111" )
+-- vim.cmd( "hi Visual guibg=#05233d" )
+-- vim.cmd( "hi SpellBad guifg=#703435 gui=none " )
+-- vim.cmd( "hi ColorColumn guibg=darkred" )
+vim.cmd( "hi String guifg=#89b3d9" )
+vim.cmd( "hi Identifier guifg=#ececec" )
+-- vim.cmd( "hi Function guifg=#deb03e" )
+vim.cmd( "hi @method.call guifg=#90fff0" )
+-- vim.cmd("hi @parameter guibg=None guifg=grey")
+vim.cmd( "hi WinSeparator guibg=None" )

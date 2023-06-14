@@ -12,19 +12,21 @@ local function vnoremap(lhs, rhs)
     vim.api.nvim_set_keymap("v", lhs, rhs, {noremap = true})
 end
 
-local function ClangFormatBuffer()
-    if vim.api.nvim_buf_get_option(0, "modified") then
-        local cpos  = vim.fn.getpos('.')
-        local file = vim.fn.expand("%")
-        vim.fn.jobstart({"clang-format", file}, {
-          stdout_buffered = true,
-          on_stdout = function(_, data)
-            if data then
-              vim.api.nvim_buf_set_lines(0, 0, -1, false, data)
-              vim.fn.setpos('.', cpos)
-              vim.api.nvim_command("noautocmd write")
-            end
+local function format_func(formatter)
+    return function()
+        if vim.api.nvim_buf_get_option(0, "modified") then
+            local cpos  = vim.fn.getpos('.')
+            local file = vim.fn.expand("%")
+            vim.fn.jobstart({formatter, file}, {
+              stdout_buffered = true,
+              on_stdout = function(_, data)
+                if data then
+                  vim.api.nvim_buf_set_lines(0, 0, -1, false, data)
+                  vim.fn.setpos('.', cpos)
+                  vim.api.nvim_command("noautocmd write")
+                end
           end})
+        end
     end
 end
 
@@ -33,12 +35,21 @@ local function format_buffer()
 end
 
 local format_group = vim.api.nvim_create_augroup("__aditya__format_group", {clear = true})
-local fg_pattern = { "*.cpp" , "*.cc", "*.dart" }
+local fg_pattern = { "*.cpp" , "*.cc" }
+local show_spaces = { "*.yaml", "*.py" }
 
 vim.api.nvim_create_autocmd("BufWritePre", {
     group = format_group,
     pattern = fg_pattern,
-    callback = format_buffer,
+    callback = format_func("clang-format"),
+})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+    group = format_group,
+    pattern = show_spaces,
+    callback = function()
+        vim.cmd("setlocal listchars+=space:.")
+    end,
 })
 
 vim.api.nvim_create_autocmd("BufEnter", {
@@ -59,6 +70,14 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end
 })
 
+vim.api.nvim_create_autocmd("BufEnter", {
+    group = format_group,
+    pattern = { "*.tf" },
+    callback = function()
+        vim.cmd("set filetype=hcl")
+    end
+})
+
 nnoremap ("<TAB>" , ":bnext<CR>")
 nnoremap ("<S-TAB>" , ":bprevious<CR>")
 nnoremap ("Y" , "y$")
@@ -69,7 +88,7 @@ nnoremap ("<leader>m" , ":MaximizerToggle <CR>")
 nnoremap ("U", "<cmd>lua vim.diagnostic.open_float(0, { scope = \"line\" })<CR>")
 
 -- nnoremap ("<S-m>"      , ":lua vim.lsp.diagnostic.show_line_diagnostics()<CR>")
-nnoremap ("<M-m>"      , ":lua require('termtoggle').TermToggle()<CR>")
+-- nnoremap ("<M-m>"      , ":lua require('termtoggle').TermToggle()<CR>")
 
 -- Split Mappings
 
@@ -93,9 +112,9 @@ vim.cmd( "autocmd BufRead,BufNewFile *.latex nnoremap <C-o> :call Spellfloat()<C
 vim.cmd( "autocmd BufRead,BufNewFile *.latex nmap <leader>mm :!compileLatex % <CR>" )
 vim.cmd( "autocmd BufRead,BufNewFile *.latex nmap <leader>mc :!pdflatex -shell-escape % <CR>" )
 
-nmap ("<leader>fn" , "<cmd> lua require('telescope.builtin').find_files{cwd='/home/aditya/.config/nvim', prompt='cpFiles'}<CR>")
-nmap ("<leader>fs" , ":Telescope find_files <CR>")
-nmap ("<leader>fg" , ":Telescope live_grep <CR>")
+nmap ("<leader>fn" , ":Files ~/.config/nvim/<CR>")
+nmap ("<leader>fs" , ":Files<CR>")
+nmap ("<leader>fg" , ":Rg <CR>")
 nmap ("<leader>fh" , ":Telescope help_tags <CR>")
 
 vim.api.nvim_set_keymap("i", "<C-BS>" , "<C-w>", {})
