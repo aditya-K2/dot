@@ -14,14 +14,10 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
   buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
@@ -32,21 +28,22 @@ end
 -- map buffer local keybindings when the language server attaches
 
 local servers = {
-    "clangd",
-    "dartls",
-    "vimls",
-    "pyright",
-    "gopls",
-    "tsserver",
-    "cmake"
+  "clangd",
+  "dartls",
+  "vimls",
+  -- "yamlls",
+  "pyright",
+  "gopls",
+  "tsserver",
+  "cmake"
 }
 
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    }
+  on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 150,
+  }
   }
 end
 
@@ -54,38 +51,48 @@ local diagnostics_padding = 0
 local enable_hover_over_diagnostics = false
 
 vim.diagnostic.config {
-    virtual_text = true,
-    float = {
-        source = 'always',
-        focusable = true,
-        focus = false,
-        pad_top = diagnostics_padding,
-        pad_bottom = diagnostics_padding,
-    }
+  virtual_text = true,
+  float = {
+    source = 'always',
+    focusable = true,
+    focus = false,
+    pad_top = diagnostics_padding,
+    pad_bottom = diagnostics_padding,
+  }
 }
 
 local diagnostics_show_pop_up = function()
-    return vim.diagnostic.open_float(0, { scope = "line" })
+  return vim.diagnostic.open_float(0, { scope = "line" })
 end
 
 local diagnostics_popup_handler = function()
-    local current_cursor = vim.api.nvim_win_get_cursor(0)
-    local last_popup_cursor = vim.w.lsp_diagnostics_last_cursor or { nil, nil }
+  local current_cursor = vim.api.nvim_win_get_cursor(0)
+  local last_popup_cursor = vim.w.lsp_diagnostics_last_cursor or { nil, nil }
 
-    -- Show the popup diagnostics window,
-    -- but only once for the current cursor location (unless moved afterwards).
-    if not (current_cursor[1] == last_popup_cursor[1] and current_cursor[2] == last_popup_cursor[2]) then
-      vim.w.lsp_diagnostics_last_cursor = current_cursor
-      local _, winnr = diagnostics_show_pop_up()
-    end
+  -- Show the popup diagnostics window,
+  -- but only once for the current cursor location (unless moved afterwards).
+  if not (current_cursor[1] == last_popup_cursor[1] and current_cursor[2] == last_popup_cursor[2]) then
+    vim.w.lsp_diagnostics_last_cursor = current_cursor
+    local _, winnr = diagnostics_show_pop_up()
+  end
 end
 
 if enable_hover_over_diagnostics then
-    vim.api.nvim_create_autocmd("CursorHold", {
-        group = vim.api.nvim_create_augroup("__DG_ON_HOVER__", { clear = true }),
-        callback = diagnostics_popup_handler
-    })
+  vim.api.nvim_create_autocmd("CursorHold", {
+    group = vim.api.nvim_create_augroup("__DG_ON_HOVER__", { clear = true }),
+    callback = diagnostics_popup_handler
+  })
 end
+
+require('lspconfig').yamlls.setup {
+  settings = {
+    yaml = {
+      schemas = {
+        ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json"] = "/*.k8s.yaml",
+      },
+    },
+  }
+}
 
 -----------------------------------------------------------------------------
 
