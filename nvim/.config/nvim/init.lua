@@ -1,5 +1,5 @@
 require("aditya.lazy")
 require("aditya.settings")
 require("aditya.mappings")
--- require("aditya.compe")
+require("aditya.compe")
 require("aditya.lsp")

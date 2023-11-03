@@ -38,12 +38,6 @@ local format_group = vim.api.nvim_create_augroup("__aditya__format_group", {clea
 local fg_pattern = { "*.cpp" , "*.cc" }
 local show_spaces = { "*.yaml", "*.py" }
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-    group = format_group,
-    pattern = fg_pattern,
-    callback = format_func("clang-format"),
-})
-
 vim.api.nvim_create_autocmd("BufEnter", {
     group = format_group,
     pattern = show_spaces,
@@ -67,6 +61,14 @@ vim.api.nvim_create_autocmd("BufEnter", {
     pattern = { "*/waybar/config" },
     callback = function()
         vim.cmd("set filetype=jsonc")
+    end
+})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+    group = format_group,
+    pattern = { "*/notes", "*/note" },
+    callback = function()
+        vim.cmd("set filetype=markdown")
     end
 })
 
@@ -114,6 +116,7 @@ vim.cmd( "autocmd BufRead,BufNewFile *.latex nmap <leader>mc :!pdflatex -shell-e
 
 nmap ("<leader>fn" , ":Files ~/.config/nvim/<CR>")
 nmap ("<leader>fs" , ":Files<CR>")
+nmap ("<leader>fo" , ":Buffers<CR>")
 nmap ("<leader>fg" , ":Rg <CR>")
 nmap ("<leader>fh" , ":Telescope help_tags <CR>")
 

@@ -27,7 +27,8 @@ require("lazy").setup({
     -- 'folke/tokyonight.nvim',
     -- 'tomasiser/vim-code-dark',
     -- 'Mofiqul/vscode.nvim',
-    -- 'RRethy/nvim-base16',
+    -- 'projekt0n/github-nvim-theme',
+    'RRethy/nvim-base16',
     -- "rebelot/kanagawa.nvim",
     -- {"ellisonleao/gruvbox.nvim", dependencies = {"rktjmp/lush.nvim"}},
     -- { "briones-gabriel/darcula-solid.nvim", dependencies = "rktjmp/lush.nvim" },
@@ -39,7 +40,7 @@ require("lazy").setup({
     -- 'aditya-K2/scruber.vim',
     -- 'vim/colorschemes',
 
-    {'iamcco/markdown-preview.nvim', build = 'cd app && yarn install'},
+    -- {'iamcco/markdown-preview.nvim', build = 'cd app && yarn install'},
 
     'fatih/vim-go',
     -- {'akinsho/flutter-tools.nvim', dependencies = 'nvim-lua/plenary.nvim',
@@ -66,15 +67,16 @@ require("lazy").setup({
 
     -- Lsp
     'neovim/nvim-lspconfig',
+    'williamboman/mason.nvim',
     -- 'ray-x/lsp_signature.nvim',
 
     -- Cmp
-    -- 'hrsh7th/nvim-cmp',
-    -- 'hrsh7th/cmp-buffer',
-    -- 'hrsh7th/cmp-path',
-    -- 'hrsh7th/cmp-nvim-lua',
-    -- 'hrsh7th/cmp-nvim-lsp',
-    -- 'onsails/lspkind-nvim',
+    'hrsh7th/nvim-cmp',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-path',
+    'hrsh7th/cmp-nvim-lua',
+    'hrsh7th/cmp-nvim-lsp',
+    'onsails/lspkind-nvim',
 
     'aditya-K2/spellfloat',
     { 'aditya-K2/termtoggle.nvim', config = function()
