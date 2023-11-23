@@ -1,5 +1,10 @@
 autoload -U colors && colors
 
+# Enable this for profiling
+# E_ZPROF="true"
+
+! [[ -z $E_ZPROF ]] && zmodload zsh/zprof
+
 setopt HIST_SAVE_NO_DUPS
 
 # History in cache directory:
@@ -23,7 +28,7 @@ export KEYTIMEOUT=1
 
 source "$HOME/env.sh"
 source "$HOME/alias.sh"
-source "/H/code/lbdsa/dsa.zsh"
+# source "$CODE_DIR/lbdsa/dsa.zsh"
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 
 # Key Bindings
@@ -64,6 +69,10 @@ __fzfcmd() {
     printf "fzf --height $_FZF_HEIGHT_ $_FZF_OPTIONS_"
 }
 
+__rg_cmd() {
+    printf "rg --column --line-number --hidden --ignore-case --no-heading ."
+}
+
 __dmenucmd() {
     printf "dmenu -i -f -l 10"
 }
@@ -73,7 +82,7 @@ fzf-history-widget() {
   local selected num
   setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2> /dev/null
   selected=( $(fc -rl 1 | awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); if (!seen[cmd]++) print $0 }' |
-    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --scheme=history --bind=ctrl-r:toggle-sort,ctrl-z:ignore $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m" $(__fzfcmd)) )
+    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --bind=ctrl-r:toggle-sort,ctrl-z:ignore $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m" $(__fzfcmd)) )
   local ret=$?
   if [ -n "$selected" ]; then
     num=$selected[1]
@@ -104,14 +113,15 @@ function __confCompletions(){
 compdef __venvCompletions venv
 function __venvCompletions(){
     _arguments -C \
-        "1: :(new source -f)" \
+        "1: :(new remove source -f)" \
         "2: :($(ls $VENV_DIRECTORY))" \
 }
 
 compdef __ccoCompletions cco
 function __ccoCompletions(){
     _arguments -C \
-        "1: :($(ls /H/code))" \
+        "1: :($(ls $CODE_DIR))" \
+        "2: :($(ls $CODE_DIR))" \
 }
 
 compdef __noteCompletions note
@@ -125,7 +135,7 @@ venv() {
     case "$1" in
         "new")
             [[ "$2" != "" ]] && virtualenv "$VENV_DIRECTORY/$2" &&
-                source "$VENV_DIRECTORY/$2/bin/activate" ||
+                source "$VENV_DIRECTORY/$2/bin/activate"
                 printf "Empty Name Provided!"
             ;;
         "remove")
@@ -137,7 +147,7 @@ venv() {
             local sel="$( ls $VENV_DIRECTORY | $(__fzfcmd) )"
             [[ "$sel" != "" ]] && source "$VENV_DIRECTORY/$sel/bin/activate"
             ;;
-        *)
+        "source")
             source "$VENV_DIRECTORY/$2/bin/activate"
             ;;
     esac
@@ -247,7 +257,7 @@ lzf(){
 }
 
 fg(){
-    optionS=$(rg --column --line-number --hidden --ignore-case --no-heading . | $(__fzfcmd) | awk '{print $1}' | awk -F ":" '{print $1 "-" $2}')
+    optionS=$($(__rg_cmd) | $(__fzfcmd) | awk '{print $1}' | awk -F ":" '{print $1 "-" $2}')
     if [[ "$optionS" != "" ]]; then
         nvim ${optionS%-*} -c "normal ${optionS#*-}Gzz"
     fi
@@ -260,14 +270,16 @@ poke(){
 cco(){
     if [[ "$1" == "-m" ]];  then
         printf "Making Directory $2\n"
-        mkdir "/H/code/$2"
+        mkdir "$CODE_DIR/$2"
         printf "Changing Directory to $2\n"
-        cd "/H/code/$2"
+        cd "$CODE_DIR/$2"
     elif [[ "$1" == "-f" ]];  then
-        dir=$(ls /H/code/ | $(__fzfcmd) )
-        cd "/H/code/$dir"
+        dir=$(ls $CODE_DIR/ | $(__fzfcmd) )
+        cd "$CODE_DIR/$dir"
+    elif [[ "$1" == "-rm" || "$1" == "rm"  ]];  then
+        \rm -ivr "$CODE_DIR/$2"
     else
-        cd /H/code/$1
+        cd $CODE_DIR/$1
     fi
 }
 
@@ -302,7 +314,7 @@ fs(){
 }
 
 all_files(){
-    du -a "$1" | awk '{print $2}'
+    du -a "$1"/* | awk '{print $2}'
 }
 
 fsc(){
@@ -368,8 +380,17 @@ aw(){
     brave "https://wiki.archlinux.org/index.php?search=$searchTerm&title=Special%3ASearch&go=Go" &
 }
 
+envm() {
+    # Node Version Manager
+
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+}
+
 local BRANCH_COLOR=red
-local PROMPT_COLOR=blue
+local PROMPT_COLOR=green
+local FILE_COLOR=blue
 
 # Prompt Starts
 
@@ -388,7 +409,9 @@ setopt prompt_subst
 zstyle ':vcs_info:git:*' formats " %B%{$fg[$BRANCH_COLOR]%}%b%{$reset_color%}"
 
 
-PROMPT="%{$fg[$PROMPT_COLOR]%}%B%2~%{$reset_color%}"
-PROMPT+="\$vcs_info_msg_0_ "
+PROMPT="%{$fg[$FILE_COLOR]%}%B%2~%{$reset_color%}"
+PROMPT+="\$vcs_info_msg_0_ %"
 
 # Prompt Ends
+
+! [[ -z $E_ZPROF ]] && zprof > ~/zsh.log
