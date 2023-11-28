@@ -80,6 +80,13 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end
 })
 
+vim.api.nvim_create_autocmd("TermOpen", {
+    group = format_group,
+    callback = function()
+        vim.cmd("setlocal nonu nornu")
+    end
+})
+
 nnoremap ("<TAB>" , ":bnext<CR>")
 nnoremap ("<S-TAB>" , ":bprevious<CR>")
 nnoremap ("Y" , "y$")
