@@ -30,7 +30,7 @@ vim.opt.termguicolors=true
 
 vim.cmd [[
     syntax enable
-    colorscheme base16-tomorrow-night
+    colorscheme base16-helios
     syntax on
 ]]
 
@@ -93,7 +93,7 @@ vim.cmd( "hi DiagnosticSignHint guifg=#1d6a70 " )
 
 -- Highlights
 
-vim.cmd( "hi Normal guibg=black" )
+vim.cmd( "hi Normal guibg=#0f1112" )
 -- -- -- vim.cmd( "hi EndOfBuffer guibg=NONE" )
 -- vim.cmd( "hi LineNr guifg=#65a616" )
 -- vim.cmd( "hi CursorLineNr guifg=yellow guibg=None" )
