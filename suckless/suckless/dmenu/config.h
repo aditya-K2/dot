@@ -7,15 +7,15 @@ static int min_width = 500;                    /* minimum width when centered */
 static int fuzzy = 1;                      /* -F  option; if 0, dmenu doesn't use fuzzy matching     */
 /* -fn option overrides fonts[0]; default X11 font or font set */
 static const char *fonts[] = {
-	"Sauce Code Pro Nerd Font:size=10",
-	"NotoColorEmoji:size=10"
+	"Sauce Code Pro Nerd Font:size=9",
+	"NotoColorEmoji:size=9"
 };
 static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
 static const char *colors[SchemeLast][2] = {
 					/*     fg         bg       */
 	[SchemeNorm] = { "#bbbbbb", "#000000" },
-	[SchemeSel] = { "#ffffff", "#000000" },
-	[SchemeSelHighlight] = { "#ffc978", "#383838" },
+	[SchemeSel] = { "#ffffff", "#222222" },
+	[SchemeSelHighlight] = { "#ffc978", "#358c8c" },
 	[SchemeNormHighlight] = { "#c41693", "#222222" },
 	[SchemeOut] = { "#000000", "#00ffff" },
 	[SchemeOutHighlight] = { "#ffc978", "#00ffff" },

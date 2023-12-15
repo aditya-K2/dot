@@ -3,8 +3,8 @@
 # if [[ "$(mpc status | sed -n 2p | awk '{print $1;}')" != "[playing]" ]]; then
 #     textColor="$ORANGE_COLOR"
 # else
-__dateClr__="$GREEN_COLOR"
+__dateClr__="$RED_COLOR"
 __timeClr__="$GREEN_COLOR"
 # fi
 
-printf "^c$BLUE_COLOR^   ^c$__dateClr__^$(date "+%a %d %b, ^c$__timeClr__^%I:%M:%S")"
+printf "^c$BLUE_COLOR^   ^c$__dateClr__^$(date "+%a %d %b, ^c$__timeClr__^%I:%M:%S")"

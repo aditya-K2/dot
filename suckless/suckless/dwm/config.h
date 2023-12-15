@@ -23,17 +23,19 @@ static const int DFY                       =   250;
 static const char *fonts[]                 =   { "Sauce Code Pro Nerd Font:size=9:style=Normal" };
 static const char dmenufont[]              =   "Sauce Code Pro Nerd Font:size=9:style=Normal";
 static const char col_statusbar_fg[]       =   "#ffffff";
-static const char col_statusbar_bg[]       =   "#111111";
+static const char col_statusbar_bg[]       =   "#000000";
 static const char col_primary_fg[]         =   "#ffee00";
 static const char col_primary_bg[]         =   "#000000";
-static const char col_border[]             =   "#1d2130";
+static const char col_border[]             =   "#000000";
+static const char col_border_sel[]         =   "#ffee00";
 static const int BORDER_PX = 0;
+static const char gspt_config[]            =   "/home/aditya/.config/alacritty/gspt.yaml";
 
 
 static const char *colors[][3]      = {
     /*              fg                 bg                 border   */
    [SchemeNorm] = { col_statusbar_fg,  col_statusbar_bg  ,col_border},
-   [SchemeSel]  = { col_primary_fg,    col_primary_bg    ,col_border},
+   [SchemeSel]  = { col_primary_fg,    col_primary_bg    ,col_border_sel},
 };
 
 /* tagging */
@@ -62,6 +64,7 @@ static const Rule rules[] = {
  { NULL,    NULL,     "aditya - Thunar",      0,      1,           -1 ,       DFX,         DFY,   DFW,         DFH,     BORDER_PX,   'n'},
  { NULL,    NULL,     "scratchpad",           0,      1,           -1,        DFX,         DFY,   DFW,         DFH,     BORDER_PX,   's'},
  { NULL,    NULL,     "gomp",                 0,      1,           -1,        DFX - 50 ,   DFY,   DFW + 50 ,   DFH,     BORDER_PX,   'y'},
+ { NULL,    NULL,     "gspt",                 0,      1,           -1,        DFX - 50 ,   DFY,   DFW + 50 ,   DFH,     BORDER_PX,   'g'},
  { NULL,    NULL,     "tremc",                0,      1,           -1,        DFX - 50 ,   DFY,   DFW + 50 ,   DFH,     BORDER_PX,   't'},
  { NULL,    NULL,     "Select Color",         0,      1,           -1,        DFX - 50 ,   DFY,   DFW + 50 ,   DFH,     BORDER_PX,   'c'},
  { NULL,    NULL,     "Ideas",                0,      1,           -1,        DFX - 50 ,   DFY,   DFW + 50 ,   DFH,     BORDER_PX,   'i'},
@@ -105,7 +108,8 @@ static const char *fileManager[]     = { "n", "/usr/bin/thunar", NULL };
 static const char *colorChooser[]    = { "c", "/usr/bin/kcolorchooser", NULL };
 static const char *scratchpadcmd[]   = { "s", "alacritty", "-t", "scratchpad" , "-e", "scratchtmux", NULL};
 static const char *ideascmd[]        = { "i", "alacritty", "-t", "Ideas" , "-e", "nvim", "/random/notes/thots/🥷 Tech Ideas/Ideas.md.md", NULL};
-static const char *gompcmd[]         = { "y", "st", "-t", "gomp" , "-e", "/H/code/gomp/gomp", NULL};
+static const char *gompcmd[]         = { "y", "alacritty" , "-t", "gomp" , "-e", "/H/code/gomp/gomp", NULL};
+static const char *gsptcmd[]         = { "g", "alacritty" , "-t", "gspt" , "--config-file", gspt_config, "-e", "/H/code/gspt/gspt", NULL};
 
 static Key keys[] = {
    /* modifier                               key                          function        argument */
@@ -115,7 +119,8 @@ static Key keys[] = {
   { MODKEY,                                 XK_Return,                   spawn,                 {.v = termcmd } },
   { MODKEY|ShiftMask,                       XK_Return,                   spawn,                 SHCMD("alacritty -e tmux") },
   { MODKEY,                                 XK_space,                    togglescratch,         {.v = scratchpadcmd } },
-  { Mod1Mask,                               XK_y,                        togglescratch,         {.v = gompcmd } },
+  { Mod1Mask,                               XK_y,                        togglescratch,         {.v = gsptcmd } },
+  { MODKEY,                                 XK_y,                        togglescratch,         {.v = gompcmd } },
   { MODKEY,                                 XK_e,                        togglescratch,         {.v = fileManager } },
   { MODKEY,                                 XK_q,                        togglescratch,         {.v = torrentcli } },
   { MODKEY|ControlMask|ShiftMask,           XK_c,                        togglescratch,         {.v = colorChooser } },
@@ -127,7 +132,7 @@ static Key keys[] = {
   { Mod1Mask,                               XK_F4,                       spawn,                 SHCMD("sd") },
   { 0,                                      XK_Print,                    spawn,                 SHCMD("screenshot") },
   { ControlMask,                            XK_Print,                    spawn,                 SHCMD("directoryName") },
-  { ShiftMask,                              XK_Print,                    spawn,                 SHCMD("screenshotPart") },
+  { ShiftMask,                              XK_Print,                    spawn,                 SHCMD("screenshot part") },
   { 0,                                      XF86XK_AudioPrev,            spawn,                 SHCMD("mpc prev")},
   { 0,                                      XF86XK_AudioNext,            spawn,                 SHCMD("mpc next")},
   { 0,                                      XF86XK_AudioPlay,            spawn,                 SHCMD("mpc toggle")},
@@ -156,7 +161,7 @@ static Key keys[] = {
   { MODKEY,                                 XK_Tab,                      view,                  {0} },
   { MODKEY|ShiftMask,                       XK_c,                        killclient,            {0} },
   { MODKEY,                                 XK_c,                        killclient,            {0} },
-  { MODKEY|ShiftMask,                       XK_t,                        setlayout,             {.v = &layouts[0]} },
+  { MODKEY,                                 XK_t,                        setlayout,             {.v = &layouts[0]} },
   { MODKEY|ShiftMask,                       XK_m,                        setlayout,             {.v = &layouts[2]} },
   { MODKEY,                                 XK_f,                        togglefullscr,         {0} },
   { MODKEY,                                 XK_m,                        zoom,                  {0} },
