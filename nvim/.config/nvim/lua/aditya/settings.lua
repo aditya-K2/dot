@@ -8,7 +8,7 @@ vim.g["indent_blankline_filetype"]           = { "yaml", "lua" }
 vim.g["fzf_preview_window"]                  = {}
 vim.g["fzf_layout"]                          = { down = '15%' }
 
-if vim.fn.has("wsl") then
+if vim.fn.has("wsl") == 1 then
     vim.cmd [[
         let g:clipboard = {
           \   'name': 'WslClipboard',
