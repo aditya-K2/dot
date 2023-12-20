@@ -125,7 +125,7 @@ nmap ("<leader>fn" , ":Files ~/.config/nvim/<CR>")
 nmap ("<leader>fs" , ":Files<CR>")
 nmap ("<leader>fo" , ":Buffers<CR>")
 nmap ("<leader>fg" , ":Rg <CR>")
-nmap ("<leader>fh" , ":Telescope help_tags <CR>")
+nmap ("<leader>fh" , ":Helptags <CR>")
 
 vim.api.nvim_set_keymap("i", "<C-BS>" , "<C-w>", {})
 vim.api.nvim_set_keymap("i", "<C-h>" , "<C-w>", {})
