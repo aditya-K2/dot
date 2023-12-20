@@ -64,7 +64,9 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 
-# Use fzf for Reverse Searching History
+# Setting fd as the default source for fzf (respects .gitignore)
+export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
+
 __fzfcmd() {
     printf "fzf --height $_FZF_HEIGHT_ $_FZF_OPTIONS_"
 }
