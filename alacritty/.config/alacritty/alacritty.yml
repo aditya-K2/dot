@@ -12,7 +12,7 @@ shell:
   program: /bin/zsh
 
 font:
-  size: 5.5
+  size: 6.5
   # size: 8.5
 
   normal:
