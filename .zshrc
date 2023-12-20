@@ -196,23 +196,6 @@ note(){
     fi
 }
 
-webmtomp3(){
-    for i in *.webm
-    do
-        ffmpeg -i "$i" -b:a 320k "${i%.webm}.mp3" &&
-        rm "$i"
-    done
-}
-
-m4atoflac(){
-    for i in *.m4a
-    do
-        # ffmpeg -i "$i" -b:a 320k "${i%.webm}.mp3" &&
-        ffmpeg -i "$i" -f flac "${i%.m4a}.flac" &&
-        rm "$i"
-    done
-}
-
 extract(){
   if [ -f $1 ] ; then
     case $1 in
@@ -295,16 +278,6 @@ ez(){
         (nvim -c "$(printf "normal %sGzz" $line_nr)" ~/.zshrc))
 }
 
-fo(){
-    if [ -z ${1} ]; then
-        selectedFile="$($(__fzfcmd))" &&
-        nvim -c "$(cat -n $selectedFile | $(__fzfcmd) | awk '{print $1}')" "$selectedFile"
-    else
-        selectedFile="$(all_files $1 | awk '{print $2}' |$(__fzfcmd))" &&
-        nvim -c "$(cat -n $selectedFile | $(__fzfcmd) | awk '{print $1}')" "$selectedFile"
-    fi
-}
-
 asmc(){
     nasm -f elf64 -o "/tmp/${1%.asm}.o" "$1" &&
     ld "/tmp/${1%.asm}.o" -o "/tmp/${1%.asm}" &&
@@ -317,10 +290,6 @@ fs(){
 
 all_files(){
     du -a "$1"/* | awk '{print $2}'
-}
-
-fsc(){
-    $(__fzfcmd) | xargs -r -d '\n' codium --add
 }
 
 conf(){
@@ -361,25 +330,6 @@ rsc(){
     else
          ffmpeg -f x11grab -s 1920x1080 -i :0.0 $1
     fi
-}
-
-mkvtomp4(){
-    ffmpeg -i "$1" -codec copy "${1%.*}.mp4"
-}
-
-ap(){
-    searchTerm=$(printf "$1" | sed "s/ /%20/g")
-    brave "https://archlinux.org/packages/?sort=&q=$searchTerm&maintainer=&flagged=" &
-}
-
-aur(){
-    searchTerm=$(printf "$1" | sed "s/ /%20/g")
-    brave "https://aur.archlinux.org/packages/?O=0&K=$searchTerm" &
-}
-
-aw(){
-    searchTerm=$(printf "$1" | sed "s/ /%20/g")
-    brave "https://wiki.archlinux.org/index.php?search=$searchTerm&title=Special%3ASearch&go=Go" &
 }
 
 envm() {
