@@ -40,7 +40,7 @@ require("lazy").setup({
     -- 'aditya-K2/scruber.vim',
     -- 'vim/colorschemes',
 
-    -- {'iamcco/markdown-preview.nvim', build = 'cd app && yarn install'},
+    {'iamcco/markdown-preview.nvim', build = 'cd app && yarn install'},
 
     'fatih/vim-go',
     -- {'akinsho/flutter-tools.nvim', dependencies = 'nvim-lua/plenary.nvim',
