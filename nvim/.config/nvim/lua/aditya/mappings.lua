@@ -35,8 +35,9 @@ local function format_buffer()
 end
 
 local format_group = vim.api.nvim_create_augroup("__aditya__format_group", {clear = true})
-local fg_pattern = { "*.cpp" , "*.cc" }
+local c_files = { "*.cpp" , "*.cc", "*.c" }
 local show_spaces = { "*.yaml", "*.py" }
+local notes = { "*/notes", "*/note" }
 
 vim.api.nvim_create_autocmd("BufEnter", {
     group = format_group,
@@ -48,7 +49,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 vim.api.nvim_create_autocmd("BufEnter", {
     group = format_group,
-    pattern = fg_pattern,
+    pattern = c_files,
     callback = function()
         vim.api.nvim_buf_set_option(0, "tabstop", 2)
         vim.api.nvim_buf_set_option(0, "softtabstop", 2)
@@ -66,7 +67,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 vim.api.nvim_create_autocmd("BufEnter", {
     group = format_group,
-    pattern = { "*/notes", "*/note" },
+    pattern = notes,
     callback = function()
         vim.cmd("set filetype=markdown")
     end
@@ -95,9 +96,6 @@ nnoremap ("<leader><CR>" , ":split<CR>")
 nnoremap ("<leader>fc" , "<cmd> lua require('telescope.builtin').find_files{cwd='/H/code', prompt='cpFiles'}<CR>")
 nnoremap ("<leader>m" , ":MaximizerToggle <CR>")
 nnoremap ("U", "<cmd>lua vim.diagnostic.open_float(0, { scope = \"line\" })<CR>")
-
--- nnoremap ("<S-m>"      , ":lua vim.lsp.diagnostic.show_line_diagnostics()<CR>")
--- nnoremap ("<M-m>"      , ":lua require('termtoggle').TermToggle()<CR>")
 
 -- Split Mappings
 
