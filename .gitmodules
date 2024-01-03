@@ -1,3 +1,6 @@
 [submodule "lsp/lsp/lua-language-server"]
 	path = lsp/lsp/lua-language-server
 	url = https://github.com/sumneko/lua-language-server.git
+[submodule "dot-priv"]
+	path = dot-priv
+	url = git@github.com:aditya-K2/dot-priv.git
