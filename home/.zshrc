@@ -362,7 +362,7 @@ zstyle ':vcs_info:git:*' formats " %B%{$fg[$BRANCH_COLOR]%}%b"
 
 
 PROMPT="%{$fg[$FILE_COLOR]%}%B%2~"
-PROMPT+="\$vcs_info_msg_0_ % %{$fg[yellow]%}%% %{$reset_color%}"
+PROMPT+="\$vcs_info_msg_0_ % %{$fg[$PROMPT_COLOR]%}%% %{$reset_color%}"
 
 # Prompt Ends
 
