@@ -69,7 +69,7 @@ vim.opt.completeopt="menu"
 vim.opt.spelloptions="camel"
 vim.opt.guifont="Source Code Pro:h8"
 vim.opt.expandtab=true
-vim.opt.laststatus=3
+vim.opt.laststatus=0
 -- vim.cmd("set mouse=")
 
 -- LSP Diagnostics
