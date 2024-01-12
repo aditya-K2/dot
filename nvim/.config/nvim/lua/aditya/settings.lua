@@ -30,7 +30,7 @@ vim.opt.termguicolors=true
 
 vim.cmd [[
     syntax enable
-    colorscheme base16-helios
+    colorscheme oxocarbon
     syntax on
 ]]
 
@@ -93,12 +93,12 @@ vim.cmd( "hi DiagnosticSignHint guifg=#1d6a70 " )
 
 -- Highlights
 
-vim.cmd( "hi Normal guibg=#0f1112" )
+-- vim.cmd( "hi Normal guibg=#0f1112" )
 -- -- -- vim.cmd( "hi EndOfBuffer guibg=NONE" )
 -- vim.cmd( "hi LineNr guifg=#65a616" )
 -- vim.cmd( "hi CursorLineNr guifg=yellow guibg=None" )
 -- -- vim.cmd( "hi SignColumn guibg=#262626" )
-vim.cmd( "hi NonText guifg=#454545" )
+-- vim.cmd( "hi NonText guifg=#454545" )
 -- -- vim.cmd( "hi Pmenu guibg=#262526" )
 -- vim.cmd( "hi Comment guifg=grey gui=italic" )
 -- -- -- vim.cmd( "hi Winbar guibg=#4e4e43" )

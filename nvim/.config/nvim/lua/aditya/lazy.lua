@@ -28,11 +28,11 @@ require("lazy").setup({
     -- 'tomasiser/vim-code-dark',
     -- 'Mofiqul/vscode.nvim',
     -- 'projekt0n/github-nvim-theme',
-    'RRethy/nvim-base16',
+    -- 'RRethy/nvim-base16',
     -- "rebelot/kanagawa.nvim",
     -- {"ellisonleao/gruvbox.nvim", dependencies = {"rktjmp/lush.nvim"}},
     -- { "briones-gabriel/darcula-solid.nvim", dependencies = "rktjmp/lush.nvim" },
-    -- {'shaunsingh/oxocarbon.nvim', branch = 'fennel'},
+    'nyoom-engineering/oxocarbon.nvim',
     -- 'ishan9299/nvim-solarized-lua',
     -- 'davidosomething/vim-colors-meh',
     -- 'Shatur/neovim-ayu',
@@ -86,4 +86,7 @@ require("lazy").setup({
 
     --Maximizer
     'szw/vim-maximizer',
+
+    -- JS
+    { 'prettier/vim-prettier', build="yarn install --frozen-lockfile --production", ft={'javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'} } ,
 })
