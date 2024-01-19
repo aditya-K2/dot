@@ -341,7 +341,7 @@ envm() {
 }
 
 local BRANCH_COLOR=red
-local PROMPT_COLOR=green
+local PROMPT_COLOR=yellow
 local FILE_COLOR=blue
 
 # Prompt Starts
