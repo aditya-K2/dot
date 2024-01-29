@@ -30,7 +30,7 @@ vim.opt.termguicolors=true
 
 vim.cmd [[
     syntax enable
-    colorscheme oxocarbon
+    colorscheme kanagawa-dragon
     syntax on
 ]]
 
@@ -70,7 +70,7 @@ vim.opt.spelloptions="camel"
 vim.opt.guifont="Source Code Pro:h8"
 vim.opt.expandtab=true
 vim.opt.laststatus=0
--- vim.cmd("set mouse=")
+vim.cmd("set mouse=")
 
 -- LSP Diagnostics
 
@@ -93,6 +93,7 @@ vim.cmd( "hi DiagnosticSignHint guifg=#1d6a70 " )
 
 -- Highlights
 
+vim.cmd("hi GitSignsChange guifg=#076678")
 -- vim.cmd( "hi Normal guibg=#0f1112" )
 -- -- -- vim.cmd( "hi EndOfBuffer guibg=NONE" )
 -- vim.cmd( "hi LineNr guifg=#65a616" )

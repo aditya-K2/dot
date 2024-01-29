@@ -29,10 +29,10 @@ require("lazy").setup({
     -- 'Mofiqul/vscode.nvim',
     -- 'projekt0n/github-nvim-theme',
     -- 'RRethy/nvim-base16',
-    -- "rebelot/kanagawa.nvim",
+    "rebelot/kanagawa.nvim",
     -- {"ellisonleao/gruvbox.nvim", dependencies = {"rktjmp/lush.nvim"}},
     -- { "briones-gabriel/darcula-solid.nvim", dependencies = "rktjmp/lush.nvim" },
-    'nyoom-engineering/oxocarbon.nvim',
+    -- 'nyoom-engineering/oxocarbon.nvim',
     -- 'ishan9299/nvim-solarized-lua',
     -- 'davidosomething/vim-colors-meh',
     -- 'Shatur/neovim-ayu',
@@ -41,6 +41,14 @@ require("lazy").setup({
     -- 'vim/colorschemes',
 
     {'iamcco/markdown-preview.nvim', build = 'cd app && yarn install'},
+    { 'lewis6991/gitsigns.nvim', config = function()
+        require('gitsigns').setup{
+             signs = {
+                add = { text = '+' },
+                change = { text = '=' },
+              },
+        }
+    end },
 
     'fatih/vim-go',
     -- {'akinsho/flutter-tools.nvim', dependencies = 'nvim-lua/plenary.nvim',
