@@ -12,7 +12,7 @@ HISTSIZE=100000
 SAVEHIST=100000
 HISTFILE=~/.cache/zsh/history
 _FZF_HEIGHT_=7
-_FZF_OPTIONS_="--border=none --info=hidden --no-scrollbar --color=light --reverse"
+_FZF_OPTIONS_="--border=none --info=hidden --color=light --reverse"
 
 # Basic auto/tab complete:
 autoload -U compinit
