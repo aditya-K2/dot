@@ -38,6 +38,7 @@ local format_group = vim.api.nvim_create_augroup("__aditya__format_group", {clea
 local c_files = { "*.cpp" , "*.cc", "*.c" }
 local show_spaces = { "*.yaml", "*.py" }
 local notes = { "*/notes", "*/note" }
+local js = { "*.js", "*.jsx", "*.ts", "*.html", "*.tsx", "*.css" }
 
 vim.api.nvim_create_autocmd("BufEnter", {
     group = format_group,
@@ -62,6 +63,14 @@ vim.api.nvim_create_autocmd("BufEnter", {
     pattern = { "*/waybar/config" },
     callback = function()
         vim.cmd("set filetype=jsonc")
+    end
+})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+    group = format_group,
+    pattern = js,
+    callback = function()
+        vim.api.nvim_buf_set_keymap(0, "n", "<leader>f", ":Prettier<CR>", {noremap = true, silent = false})
     end
 })
 
