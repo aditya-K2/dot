@@ -24,12 +24,17 @@ _comp_options+=(globdots)        # Include hidden files.
 # vi mode
 bindkey -v
 
+# the z script
+Z_SH_PATH="$HOME/z.sh"
+Z_SH_LINK="https://raw.githubusercontent.com/rupa/z/master/z.sh"
+! [[ -r "$Z_SH_PATH" ]] \
+    && wget "$Z_SH_LINK" -O "$Z_SH_PATH" \
+    || source "$Z_SH_PATH"
+
 export KEYTIMEOUT=1
 
 source "$HOME/env.sh"
 source "$HOME/alias.sh"
-# source "$CODE_DIR/lbdsa/dsa.zsh"
-[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 
 # Key Bindings
 
@@ -65,7 +70,7 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 
 # Setting fd as the default source for fzf (respects .gitignore)
-export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
+export FZF_DEFAULT_COMMAND='fdfind --type f --strip-cwd-prefix'
 
 __fzfcmd() {
     printf "fzf --height $_FZF_HEIGHT_ $_FZF_OPTIONS_"
