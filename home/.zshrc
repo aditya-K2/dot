@@ -245,10 +245,6 @@ sc(){
     fi
 }
 
-tsma(){
-    transmission-remote --add "$1"
-}
-
 lzf(){
     locate "$1" | $(__fzfcmd)
 }
@@ -258,10 +254,6 @@ fg(){
     if [[ "$optionS" != "" ]]; then
         nvim ${optionS%-*} -c "normal ${optionS#*-}Gzz"
     fi
-}
-
-poke(){
-    cat $HOME/suckless/colorscripts/$(ls $HOME/suckless/colorscripts/ | shuf -n 1)
 }
 
 cco(){
@@ -330,18 +322,6 @@ conf(){
 
 fn(){
     all_files "$HOME/.config/nvim/" | $(__fzfcmd) | xargs -r -d '\n' $EDITOR
-}
-
-gpp(){
-    g++ $1 && ./a.out
-}
-
-rsc(){
-    if [[ "$1" == "-c" ]]; then
-         ffmpeg -f v4l2 -video_size 640x480 -i /dev/video0 -c:v libx264 -preset ultrafast -c:a aac "$2"
-    else
-         ffmpeg -f x11grab -s 1920x1080 -i :0.0 $1
-    fi
 }
 
 envm() {
