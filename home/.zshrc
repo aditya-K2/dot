@@ -10,7 +10,8 @@ setopt HIST_SAVE_NO_DUPS
 # History in cache directory:
 HISTSIZE=100000
 SAVEHIST=100000
-HISTFILE=~/.cache/zsh/history
+HISTORY_DIR="$HOME/.cache/zsh/"
+HISTFILE=$HISTORY_DIR/history
 _FZF_HEIGHT_=7
 _FZF_OPTIONS_="--border=none --info=hidden --color=light --reverse"
 
@@ -19,10 +20,13 @@ autoload -U compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 compinit
-_comp_options+=(globdots)        # Include hidden files.
+# Include hidden files.
+_comp_options+=(globdots)
 
 # vi mode
 bindkey -v
+
+# (Create files/folders that don't exist but are required for the shell)
 
 # the z script
 Z_SH_PATH="$HOME/z.sh"
@@ -30,6 +34,9 @@ Z_SH_LINK="https://raw.githubusercontent.com/rupa/z/master/z.sh"
 ! [[ -r "$Z_SH_PATH" ]] \
     && wget "$Z_SH_LINK" -O "$Z_SH_PATH" \
     || source "$Z_SH_PATH"
+
+# History directory
+! [[ -d "$HISTORY_DIR" ]] && mkdir "$HISTORY_DIR"
 
 export KEYTIMEOUT=1
 
