@@ -75,9 +75,12 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
+fd_command() {
+    command -v fd 1>/dev/null 2>/dev/null && printf "fd" || printf "fdfind"
+}
 
 # Setting fd as the default source for fzf (respects .gitignore)
-export FZF_DEFAULT_COMMAND='fdfind --type f --strip-cwd-prefix'
+export FZF_DEFAULT_COMMAND="$(fd_command) --type f --strip-cwd-prefix"
 
 __fzfcmd() {
     printf "fzf --height $_FZF_HEIGHT_ $_FZF_OPTIONS_"
