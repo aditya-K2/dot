@@ -121,27 +121,27 @@ compdef __confCompletions conf
 function __confCompletions(){
     _arguments -C \
         "1: :($(ls $HOME/.config))" \
-        "2: :($(ls $HOME/.config))" \
+        "2: :($(ls $HOME/.config))"
 }
 
 compdef __venvCompletions venv
 function __venvCompletions(){
     _arguments -C \
         "1: :(new remove source -f)" \
-        "2: :($(ls $VENV_DIRECTORY))" \
+        "2: :($(ls $VENV_DIRECTORY))"
 }
 
 compdef __ccoCompletions cco
 function __ccoCompletions(){
     _arguments -C \
         "1: :($(ls $CODE_DIR))" \
-        "2: :($(ls $CODE_DIR))" \
+        "2: :($(ls $CODE_DIR))"
 }
 
 compdef __noteCompletions note
 function __noteCompletions(){
     _arguments -C \
-        "1: :($(ls $NOTES_DIR/thots))" \
+        "1: :($(ls $NOTES_DIR/thots))"
 }
 
 # functions
