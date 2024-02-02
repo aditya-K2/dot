@@ -30,7 +30,7 @@ vim.opt.termguicolors=true
 
 vim.cmd [[
     syntax enable
-    colorscheme kanagawa-dragon
+    colorscheme solarized
     syntax on
 ]]
 
@@ -94,6 +94,8 @@ vim.cmd( "hi DiagnosticSignHint guifg=#1d6a70 " )
 -- Highlights
 
 vim.cmd("hi GitSignsChange guifg=#076678")
+vim.cmd("hi Winbar guibg=None")
+vim.cmd("hi WinbarNC guibg=None")
 -- vim.cmd( "hi Normal guibg=#0f1112" )
 -- -- -- vim.cmd( "hi EndOfBuffer guibg=NONE" )
 -- vim.cmd( "hi LineNr guifg=#65a616" )
