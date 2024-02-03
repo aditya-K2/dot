@@ -329,17 +329,16 @@ fn(){
 
 envm() {
     # Node Version Manager
-
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
 
+# Prompt Starts
+
 local BRANCH_COLOR=red
 local PROMPT_COLOR=yellow
 local FILE_COLOR=blue
-
-# Prompt Starts
 
 ## autoload vcs and colors
 autoload -Uz vcs_info
@@ -354,7 +353,6 @@ precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
 
 zstyle ':vcs_info:git:*' formats " %B%{$fg[$BRANCH_COLOR]%}%b"
-
 
 PROMPT="%{$fg[$FILE_COLOR]%}%B%2~"
 PROMPT+="\$vcs_info_msg_0_ % %{$fg[$PROMPT_COLOR]%}%% %{$reset_color%}"
