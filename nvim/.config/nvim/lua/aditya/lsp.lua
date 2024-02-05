@@ -31,7 +31,6 @@ local servers = {
   "clangd",
   "dartls",
   "vimls",
-  -- "yamlls",
   "pyright",
   "gopls",
   "tsserver",
@@ -40,10 +39,10 @@ local servers = {
 
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
-  on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  }
+      on_attach = on_attach,
+      flags = {
+        debounce_text_changes = 150,
+      }
   }
 end
 
