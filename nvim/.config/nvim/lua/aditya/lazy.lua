@@ -57,8 +57,7 @@ require("lazy").setup({
     -- end},
 
     -- Tree Sitter
-    { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate',
-    config = function()
+    { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate', config = function()
         -- treesitter highlighting
         require'nvim-treesitter.configs'.setup {
             ensure_installed = {
@@ -69,7 +68,7 @@ require("lazy").setup({
                 "python", "dart"
             },
             highlight = { enable = true } }
-    end},
+    end },
     { 'nvim-treesitter/playground', cmd = "TSPlaygroundToggle" },
 
     -- Lsp
@@ -93,7 +92,7 @@ require("lazy").setup({
     'aditya-K2/spellfloat',
     { 'aditya-K2/termtoggle.nvim', config = function()
         require('termtoggle').setup({bg="black"})
-    end},
+    end },
     'dstein64/vim-startuptime',
 
     --Maximizer
