@@ -74,7 +74,12 @@ require("lazy").setup({
 
     -- Lsp
     'neovim/nvim-lspconfig',
-    'williamboman/mason.nvim',
+    { 'williamboman/mason.nvim', config = function()
+        require("mason").setup()
+    end },
+    { 'williamboman/mason-lspconfig.nvim', config = function()
+        require("mason-lspconfig").setup()
+    end },
     -- 'ray-x/lsp_signature.nvim',
 
     -- Cmp
