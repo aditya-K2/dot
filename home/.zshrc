@@ -26,6 +26,9 @@ _comp_options+=(globdots)
 # vi mode
 bindkey -v
 
+source "$HOME/env.sh"
+source "$HOME/alias.sh"
+
 #-(Create files/folders that don't exist but are required )-------------------
 
 # Z script
@@ -35,8 +38,11 @@ Z_SH_LINK="https://raw.githubusercontent.com/rupa/z/master/z.sh"
     && wget "$Z_SH_LINK" -O "$Z_SH_PATH" \
     || source "$Z_SH_PATH"
 
-# History directory
+# Create directories that don't exist
 ! [[ -d "$HISTORY_DIR" ]] && mkdir "$HISTORY_DIR"
+! [[ -d "$VENV_DIR" ]] && mkdir "$VENV_DIR"
+! [[ -d "$CODE_DIR" ]] && mkdir "$CODE_DIR"
+! [[ -d "$NOTES_DIR" ]] && mkdir "$NOTES_DIR"
 
 # Node Version Manager
 export NVM_DIR="$HOME/.nvm"
@@ -47,9 +53,6 @@ export NVM_DIR="$HOME/.nvm"
 #-----------------------------------------------------------------------------
 
 export KEYTIMEOUT=1
-
-source "$HOME/env.sh"
-source "$HOME/alias.sh"
 
 # Key Bindings
 
@@ -140,7 +143,7 @@ compdef __venvCompletions venv
 function __venvCompletions(){
     _arguments -C \
         "1: :(new remove source -f)" \
-        "2: :($(ls $VENV_DIRECTORY))"
+        "2: :($(ls $VENV_DIR))"
 }
 
 compdef __ccoCompletions cco
@@ -160,21 +163,21 @@ function __noteCompletions(){
 venv() {
     case "$1" in
         "new")
-            [[ "$2" != "" ]] && virtualenv "$VENV_DIRECTORY/$2" &&
-                source "$VENV_DIRECTORY/$2/bin/activate"
+            [[ "$2" != "" ]] && virtualenv "$VENV_DIR/$2" &&
+                source "$VENV_DIR/$2/bin/activate"||
                 printf "Empty Name Provided!"
             ;;
         "remove")
-            [[ "$2" != "" ]] && \rm -rf "$VENV_DIRECTORY/$2" &&
+            [[ "$2" != "" ]] && \rm -rf "$VENV_DIR/$2" &&
                 printf "Removed $2 Succesfully!" ||
                 printf "Empty Name Provided!"
             ;;
         "-f")
-            local sel="$( ls $VENV_DIRECTORY | $(__fzfcmd) )"
-            [[ "$sel" != "" ]] && source "$VENV_DIRECTORY/$sel/bin/activate"
+            local sel="$( ls $VENV_DIR | $(__fzfcmd) )"
+            [[ "$sel" != "" ]] && source "$VENV_DIR/$sel/bin/activate"
             ;;
         "source")
-            source "$VENV_DIRECTORY/$2/bin/activate"
+            source "$VENV_DIR/$2/bin/activate"
             ;;
     esac
 }
@@ -212,11 +215,11 @@ mpvf(){
 
 note(){
     if [[ "$1" == "-d" ]]; then
-        nvim $NOTES_DIR/journals/$(date "+%a_%d_%b.md")
+        nvim $NOTES_DIR/$(date "+%a_%d_%b.md")
+    elif [[ "$1" == "-f" ]]; then
+        all_files $NOTES_DIR | $(__fzfcmd) | xargs -r -d '\n' $EDITOR
     elif [[ "$1" != "" ]]; then
-        nvim $NOTES_DIR/thots/"$1"
-    else
-        all_files $NOTES_DIR/thots | $(__fzfcmd) | xargs -r -d '\n' $EDITOR
+        nvim $NOTES_DIR/"$1"
     fi
 }
 
@@ -341,10 +344,6 @@ envm() {
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
-
-# Function Calls
-
-envm
 
 # Prompt Starts
 
