@@ -45,7 +45,6 @@ require("lazy").setup({
         require('gitsigns').setup{
              signs = {
                 add = { text = '+' },
-                change = { text = '=' },
               },
         }
     end },
