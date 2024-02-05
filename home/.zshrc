@@ -26,9 +26,9 @@ _comp_options+=(globdots)
 # vi mode
 bindkey -v
 
-# (Create files/folders that don't exist but are required for the shell)
+#-(Create files/folders that don't exist but are required )-------------------
 
-# the z script
+# Z script
 Z_SH_PATH="$HOME/z.sh"
 Z_SH_LINK="https://raw.githubusercontent.com/rupa/z/master/z.sh"
 ! [[ -r "$Z_SH_PATH" ]] \
@@ -37,6 +37,14 @@ Z_SH_LINK="https://raw.githubusercontent.com/rupa/z/master/z.sh"
 
 # History directory
 ! [[ -d "$HISTORY_DIR" ]] && mkdir "$HISTORY_DIR"
+
+# Node Version Manager
+export NVM_DIR="$HOME/.nvm"
+! [[ -r "$NVM_DIR" ]] \
+    && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash \
+    && nvm install "20.11.0"
+
+#-----------------------------------------------------------------------------
 
 export KEYTIMEOUT=1
 
@@ -329,10 +337,13 @@ fn(){
 
 envm() {
     # Node Version Manager
-    export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
+
+# Function Calls
+
+envm
 
 # Prompt Starts
 
