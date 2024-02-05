@@ -85,6 +85,7 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 fd_command() {
     command -v fd 1>/dev/null 2>/dev/null && printf "fd" || printf "fdfind"
+    printf " --color=never"
 }
 
 # Setting fd as the default source for fzf (respects .gitignore)
@@ -304,7 +305,7 @@ fs(){
 }
 
 all_files(){
-    du -a "$1"/* | awk '{print $2}'
+    $(printf "$(fd_command) . $1")
 }
 
 conf(){
