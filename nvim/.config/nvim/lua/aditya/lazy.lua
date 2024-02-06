@@ -15,6 +15,7 @@ local ensure_installed_mason_packages = {
     "clangd",
     "yaml-language-server",
     "vim-language-server",
+    "pyright",
     "gopls"
 }
 
@@ -89,6 +90,7 @@ require("lazy").setup({
             for _, pkg_name in ipairs(ensure_installed_mason_packages) do
                 local pkg = registry.get_package(pkg_name)
                 if not pkg:is_installed() then
+                    print("Installing " .. pkg_name .. "...")
                     pkg:install()
                 end
             end
