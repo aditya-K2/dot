@@ -7,7 +7,6 @@ autoload -U colors && colors
 
 setopt HIST_SAVE_NO_DUPS
 
-# History in cache directory:
 HISTSIZE=100000
 SAVEHIST=100000
 HISTORY_DIR="$HOME/.cache/zsh/"
@@ -110,8 +109,7 @@ __dmenucmd() {
 fzf-history-widget() {
   local selected num
   setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2> /dev/null
-  selected=( $(fc -rl 1 | awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); if (!seen[cmd]++) print $0 }' |
-    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --bind=ctrl-r:toggle-sort,ctrl-z:ignore $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m" $(__fzfcmd)) )
+  selected=( $(fc -rl 1 | awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); if (!seen[cmd]++) print $0 }' | $(__fzfcmd)) )
   local ret=$?
   if [ -n "$selected" ]; then
     num=$selected[1]
@@ -156,7 +154,7 @@ function __ccoCompletions(){
 compdef __noteCompletions note
 function __noteCompletions(){
     _arguments -C \
-        "1: :($(ls $NOTES_DIR/thots))"
+        "1: :($(ls $NOTES_DIR))"
 }
 
 # functions
