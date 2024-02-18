@@ -30,7 +30,7 @@ vim.opt.termguicolors=true
 
 vim.cmd [[
     syntax enable
-    colorscheme solarized
+    colorscheme base16-gruber
     syntax on
 ]]
 
