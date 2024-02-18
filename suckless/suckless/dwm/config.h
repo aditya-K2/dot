@@ -29,7 +29,7 @@ static const char col_primary_bg[]         =   "#000000";
 static const char col_border[]             =   "#000000";
 static const char col_border_sel[]         =   "#ffee00";
 static const int BORDER_PX = 0;
-static const char gspt_config[]            =   "/home/aditya/.config/alacritty/gspt.yaml";
+static const char gspt_config[]            =   "/home/aditya/.config/alacritty/gspt.toml";
 
 
 static const char *colors[][3]      = {
