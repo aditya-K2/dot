@@ -35,19 +35,19 @@ TERM = "xterm-256color"
 size = 6.5
 
 [font.bold]
-family = "Sauce Code Pro Nerd Font"
+family = "Lilex Nerd Font"
 style = "Bold"
 
 [font.bold_italic]
-family = "Sauce Code Pro Nerd Font"
+family = "Lilex Nerd Font"
 style = "Bold Italic"
 
 [font.italic]
-family = "Sauce Code Pro Nerd Font"
+family = "Lilex Nerd Font"
 style = "Italic"
 
 [font.normal]
-family = "Sauce Code Pro Nerd Font"
+family = "Lilex Nerd Font"
 style = "Normal"
 
 [shell]
