@@ -154,7 +154,7 @@ function __ccoCompletions(){
 compdef __noteCompletions note
 function __noteCompletions(){
     _arguments -C \
-        "1: :($(ls $NOTES_DIR))"
+        "1: :($(ls $NOTES_DIR/*.md | awk -F/ '{print $NF}'))"
 }
 
 # functions
@@ -216,6 +216,8 @@ note(){
         nvim $NOTES_DIR/$(date "+%a_%d_%b.md")
     elif [[ "$1" == "-f" ]]; then
         all_files $NOTES_DIR | $(__fzfcmd) | xargs -r -d '\n' $EDITOR
+    elif [[ "$1" == "-g" ]]; then
+        cd $NOTES_DIR
     elif [[ "$1" != "" ]]; then
         nvim $NOTES_DIR/"$1"
     fi
