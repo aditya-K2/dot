@@ -36,12 +36,14 @@ require("lazy").setup({
     -- 'tomasiser/vim-code-dark',
     -- 'Mofiqul/vscode.nvim',
     -- 'projekt0n/github-nvim-theme',
-    'RRethy/nvim-base16',
+    -- 'RRethy/nvim-base16',
     -- "rebelot/kanagawa.nvim",
     -- {"ellisonleao/gruvbox.nvim", dependencies = {"rktjmp/lush.nvim"}},
     -- { "briones-gabriel/darcula-solid.nvim", dependencies = "rktjmp/lush.nvim" },
     -- 'nyoom-engineering/oxocarbon.nvim',
     -- 'ishan9299/nvim-solarized-lua',
+    'yorickpeterse/vim-paper',
+    -- 'yorickpeterse/nvim-grey',
     -- 'davidosomething/vim-colors-meh',
     -- 'Shatur/neovim-ayu',
     -- 'https://gitlab.com/madyanov/gruber.vim',
@@ -53,6 +55,7 @@ require("lazy").setup({
         require('gitsigns').setup{
              signs = {
                 add = { text = '+' },
+                change = { text = '~' },
               },
         }
     end },
