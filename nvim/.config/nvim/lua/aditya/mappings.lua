@@ -106,6 +106,15 @@ vim.api.nvim_create_autocmd("TermOpen", {
     end
 })
 
+-- Work around for mouse not working in the current Neovim
+vim.api.nvim_create_autocmd("VimEnter", {
+    group = format_group,
+    callback = function()
+        vim.cmd("set mouse=a")
+    end
+})
+
+
 nnoremap ("<TAB>" , ":bnext<CR>")
 nnoremap ("<S-TAB>" , ":bprevious<CR>")
 nnoremap ("Y" , "y$")
