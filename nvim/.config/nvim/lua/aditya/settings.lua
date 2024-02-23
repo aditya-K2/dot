@@ -25,12 +25,12 @@ if vim.fn.has("wsl") == 1 then
     ]]
 end
 
-vim.opt.background="dark"
+vim.opt.background="light"
 vim.opt.termguicolors=true
 
 vim.cmd [[
     syntax enable
-    colorscheme base16-gruber
+    colorscheme paper
     syntax on
 ]]
 
@@ -41,7 +41,6 @@ vim.opt.cmdheight=1
 vim.opt.hidden = true                                       -- Required to keep multiple buffers open multiple buffers
 vim.opt.wrap = false
 vim.opt.pumheight = 10                                      -- Makes popup menu smaller
-vim.opt.mouse="a"                                           -- Enable your mouse
 vim.opt.splitbelow = true                                   -- Horizontal splits will automatically be below
 vim.opt.splitright = true                                   -- Vertical splits will automatically be to the right
 vim.opt.swapfile = false
@@ -93,15 +92,19 @@ vim.cmd( "hi DiagnosticSignHint guifg=#1d6a70 " )
 
 -- Highlights
 
-vim.cmd("hi GitSignsChange guifg=#076678")
+vim.cmd("hi GitGutterChange guifg=#70bdf6")
+vim.cmd("hi GitSignsChange guifg=#70bdf6")
+vim.cmd("hi GitGutterDelete guifg=red")
+vim.cmd("hi GitGutterAdd guifg=green")
 vim.cmd("hi Winbar guibg=None")
 vim.cmd("hi WinbarNC guibg=None")
--- vim.cmd( "hi Normal guibg=#0f1112" )
+vim.cmd("hi ColorColumn guibg=#e2e2e2")
+vim.cmd( "hi Normal guibg=None" )
 -- -- -- vim.cmd( "hi EndOfBuffer guibg=NONE" )
 vim.cmd( "hi LineNr guibg=None" )
 -- vim.cmd( "hi CursorLineNr guifg=yellow guibg=None" )
 -- -- vim.cmd( "hi SignColumn guibg=#262626" )
--- vim.cmd( "hi NonText guifg=#454545" )
+vim.cmd( "hi NonText guifg=grey" )
 -- -- vim.cmd( "hi Pmenu guibg=#262526" )
 -- vim.cmd( "hi Comment guifg=grey gui=italic" )
 -- -- -- vim.cmd( "hi Winbar guibg=#4e4e43" )
