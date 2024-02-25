@@ -115,7 +115,7 @@ require("lazy").setup({
 
     'aditya-K2/spellfloat',
     { 'aditya-K2/termtoggle.nvim', config = function()
-        require('termtoggle').setup({bg="black"})
+        require('termtoggle').setup()
     end },
     'dstein64/vim-startuptime',
 
