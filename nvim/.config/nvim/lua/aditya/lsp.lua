@@ -1,14 +1,14 @@
-local nvim_lsp = require('lspconfig')
+local lspconfig = require('lspconfig')
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 -- Mappings for Lsp
 local on_attach = function(client, bufnr)
+
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-  -- Mappings.
   local opts = { noremap=true, silent=true }
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
+
   buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
@@ -22,10 +22,8 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
   buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
-end
 
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
+end
 
 local servers = {
   "clangd",
@@ -37,17 +35,16 @@ local servers = {
   "cmake"
 }
 
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
 for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
+  lspconfig[lsp].setup {
       on_attach = on_attach,
       flags = {
         debounce_text_changes = 150,
       }
   }
 end
-
-local diagnostics_padding = 0
-local enable_hover_over_diagnostics = false
 
 vim.diagnostic.config {
   virtual_text = true,
@@ -60,30 +57,7 @@ vim.diagnostic.config {
   }
 }
 
-local diagnostics_show_pop_up = function()
-  return vim.diagnostic.open_float(0, { scope = "line" })
-end
-
-local diagnostics_popup_handler = function()
-  local current_cursor = vim.api.nvim_win_get_cursor(0)
-  local last_popup_cursor = vim.w.lsp_diagnostics_last_cursor or { nil, nil }
-
-  -- Show the popup diagnostics window,
-  -- but only once for the current cursor location (unless moved afterwards).
-  if not (current_cursor[1] == last_popup_cursor[1] and current_cursor[2] == last_popup_cursor[2]) then
-    vim.w.lsp_diagnostics_last_cursor = current_cursor
-    local _, winnr = diagnostics_show_pop_up()
-  end
-end
-
-if enable_hover_over_diagnostics then
-  vim.api.nvim_create_autocmd("CursorHold", {
-    group = vim.api.nvim_create_augroup("__DG_ON_HOVER__", { clear = true }),
-    callback = diagnostics_popup_handler
-  })
-end
-
-require('lspconfig').yamlls.setup {
+lspconfig.yamlls.setup {
   settings = {
     yaml = {
       schemas = {
@@ -93,17 +67,15 @@ require('lspconfig').yamlls.setup {
   }
 }
 
------------------------------------------------------------------------------
-
 --Enable (broadcasting) snippet capability for completion
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-require'lspconfig'.cssls.setup {
+
+lspconfig.cssls.setup {
   capabilities = capabilities,
   on_attach= on_attach
 }
-require'lspconfig'.html.setup {
+lspconfig.html.setup {
   capabilities = capabilities,
   on_attach = on_attach
 }
--- require "lsp_signature".setup()
