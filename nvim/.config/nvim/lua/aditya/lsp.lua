@@ -27,12 +27,9 @@ end
 
 local servers = {
   "clangd",
-  "dartls",
   "vimls",
   "pyright",
   "gopls",
-  "tsserver",
-  "cmake"
 }
 
 -- Use a loop to conveniently call 'setup' on multiple servers and

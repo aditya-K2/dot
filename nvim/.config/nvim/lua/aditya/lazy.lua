@@ -11,14 +11,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local ensure_installed_mason_packages = {
-    "clangd",
-    "yaml-language-server",
-    "vim-language-server",
-    "pyright",
-    "gopls"
-}
-
 require("lazy").setup({
     'tpope/vim-commentary',
     -- 'mattn/emmet-vim',
@@ -86,22 +78,11 @@ require("lazy").setup({
     'neovim/nvim-lspconfig',
     { 'williamboman/mason.nvim', config = function()
         require("mason").setup()
-
-        -- Ensure required packages are installed.
-        local registry = require "mason-registry"
-        registry.refresh(function ()
-            for _, pkg_name in ipairs(ensure_installed_mason_packages) do
-                local pkg = registry.get_package(pkg_name)
-                if not pkg:is_installed() then
-                    print("Installing " .. pkg_name .. "...")
-                    pkg:install()
-                end
-            end
-        end)
-
     end },
     { 'williamboman/mason-lspconfig.nvim', config = function()
-        require("mason-lspconfig").setup()
+        require("mason-lspconfig").setup({
+            automatic_installation=true,
+        })
     end },
     -- 'ray-x/lsp_signature.nvim',
 
