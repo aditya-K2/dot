@@ -260,8 +260,12 @@ cco(){
         cd "$CODE_DIR/$dir"
     elif [[ "$1" == "-rm" || "$1" == "rm"  ]];  then
         \rm -ivr "$CODE_DIR/$2"
+    elif [[ "$1" == "-c" ]]; then
+        cd $CODE_DIR/$2
     else
-        cd $CODE_DIR/$1
+        f="$1"
+        shift 1>/dev/null 2>/dev/null
+        z $CODE_DIR/$f $@
     fi
 }
 
