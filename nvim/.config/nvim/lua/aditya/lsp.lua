@@ -5,7 +5,7 @@ local servers = {
     "vimls",
     "pyright",
     "gopls",
-    -- "lua_ls",
+    "lua_ls",
     "yamlls",
     "cssls",
     "html"
@@ -35,7 +35,7 @@ end
 
 local function shallow_copy(table)
     local copy = {}
-    for k,v in pairs(table) do copy[k] = v end
+    for k, v in pairs(table) do copy[k] = v end
     return copy
 end
 
@@ -82,27 +82,19 @@ local server_specific_configuration = {
     }
 }
 
-local function configuration(lsp)
-    local val = server_specific_configuration[lsp]
-    if val == nil then
-        val = {}
-    end
-    return val
+local function get_configuration(lsp)
+    return merge(default_setup, server_specific_configuration[lsp] or {})
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-for _, lsp in ipairs(servers) do
-    local val = merge(default_setup, configuration(lsp))
-    lspconfig[lsp].setup(val)
-end
+for _, lsp in ipairs(servers) do lspconfig[lsp].setup(get_configuration(lsp)) end
 
 vim.diagnostic.config {
-      virtual_text = true, float = {
+    virtual_text = true,
+    float = {
         source = 'always',
         focusable = true,
         focus = false,
-        pad_top = diagnostics_padding,
-        pad_bottom = diagnostics_padding,
-      }
     }
+}
