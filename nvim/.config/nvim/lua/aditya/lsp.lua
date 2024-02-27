@@ -74,6 +74,14 @@ local server_specific_configuration = {
     html = {
         capabilities = capabilities,
     },
+    lua_ls = {
+        settings = {
+            Lua = {
+                diagnostics = { globals = { 'vim' }
+                }
+            }
+        }
+    },
     clangd = {
         cmd = {
             "clangd",
