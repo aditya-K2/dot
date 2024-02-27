@@ -25,12 +25,12 @@ if vim.fn.has("wsl") == 1 then
     ]]
 end
 
-vim.opt.background="light"
+vim.opt.background="dark"
 vim.opt.termguicolors=true
 
 vim.cmd [[
     syntax enable
-    colorscheme paper
+    colorscheme tokyonight-moon
     syntax on
 ]]
 
