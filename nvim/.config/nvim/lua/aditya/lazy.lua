@@ -24,7 +24,7 @@ require("lazy").setup({
     -- Color Schemes
     -- 'mhartington/oceanic-next',
     -- 'navarasu/onedark.nvim',
-    -- 'folke/tokyonight.nvim',
+    'folke/tokyonight.nvim',
     -- 'tomasiser/vim-code-dark',
     -- 'Mofiqul/vscode.nvim',
     -- 'projekt0n/github-nvim-theme',
@@ -34,7 +34,7 @@ require("lazy").setup({
     -- { "briones-gabriel/darcula-solid.nvim", dependencies = "rktjmp/lush.nvim" },
     -- 'nyoom-engineering/oxocarbon.nvim',
     -- 'ishan9299/nvim-solarized-lua',
-    'yorickpeterse/vim-paper',
+    -- 'yorickpeterse/vim-paper',
     -- 'yorickpeterse/nvim-grey',
     -- 'davidosomething/vim-colors-meh',
     -- 'Shatur/neovim-ayu',
