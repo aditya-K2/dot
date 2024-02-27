@@ -33,10 +33,17 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
 end
 
+local function shallow_copy(table)
+    local copy = {}
+    for k,v in pairs(table) do copy[k] = v end
+    return copy
+end
+
 -- Merges rhs into lhs
 local function merge(lhs, rhs)
-    for k, v in pairs(rhs) do lhs[k] = v end
-    return lhs
+    local lhs_copy = shallow_copy(lhs)
+    for k, v in pairs(rhs) do lhs_copy[k] = v end
+    return lhs_copy
 end
 
 local default_setup = {
