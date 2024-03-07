@@ -30,7 +30,7 @@ vim.opt.termguicolors=true
 
 vim.cmd [[
     syntax enable
-    colorscheme tokyonight-moon
+    colorscheme darcula-solid
     syntax on
 ]]
 
@@ -73,22 +73,22 @@ vim.cmd("set mouse=")
 
 -- LSP Diagnostics
 
-vim.cmd("sign define DiagnosticSignError texthl=DiagnosticSignError text=>"  )
-vim.cmd("sign define DiagnosticSignWarn  texthl=DiagnosticSignWarn  text=>"  )
-vim.cmd("sign define DiagnosticSignInfo  texthl=DiagnosticSignInfo  text=>"  )
-vim.cmd("sign define DiagnosticSignHint  texthl=DiagnosticSignHint  text=>"  )
+vim.cmd("sign define DiagnosticSignError texthl=DiagnosticSignError text="  )
+vim.cmd("sign define DiagnosticSignWarn  texthl=DiagnosticSignWarn  text="  )
+vim.cmd("sign define DiagnosticSignInfo  texthl=DiagnosticSignInfo  text="  )
+vim.cmd("sign define DiagnosticSignHint  texthl=DiagnosticSignHint  text="  )
 
 -- Diagnostics Highlights
 
-vim.cmd( "hi DiagnosticsDefaultError guibg=NONE " )
-vim.cmd( "hi DiagnosticVirtualTextError guifg=#ff3939 ctermbg=NONE gui=italic " )
-vim.cmd( "hi DiagnosticVirtualTextWarn guifg=#ffa500 ctermbg=NONE gui=italic " )
-vim.cmd( "hi DiagnosticVirtualTextHint guifg=#1d6a70 ctermbg=NONE gui=italic " )
-vim.cmd( "hi DiagnosticFloatingError guifg=#ff3939 ctermbg=NONE gui=italic " )
-vim.cmd( "hi DiagnosticFloatingWarn guifg=#ffa500 ctermbg=NONE gui=italic " )
-vim.cmd( "hi DiagnosticFloatingHint guifg=#1d6a70 ctermbg=NONE gui=italic " )
-vim.cmd( "hi DiagnosticSignError guifg=#ff3939 " )
-vim.cmd( "hi DiagnosticSignHint guifg=#1d6a70 " )
+-- vim.cmd( "hi DiagnosticsDefaultError guibg=NONE " )
+-- vim.cmd( "hi DiagnosticVirtualTextError guifg=#ff3939 ctermbg=NONE gui=italic " )
+-- vim.cmd( "hi DiagnosticVirtualTextWarn guifg=#ffa500 ctermbg=NONE gui=italic " )
+-- vim.cmd( "hi DiagnosticVirtualTextHint guifg=#1d6a70 ctermbg=NONE gui=italic " )
+-- vim.cmd( "hi DiagnosticFloatingError guifg=#ff3939 ctermbg=NONE gui=italic " )
+-- vim.cmd( "hi DiagnosticFloatingWarn guifg=#ffa500 ctermbg=NONE gui=italic " )
+-- vim.cmd( "hi DiagnosticFloatingHint guifg=#1d6a70 ctermbg=NONE gui=italic " )
+-- vim.cmd( "hi DiagnosticSignError guifg=#ff3939 " )
+-- vim.cmd( "hi DiagnosticSignHint guifg=#1d6a70 " )
 
 -- Highlights
 

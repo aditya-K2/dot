@@ -84,8 +84,7 @@ local server_specific_configuration = {
     },
     clangd = {
         cmd = {
-            "clangd",
-            "--enable-config"
+            "clangd"
         }
     }
 }
