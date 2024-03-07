@@ -24,14 +24,14 @@ require("lazy").setup({
     -- Color Schemes
     -- 'mhartington/oceanic-next',
     -- 'navarasu/onedark.nvim',
-    'folke/tokyonight.nvim',
+    -- 'folke/tokyonight.nvim',
     -- 'tomasiser/vim-code-dark',
     -- 'Mofiqul/vscode.nvim',
     -- 'projekt0n/github-nvim-theme',
     -- 'RRethy/nvim-base16',
     -- "rebelot/kanagawa.nvim",
     -- {"ellisonleao/gruvbox.nvim", dependencies = {"rktjmp/lush.nvim"}},
-    -- { "briones-gabriel/darcula-solid.nvim", dependencies = "rktjmp/lush.nvim" },
+    { "briones-gabriel/darcula-solid.nvim", dependencies = "rktjmp/lush.nvim" },
     -- 'nyoom-engineering/oxocarbon.nvim',
     -- 'ishan9299/nvim-solarized-lua',
     -- 'yorickpeterse/vim-paper',
@@ -73,6 +73,7 @@ require("lazy").setup({
             highlight = { enable = true } }
     end },
     { 'nvim-treesitter/playground', cmd = "TSPlaygroundToggle" },
+    { 'nvim-treesitter/nvim-treesitter-context' },
 
     -- Lsp
     'neovim/nvim-lspconfig',
