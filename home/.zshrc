@@ -136,6 +136,31 @@ function __noteCompletions(){
 }
 
 # functions
+qemu_cmd() {
+    # Assumes you have run the setup script and derives the target from your CWD
+    TARGET="$(basename `pwd`)"
+
+    # default configuration to run the obmc/obmc image
+    IMG="./tmp/deploy/images/${TARGET}/obmc-phosphor-image-${TARGET}.static.mtd"
+
+    if [[ "$2" != "" ]]; then
+        IMG="$2"
+    fi
+
+    if [[ "$1" == "-n" ]]; then
+        QEMU_ARGS="-M ast2600-evb -nographic -no-reboot -net nic,model=ftgmac100,netdev=netdev1 -netdev user,id=netdev1,tftp=/srv/tftp,hostfwd=:127.0.0.1:2222-:22,hostfwd=:0.0.0.0:8083-:443,hostfwd=tcp:127.0.0.1:8880-:80,hostfwd=tcp:127.0.0.1:2200-:2200,hostfwd=udp:127.0.0.1:6623-:623,hostfwd=udp:127.0.0.1:6664-:664,hostname=qemu -drive file=${IMG},format=raw,if=mtd"
+        QEMU_CMD="qemu-system-arm-nvidia"
+    elif [[ "$1" == "-h" ]]; then
+        QEMU_ARGS="-m 1024 -M vulcan-hmc -nographic -net nic -net nic -net user,hostfwd=:127.0.0.1:2222-:22,hostfwd=:127.0.0.1:2443-:443,hostfwd=:127.0.0.1:2080-:2080,hostfwd=udp:127.0.0.1:5623-:623,hostname=qemu -drive file=${IMG},format=raw,if=mtd"
+        QEMU_CMD="qemu-system-arm-nvidia"
+    else
+        QEMU_ARGS="-m 256 -M romulus-bmc -nographic -drive file=${IMG},format=raw,if=mtd -net nic -net user,hostfwd=:127.0.0.1:2222-:22,hostfwd=:127.0.0.1:2443-:443,hostfwd=udp:127.0.0.1:2623-:623,hostname=qemu"
+        QEMU_CMD="qemu-system-arm"
+    fi
+
+    echo "$QEMU_CMD $QEMU_ARGS"
+}
+
 venv() {
     case "$1" in
         "new")
