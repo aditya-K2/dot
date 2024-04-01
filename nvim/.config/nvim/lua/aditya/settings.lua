@@ -4,7 +4,6 @@ vim.g["user_emmet_leader_key"]               = ","
 vim.g["user_emmet_mode"]                     = "n"
 vim.g["color_coded_enabled "]                = 1
 vim.g["go_def_mapping_enabled"]              = false
-vim.g["indent_blankline_filetype"]           = { "yaml", "lua" }
 vim.g["fzf_preview_window"]                  = {}
 vim.g["fzf_layout"]                          = { down = '15%' }
 
@@ -30,7 +29,7 @@ vim.opt.termguicolors=true
 
 vim.cmd [[
     syntax enable
-    colorscheme darcula-solid
+    colorscheme kanagawa
     syntax on
 ]]
 
@@ -59,8 +58,8 @@ vim.opt.shiftwidth=4
 vim.opt.smartindent = true
 vim.opt.incsearch = true
 vim.opt.list = true
-vim.opt.listchars = { eol = '↴', tab = '» ', trail = '~' --[[, space = "." ]] }
-vim.opt.fillchars = { vert = '|', horiz = '-' }
+vim.opt.listchars = { eol = '↴',  trail = '~', space = "."--[[, tab = '┬╗ ',]] }
+-- vim.opt.fillchars = { vert = '|', horiz = '-' }
 vim.opt.compatible = false
 vim.opt.cursorline = true
 vim.opt.showmode = false

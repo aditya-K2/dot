@@ -14,7 +14,9 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     'tpope/vim-commentary',
     -- 'mattn/emmet-vim',
-    { "lukas-reineke/indent-blankline.nvim", ft = { "yaml", "lua" } } ,
+    { "lukas-reineke/indent-blankline.nvim", config = function()
+        require("ibl").setup()
+    end } ,
 
     -- Telescope
     -- { 'nvim-telescope/telescope.nvim', tag = '0.1.0', dependencies = { {'nvim-lua/plenary.nvim'} }, },
@@ -29,9 +31,9 @@ require("lazy").setup({
     -- 'Mofiqul/vscode.nvim',
     -- 'projekt0n/github-nvim-theme',
     -- 'RRethy/nvim-base16',
-    -- "rebelot/kanagawa.nvim",
+    "rebelot/kanagawa.nvim",
     -- {"ellisonleao/gruvbox.nvim", dependencies = {"rktjmp/lush.nvim"}},
-    { "briones-gabriel/darcula-solid.nvim", dependencies = "rktjmp/lush.nvim" },
+    -- { "briones-gabriel/darcula-solid.nvim", dependencies = "rktjmp/lush.nvim" },
     -- 'nyoom-engineering/oxocarbon.nvim',
     -- 'ishan9299/nvim-solarized-lua',
     -- 'yorickpeterse/vim-paper',
