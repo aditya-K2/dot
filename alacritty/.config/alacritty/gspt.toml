@@ -1,65 +1,60 @@
-env:
-  TERM: xterm-256color
+[colors]
+draw_bold_text_with_bright_colors = false
 
-window:
-  padding:
-      x: 1
-      # y: 2
+[colors.bright]
+black = "0x7f7f7f"
+blue = "0x5c5cff"
+cyan = "0x00ffff"
+green = "0x00ff00"
+magenta = "0xff00ff"
+red = "0xff0000"
+white = "0xffffff"
+yellow = "0xffff00"
 
-  opacity: 1
+[colors.normal]
+black = "0x000000"
+blue = "0x268bd2"
+cyan = "0x00cdcd"
+green = "0x00cd00"
+magenta = "0xcd00cd"
+red = "0xcd0000"
+white = "0xe5e5e5"
+yellow = "0xcdcd00"
 
-shell:
-  program: /bin/zsh
+[colors.primary]
+background = "0x000000"
+foreground = "0xececec"
 
-font:
-  size: 6.5
-  # size: 8.5
+[cursor.style]
+blinking = "Never"
 
-  normal:
-    family: JetBrains Mono Nerd Font
-    style: Normal
-  bold:
-    family: JetBrains Mono Nerd Font
-    style: Bold
-  italic:
-    family: JetBrains Mono Nerd Font
-    style: Italic
-  bold_italic:
-    family: JetBrains Mono Nerd Font
-    style: Bold Italic
-  # offset:
-  #   x: 1
+[env]
+TERM = "xterm-256color"
 
-# # XTerm's default colors
-# colors:
-#   # Default colors
-#   primary:
-#     background: '0x000000'
-#     foreground: '0xececec'
-#   # Normal colors
-#   normal:
-#     black:   '0x000000'
-#     red:     '0xcd0000'
-#     green:   '0x00cd00'
-#     yellow:  '0xcdcd00'
-#     blue:    '0x268bd2'
-#     magenta: '0xcd00cd'
-#     cyan:    '0x00cdcd'
-#     white:   '0xe5e5e5'
+[font]
+size = 6.5
 
-#   # Bright colors
-#   bright:
-#     black:   '0x7f7f7f'
-#     red:     '0xff0000'
-#     green:   '0x00ff00'
-#     yellow:  '0xffff00'
-#     blue:    '0x5c5cff'
-#     magenta: '0xff00ff'
-#     cyan:    '0x00ffff'
-#     white:   '0xffffff'
+[font.bold]
+family = "Lilex Nerd Font"
+style = "Bold"
 
-draw_bold_text_with_bright_colors: false
+[font.bold_italic]
+family = "Lilex Nerd Font"
+style = "Bold Italic"
 
-cursor:
-  style:
-    blinking: Never
+[font.italic]
+family = "Lilex Nerd Font"
+style = "Italic"
+
+[font.normal]
+family = "Lilex Nerd Font"
+style = "Normal"
+
+[shell]
+program = "/bin/zsh"
+
+[window]
+opacity = 1
+
+[window.padding]
+x = 1
