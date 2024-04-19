@@ -13,9 +13,9 @@ local servers = {
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+    -- local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
     local opts = { noremap = true, silent = true }
 
     buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -84,7 +84,8 @@ local server_specific_configuration = {
     },
     clangd = {
         cmd = {
-            "clangd"
+            "clangd",
+            "--query-driver=/home/aditya/sdk_umbriel_new/sysroots/x86_64-oesdk-linux/usr/bin/arm-openbmc-linux-gnueabi/arm-openbmc-linux-gnueabi-g++"
         }
     }
 }
