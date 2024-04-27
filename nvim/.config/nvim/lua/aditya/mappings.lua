@@ -72,7 +72,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 vim.api.nvim_create_autocmd("BufEnter", {
     group = format_group,
-    pattern = { "*/waybar/config" },
+    pattern = { "*/waybar/config", "config.json" },
     callback = function()
         vim.cmd("set filetype=jsonc")
     end
@@ -133,6 +133,9 @@ nnoremap("<M-h>", "<C-w>h")
 nnoremap("<M-j>", "<C-w>j")
 nnoremap("<M-k>", "<C-w>k")
 nnoremap("<M-l>", "<C-w>l")
+
+vim.cmd('noremap <Leader>y "*y')
+vim.cmd('noremap <Leader>p "*p')
 
 vim.cmd("autocmd BufRead,BufNewFile *.txt nmap <CR> :wq <CR>")
 vim.cmd("autocmd BufWritePre * :%s/\\s\\+$//e")
