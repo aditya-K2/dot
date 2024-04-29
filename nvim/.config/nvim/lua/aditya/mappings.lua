@@ -37,15 +37,6 @@ local function format_buffer()
     vim.lsp.buf.format()
 end
 
-function random_color()
-    local colors = vim.fn.getcompletion("", "color")
-    local clen = #colors
-    local r = math.random(clen)
-    local choice = colors[r]
-    vim.cmd("color " .. choice)
-    print(choice)
-end
-
 local format_group = vim.api.nvim_create_augroup("__aditya__format_group", { clear = true })
 local c_files = { "*.cpp", "*.cc", "*.c" }
 local show_spaces = { "*.yaml", "*.py" }
@@ -158,7 +149,6 @@ nmap("<leader>fs", ":Files<CR>")
 nmap("<leader>fo", ":Buffers<CR>")
 nmap("<leader>fg", ":Rg <CR>")
 nmap("<leader>fh", ":Helptags <CR>")
--- nnoremap ("mm", ":lua random_color() <CR>")
 
 vim.api.nvim_set_keymap("i", "<C-BS>", "<C-w>", {})
 vim.api.nvim_set_keymap("i", "<C-h>", "<C-w>", {})
