@@ -29,7 +29,7 @@ vim.opt.termguicolors = true
 
 vim.cmd [[
     syntax enable
-    color scruber
+    color spacecamp
     syntax on
 ]]
 
@@ -82,4 +82,5 @@ vim.cmd("hi GitGutterChange guifg=#70bdf6")
 vim.cmd("hi GitSignsChange guifg=#70bdf6")
 vim.cmd("hi GitGutterDelete guifg=red")
 vim.cmd("hi GitGutterAdd guifg=#00ff00")
-vim.cmd("hi NonText guifg=grey")
+vim.cmd("hi NonText guifg=#3b3b3b guibg=None")
+vim.cmd("hi CursorLine  guibg=#232323")
