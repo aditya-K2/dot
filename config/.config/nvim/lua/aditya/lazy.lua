@@ -24,7 +24,7 @@ require("lazy").setup({
     { 'junegunn/fzf.vim' },
 
     -- Color Scheme
-    'aditya-K2/scruber.vim',
+    'jaredgorski/spacecamp',
 
     { 'iamcco/markdown-preview.nvim',           build = 'cd app && yarn install' },
     {
@@ -38,8 +38,6 @@ require("lazy").setup({
             }
         end
     },
-
-    'fatih/vim-go',
 
     -- Tree Sitter
     {
@@ -77,7 +75,6 @@ require("lazy").setup({
             })
         end
     },
-    -- 'ray-x/lsp_signature.nvim',
 
     -- Cmp
     'hrsh7th/nvim-cmp',
@@ -94,11 +91,7 @@ require("lazy").setup({
             require('termtoggle').setup()
         end
     },
-    'dstein64/vim-startuptime',
 
     --Maximizer
     'szw/vim-maximizer',
-
-    -- JS
-    { 'prettier/vim-prettier', build = "yarn install --frozen-lockfile --production", ft = { 'javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html' } },
 })
