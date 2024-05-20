@@ -25,8 +25,22 @@ _comp_options+=(globdots)
 # vi mode
 bindkey -v
 
-source "$HOME/env.sh"
-source "$HOME/alias.sh"
+#-(Source Files)--------------------------------------------------------------
+
+__wsl__() {
+    [[ -f /proc/sys/fs/binfmt_misc/WSLInterop ]] && return 0
+    return 255
+}
+
+__source__() {
+    __f=$1
+    __file="lin_$__f.sh"
+    __wsl__ && __file="wsl_$__f.sh"
+    source "$HOME/$__file"
+}
+
+__source__ env
+__source__ alias
 
 #-(Create files/folders that don't exist but are required )-------------------
 
