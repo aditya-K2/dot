@@ -1,7 +1,6 @@
 autoload -U colors && colors
 
-# Enable this for profiling
-# E_ZPROF="true"
+# E_ZPROF="true" # Enable Profiling
 
 ! [[ -z $E_ZPROF ]] && zmodload zsh/zprof
 
@@ -120,7 +119,7 @@ __dmenucmd() {
     printf "dmenu -i -f -l 10"
 }
 
-############
+#-----------------------------------------------------------------------------
 
 compdef __confCompletions conf
 function __confCompletions(){
@@ -288,13 +287,11 @@ cco(){
 }
 
 ez(){
-    local file="$(cat ~/.zshrc -n | $(__fzfcmd))"
+    local file="$(cat $HOME/.zshrc -n | $(__fzfcmd))"
     [[ "$file" != "" ]] && (
         local line_nr="$(awk '{print $1}' <<< "$file")"
-        local line="$(awk -F$line_nr '{print $2}' <<< "$file")"
-        grep "source" <<< "$line" &&
-            nvim "$(envsubst <<< $(awk -F\" '{print $2}' <<< "$line" | sed "s/\ //g"))" ||
-        (nvim -c "$(printf "normal %sGzz" $line_nr)" ~/.zshrc))
+        nvim -c "$(printf "normal %sGzz" $line_nr)" $HOME/.zshrc
+    )
 }
 
 asmc(){
@@ -329,9 +326,9 @@ conf(){
     fi
 
     if [[ "$GO_TO_DIR" == "1" ]]; then
-        cd ~/.config/$dir
+        cd $HOME/.config/$dir
     else
-        nvim ~/.config/$dir
+        nvim $HOME/.config/$dir
     fi
 }
 
@@ -370,4 +367,4 @@ PROMPT+="\$vcs_info_msg_0_ % %{$fg[$PROMPT_COLOR]%}%% %{$reset_color%}"
 
 # Prompt Ends
 
-! [[ -z $E_ZPROF ]] && zprof > ~/zsh.log
+! [[ -z $E_ZPROF ]] && zprof > $HOME/zsh.log
