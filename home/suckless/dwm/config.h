@@ -1,6 +1,5 @@
 #include <X11/XF86keysym.h>
-#include "layouts.c"
-#include "fibonacci.c"
+#include "layouts.inc"
 
 /* appearance */
 
