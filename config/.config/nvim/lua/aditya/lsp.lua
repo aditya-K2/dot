@@ -57,6 +57,8 @@ local default_setup = {
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+local sdk_path = "/home/aditya/sdk_hgxb_new"
+
 local server_specific_configuration = {
     yamlls = {
         settings = {
@@ -85,7 +87,7 @@ local server_specific_configuration = {
     clangd = {
         cmd = {
             "clangd",
-            "--query-driver=/home/aditya/sdk_umbriel_new/sysroots/x86_64-oesdk-linux/usr/bin/arm-openbmc-linux-gnueabi/arm-openbmc-linux-gnueabi-g++"
+            "--query-driver=" .. sdk_path .. "/sysroots/x86_64-oesdk-linux/usr/bin/arm-openbmc-linux-gnueabi/arm-openbmc-linux-gnueabi-g++"
         }
     }
 }
