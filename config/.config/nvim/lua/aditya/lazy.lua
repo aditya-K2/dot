@@ -19,14 +19,14 @@ require("lazy").setup({
             require("ibl").setup()
         end
     },
+    'dstein64/vim-startuptime',
 
-    { 'junegunn/fzf',    build = function() vim.cmd('call fzf#install()') end },
+    { 'junegunn/fzf',                 build = function() vim.cmd('call fzf#install()') end },
     { 'junegunn/fzf.vim' },
 
-    -- Color Scheme
-    'jaredgorski/spacecamp',
+    { 'Mofiqul/vscode.nvim' },
 
-    { 'iamcco/markdown-preview.nvim',           build = 'cd app && yarn install' },
+    { 'iamcco/markdown-preview.nvim', build = 'cd app && yarn install' },
     {
         'lewis6991/gitsigns.nvim',
         config = function()
