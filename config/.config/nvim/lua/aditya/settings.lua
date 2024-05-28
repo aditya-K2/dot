@@ -5,7 +5,7 @@ vim.g["user_emmet_mode"]        = "n"
 vim.g["color_coded_enabled "]   = 1
 vim.g["go_def_mapping_enabled"] = false
 vim.g["fzf_preview_window"]     = {}
-vim.g["fzf_layout"]             = { down = '15%' }
+vim.g["fzf_layout"]             = { down = '20%' }
 
 if vim.fn.has("wsl") == 1 then
     vim.cmd [[
@@ -29,7 +29,7 @@ vim.opt.termguicolors = true
 
 vim.cmd [[
     syntax enable
-    color spacecamp
+    color vscode
     syntax on
 ]]
 
@@ -77,6 +77,3 @@ vim.cmd("sign define DiagnosticSignInfo  texthl=DiagnosticSignInfo  text=")
 vim.cmd("sign define DiagnosticSignHint  texthl=DiagnosticSignHint  text=")
 
 -- Highlights
-
-vim.cmd("hi NonText guifg=#3b3b3b guibg=None")
-vim.cmd("hi CursorLine  guibg=#232323")
