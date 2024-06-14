@@ -217,3 +217,11 @@ envm() {
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
+
+sb() {
+    if [[ -n "$ZSH_VERSION" ]]; then
+        source ~/.zshrc
+    elif [[ -n "$BASH_VERSION" ]]; then
+        source ~/.bashrc
+    fi
+}
