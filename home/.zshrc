@@ -323,6 +323,7 @@ envm() {
 local BRANCH_COLOR=red
 local PROMPT_COLOR=yellow
 local FILE_COLOR=blue
+local HOST_COLOR=green
 
 ## autoload vcs and colors
 autoload -Uz vcs_info
@@ -336,9 +337,14 @@ precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
 
+# Display host if we have ssh-ed
+__ssh_host__() {
+    [[ $SESSION_TYPE == "remote/ssh" ]] && echo "%{$fg[$HOST_COLOR]%}[ %M ] "
+}
+
 zstyle ':vcs_info:git:*' formats " %B%{$fg[$BRANCH_COLOR]%}%b"
 
-PROMPT="%{$fg[$FILE_COLOR]%}%B%2~"
+PROMPT="$(__ssh_host__)%{$fg[$FILE_COLOR]%}%B%2~"
 PROMPT+="\$vcs_info_msg_0_ % %{$fg[$PROMPT_COLOR]%}%% %{$reset_color%}"
 
 # Prompt Ends
