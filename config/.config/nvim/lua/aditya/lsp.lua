@@ -8,7 +8,9 @@ local servers = {
     "lua_ls",
     "yamlls",
     "cssls",
-    "html"
+    "html",
+    "mesonlsp",
+    "jsonls"
 }
 
 -- Use an on_attach function to only map the following keys
@@ -87,7 +89,8 @@ local server_specific_configuration = {
     clangd = {
         cmd = {
             "clangd",
-            "--query-driver=" .. sdk_path .. "/sysroots/x86_64-oesdk-linux/usr/bin/arm-openbmc-linux-gnueabi/arm-openbmc-linux-gnueabi-g++"
+            "--query-driver=" ..
+            sdk_path .. "/sysroots/x86_64-oesdk-linux/usr/bin/arm-openbmc-linux-gnueabi/arm-openbmc-linux-gnueabi-g++"
         }
     }
 }
@@ -100,11 +103,19 @@ end
 -- map buffer local keybindings when the language server attaches
 for _, lsp in ipairs(servers) do lspconfig[lsp].setup(get_configuration(lsp)) end
 
-vim.diagnostic.config {
+vim.diagnostic.config({
     virtual_text = true,
     float = {
         source = 'always',
         focusable = true,
         focus = false,
+    },
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = "",
+            [vim.diagnostic.severity.WARN] = "",
+            [vim.diagnostic.severity.INFO] = "",
+            [vim.diagnostic.severity.HINT] = ""
+        }
     }
-}
+})

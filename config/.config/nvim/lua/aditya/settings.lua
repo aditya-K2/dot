@@ -69,11 +69,4 @@ vim.opt.expandtab = true
 vim.opt.laststatus = 0
 vim.cmd("set mouse=")
 
--- LSP Diagnostics
-
-vim.cmd("sign define DiagnosticSignError texthl=DiagnosticSignError text=")
-vim.cmd("sign define DiagnosticSignWarn  texthl=DiagnosticSignWarn  text=")
-vim.cmd("sign define DiagnosticSignInfo  texthl=DiagnosticSignInfo  text=")
-vim.cmd("sign define DiagnosticSignHint  texthl=DiagnosticSignHint  text=")
-
 -- Highlights
