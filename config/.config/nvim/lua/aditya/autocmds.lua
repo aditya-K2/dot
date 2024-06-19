@@ -1,16 +1,5 @@
 local format_group = vim.api.nvim_create_augroup("__aditya__format_group", { clear = true })
-local c_files = { "*.cpp", "*.cc", "*.c" }
 local notes = { "*/notes", "*/note" }
-
-vim.api.nvim_create_autocmd("BufEnter", {
-    group = format_group,
-    pattern = c_files,
-    callback = function()
-        vim.api.nvim_buf_set_option(0, "tabstop", 2)
-        vim.api.nvim_buf_set_option(0, "softtabstop", 2)
-        vim.api.nvim_buf_set_option(0, "shiftwidth", 2)
-    end,
-})
 
 vim.api.nvim_create_autocmd("BufEnter", {
     group = format_group,
