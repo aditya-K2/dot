@@ -48,10 +48,11 @@ require("lazy").setup({
             require 'nvim-treesitter.configs'.setup {
                 ensure_installed = {
                     "go", "haskell",
-                    "typescript", "javascript", "html", "css",
-                    "java", "cpp", "c", "lua",
+                    "cpp", "c",
+                    "lua", "vim", "vimdoc",
                     "json", "jsonc",
-                    "python", "dart"
+                    "python", "dart",
+                    "typescript", "javascript", "html", "css", "java"
                 },
                 highlight = { enable = true } }
         end
