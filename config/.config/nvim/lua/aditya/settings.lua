@@ -1,7 +1,5 @@
 -- Globals
 vim.g["vscode_style"]           = "dark"
-vim.g["user_emmet_leader_key"]  = ","
-vim.g["user_emmet_mode"]        = "n"
 vim.g["color_coded_enabled "]   = 1
 vim.g["go_def_mapping_enabled"] = false
 vim.g["fzf_preview_window"]     = {}
@@ -67,6 +65,6 @@ vim.opt.spelloptions = "camel"
 vim.opt.guifont = "Source Code Pro:h8"
 vim.opt.expandtab = true
 vim.opt.laststatus = 0
-vim.cmd("set mouse=")
+vim.opt.mouse = "a"
 
 -- Highlights
