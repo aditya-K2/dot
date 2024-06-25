@@ -25,8 +25,6 @@ bindkey -v
 
 export KEYTIMEOUT=1
 
-# Key Bindings
-
 bindkey '^H' backward-kill-word
 # Use vim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
@@ -60,29 +58,29 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 #-----------------------------------------------------------------------------
 
-compdef __confCompletions conf
-function __confCompletions(){
+compdef __conf_completions__ conf
+function __conf_completions__(){
     _arguments -C \
         "1: :($(ls $HOME/.config))" \
         "2: :($(ls $HOME/.config))"
 }
 
-compdef __venvCompletions venv
-function __venvCompletions(){
+compdef __venv_completions__ venv
+function __venv_completions__(){
     _arguments -C \
         "1: :(new remove source -f)" \
         "2: :($(ls $VENV_DIR))"
 }
 
-compdef __ccoCompletions cco
-function __ccoCompletions(){
+compdef __cco_completions__ cco
+function __cco_completions__(){
     _arguments -C \
         "1: :($(ls $CODE_DIR))" \
         "2: :($(ls $CODE_DIR))"
 }
 
-compdef __noteCompletions note
-function __noteCompletions(){
+compdef __note_completions__ note
+function __note_completions__(){
     _arguments -C \
         "1: :($(ls $NOTES_DIR/*.md | awk -F/ '{print $NF}'))"
 }
@@ -126,6 +124,6 @@ zstyle ':vcs_info:git:*' formats " %B%{$fg[$BRANCH_COLOR]%}%b"
 PROMPT="$(__ssh_host__)%{$fg[$FILE_COLOR]%}%B%2~"
 PROMPT+="\$vcs_info_msg_0_ % %{$fg[$PROMPT_COLOR]%}%% %{$reset_color%}"
 
-# Prompt Ends
+# Prompt Ends-----------------------------------------------------------------
 
 ! [[ -z $E_ZPROF ]] && zprof > $HOME/zsh.log
