@@ -55,5 +55,5 @@ vim.cmd("autocmd BufRead,BufNewFile .zshrc set filetype=bash")
 vim.cmd("autocmd BufRead,BufNewFile *.html set noexpandtab")
 
 -- Clipboard
-vim.cmd('noremap <Leader>y "*y')
-vim.cmd('noremap <Leader>p "*p')
+vim.cmd('noremap <Leader>y "+y')
+vim.cmd('noremap <Leader>p "+p')

@@ -23,11 +23,3 @@ vim.api.nvim_create_autocmd("TermOpen", {
         vim.cmd("setlocal nonu nornu")
     end
 })
-
--- Work around for mouse not working in the current Neovim
-vim.api.nvim_create_autocmd("VimEnter", {
-    group = format_group,
-    callback = function()
-        vim.cmd("set mouse=a")
-    end
-})
