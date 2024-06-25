@@ -3,7 +3,7 @@ local notes = { "*/notes", "*/note" }
 
 vim.api.nvim_create_autocmd("BufEnter", {
     group = format_group,
-    pattern = { "*/waybar/config", "config.json" },
+    pattern = { "*.json" },
     callback = function()
         vim.cmd("set filetype=jsonc")
     end
