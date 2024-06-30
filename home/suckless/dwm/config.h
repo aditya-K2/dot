@@ -107,7 +107,7 @@ static const char *fileManager[]     = { "n", "/usr/bin/thunar", NULL };
 static const char *colorChooser[]    = { "c", "/usr/bin/kcolorchooser", NULL };
 static const char *scratchpadcmd[]   = { "s", "alacritty", "-t", "scratchpad" , "-e", "scratchtmux", NULL};
 static const char *ideascmd[]        = { "i", "alacritty", "-t", "Ideas" , "-e", "nvim", "/random/notes/thots/🥷 Tech Ideas/Ideas.md.md", NULL};
-static const char *gompcmd[]         = { "y", "alacritty" , "-t", "gomp" , "-e", "/H/code/gomp/gomp", NULL};
+static const char *gompcmd[]         = { "y", "alacritty" , "-t", "gomp" , "--config-file", gspt_config, "-e", "/H/code/gomp/gomp", NULL};
 static const char *gsptcmd[]         = { "g", "alacritty" , "-t", "gspt" , "--config-file", gspt_config, "-e", "/H/code/gspt/gspt", NULL};
 
 static Key keys[] = {
