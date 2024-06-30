@@ -93,6 +93,8 @@ require("lazy").setup({
         end
     },
 
+    { 'fatih/vim-go', ft = "go" },
+
     --Maximizer
     'szw/vim-maximizer',
 })
