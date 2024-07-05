@@ -59,7 +59,7 @@ local default_setup = {
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local sdk_path = "/home/aditya/sdk_hgxb_new"
+local sdk_path = "/home/aditya/sdk_hgxb_new_new"
 
 local server_specific_configuration = {
     yamlls = {
