@@ -1,9 +1,11 @@
 -- Globals
-vim.g["vscode_style"]           = "dark"
-vim.g["color_coded_enabled "]   = 1
-vim.g["go_def_mapping_enabled"] = false
-vim.g["fzf_preview_window"]     = {}
-vim.g["fzf_layout"]             = { down = '20%' }
+vim.g["vscode_style"]                  = "dark"
+vim.g["color_coded_enabled "]          = 1
+vim.g["go_def_mapping_enabled"]        = false
+vim.g["fzf_preview_window"]            = {}
+vim.g["fzf_layout"]                    = { down = '20%' }
+vim.g["everforest_background"]         = 'hard'
+vim.g["everforest_better_performance"] = 1
 
 if vim.fn.has("wsl") == 1 then
     vim.cmd [[
@@ -27,7 +29,7 @@ vim.opt.termguicolors = true
 
 vim.cmd [[
     syntax enable
-    color vscode
+    color everforest
     syntax on
 ]]
 
@@ -68,3 +70,7 @@ vim.opt.laststatus = 0
 vim.opt.mouse = "a"
 
 -- Highlights
+vim.cmd("hi DiagnosticVirtualTextError gui=italic guifg=#a84032")
+vim.cmd("hi DiagnosticVirtualTextInfo gui=italic guifg=#3277a8")
+vim.cmd("hi DiagnosticVirtualTextWarn gui=italic guifg=#d1cf47")
+vim.cmd("hi DiagnosticVirtualTextOk gui=italic guifg=#3277a8")

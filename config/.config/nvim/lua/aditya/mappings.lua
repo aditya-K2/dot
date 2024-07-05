@@ -1,4 +1,5 @@
 vim.g["mapleader"] = " " -- set leader key
+local seeded = false
 
 local function nnoremap(lhs, rhs)
     vim.api.nvim_set_keymap("n", lhs, rhs, { noremap = true, silent = true })
@@ -16,12 +17,30 @@ local function imap(lhs, rhs)
     vim.api.nvim_set_keymap("i", lhs, rhs, {})
 end
 
+function random_color()
+    if not seeded then
+        math.randomseed(os.time())
+        for _ = 0, 3, 1
+        do
+            math.random()
+        end
+        seeded = true
+    end
+    local colors = vim.fn.getcompletion("", "color")
+    local clen = #colors
+    local r = math.random(clen)
+    local choice = colors[r]
+    vim.cmd("color " .. choice)
+    print(choice)
+end
+
 nnoremap("<TAB>", ":bnext<CR>")
 nnoremap("<S-TAB>", ":bprevious<CR>")
 nnoremap("Y", "y$")
 nnoremap("<C-\\>", ":vsplit <CR>")
 nnoremap("<leader><CR>", ":split<CR>")
 nnoremap("<leader>m", ":MaximizerToggle <CR>")
+nnoremap("mm", ":lua random_color() <CR>")
 
 -- Split Navigation Mappings
 
