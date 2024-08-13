@@ -36,7 +36,8 @@ Z_SH_LINK="https://raw.githubusercontent.com/rupa/z/master/z.sh"
 export NVM_DIR="$HOME/.nvm"
 ! [[ -r "$NVM_DIR" ]] \
     && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash \
-    && nvm install "20.11.0"
+    && nvm install node
+    && nvm use node
 
 #-----------------------------------------------------------------------------
 

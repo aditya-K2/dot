@@ -89,6 +89,10 @@ function __note_completions__(){
 
 source $HOME/common.sh
 
+if ! [ -e /tmp/NVM_SETUP_OK ]; then
+    envm && touch /tmp/NVM_SETUP_OK
+fi
+
 bh() {
     setopt local_options BASH_REMATCH
     __sel="$(brow -q "title,url" -c | fzf_cmd)"
