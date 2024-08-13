@@ -19,8 +19,8 @@ static const int DFW                       =   800;
 static const int DFH                       =   600;
 static const int DFX                       =   550;
 static const int DFY                       =   250;
-static const char *fonts[]                 =   { "Sauce Code Pro Nerd Font:size=9:style=Normal" };
-static const char dmenufont[]              =   "Sauce Code Pro Nerd Font:size=9:style=Normal";
+static const char *fonts[]                 =   { "Ubuntu Mono Nerd Font:size=12:style=Normal" };
+static const char dmenufont[]              =   "Ubuntu Mono Nerd Font:size=12:style=Normal";
 static const char col_statusbar_fg[]       =   "#ffffff";
 static const char col_statusbar_bg[]       =   "#000000";
 static const char col_primary_fg[]         =   "#ffee00";
@@ -101,7 +101,7 @@ static const Layout layouts[] = {
 static char dmenumon[2]              = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[]        = { "dmenu_run", "-p", ">", "-m", dmenumon, "-fn", dmenufont, "-sb", col_primary_bg};
 static const char *termcmd[]         = { "/usr/bin/alacritty", NULL };
-static const char *web[]             = { "/usr/bin/firefox", NULL };
+static const char *web[]             = { "/usr/bin/google-chrome", NULL };
 static const char *torrentcli[]      = { "t", "alacritty", "-t", "tremc" , "-e", "tremc", NULL};
 static const char *fileManager[]     = { "n", "/usr/bin/thunar", NULL };
 static const char *colorChooser[]    = { "c", "/usr/bin/kcolorchooser", NULL };
