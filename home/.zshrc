@@ -88,10 +88,7 @@ function __note_completions__(){
 #-----------------------------------------------------------------------------
 
 source $HOME/common.sh
-
-if ! [ -e /tmp/NVM_SETUP_OK ]; then
-    envm && touch /tmp/NVM_SETUP_OK
-fi
+envm
 
 bh() {
     setopt local_options BASH_REMATCH
