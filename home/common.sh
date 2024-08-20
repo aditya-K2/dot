@@ -81,7 +81,8 @@ dmenu_cmd() {
 }
 
 fk() {
-    ps aux | grep $1 | fzf_cmd | awk '{print $2}' | xargs -r kill
+    [[ $1 == "" ]] && return 1
+    ps aux | \grep $1 | fzf_cmd | awk '{print $2}' | xargs -r kill
 }
 
 venv() {
