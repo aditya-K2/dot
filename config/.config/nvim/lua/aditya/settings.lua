@@ -29,7 +29,7 @@ vim.opt.termguicolors = true
 
 vim.cmd [[
     syntax enable
-    color everforest
+    color base16-ia-dark
     syntax on
 ]]
 
