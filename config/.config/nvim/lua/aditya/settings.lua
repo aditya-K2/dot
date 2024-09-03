@@ -58,7 +58,7 @@ vim.opt.shiftwidth = 4
 vim.opt.smartindent = true
 vim.opt.incsearch = true
 vim.opt.list = true
-vim.opt.listchars = { eol = '↴', trail = '~', space = ".", tab = '▎ ' --[[,]] }
+vim.opt.listchars = { eol = '↴', trail = '~' }
 vim.opt.compatible = false
 vim.opt.cursorline = true
 vim.opt.showmode = false
