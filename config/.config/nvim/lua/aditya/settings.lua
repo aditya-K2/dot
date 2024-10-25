@@ -29,7 +29,7 @@ vim.opt.termguicolors = true
 
 vim.cmd [[
     syntax enable
-    color base16-ia-dark
+    color scruber
     syntax on
 ]]
 
@@ -49,7 +49,7 @@ vim.opt.writebackup = false -- This is recommended by coc
 vim.opt.updatetime = 300    -- Faster completion
 vim.opt.timeoutlen = 500    -- By default timeoutlen is 1000 ms
 vim.opt.winbar = "%m %f"
-vim.opt.rnu = true
+-- vim.opt.rnu = true
 vim.opt.nu = true
 vim.opt.errorbells = false
 vim.opt.tabstop = 4

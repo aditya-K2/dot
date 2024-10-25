@@ -43,7 +43,7 @@ require("lazy").setup({
     -- 'davidosomething/vim-colors-meh',
     -- 'Shatur/neovim-ayu',
     -- 'https://gitlab.com/madyanov/gruber.vim',
-    -- 'aditya-K2/scruber.vim',
+    'aditya-K2/scruber.vim',
     -- 'vim/colorschemes',
 
     { 'iamcco/markdown-preview.nvim', build = 'cd app && yarn install' },
