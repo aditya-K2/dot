@@ -1677,7 +1677,10 @@ run(void)
 
 void
 runAutostart(void) {
-	system("cd ~/.dwm; ./autostart.sh");
+	int rc = system("cd ~/.dwm; ./autostart.sh");
+  if (rc) {
+      fprintf(stderr, "Unable to run the startup script\n");
+  }
 }
 
 void
