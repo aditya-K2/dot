@@ -22,7 +22,7 @@ white = "0xe5e5e5"
 yellow = "0xcdcd00"
 
 [colors.primary]
-background = "0x1F1F1F"
+background = "0x111111"
 foreground = "0xececec"
 
 [cursor.style]
@@ -32,22 +32,10 @@ blinking = "Never"
 TERM = "xterm-256color"
 
 [font]
-size = 6.5
-
-[font.bold]
-family = "JetBrains Mono Nerd Font"
-style = "Bold"
-
-[font.bold_italic]
-family = "JetBrains Mono Nerd Font"
-style = "Bold Italic"
-
-[font.italic]
-family = "JetBrains Mono Nerd Font"
-style = "Italic"
+size = 9.5
 
 [font.normal]
-family = "JetBrains Mono Nerd Font"
+family = "Liberation Mono"
 style = "Normal"
 
 [shell]
@@ -55,7 +43,3 @@ program = "/bin/zsh"
 
 [window]
 opacity = 1
-
-[window.padding]
-x = 5
-y = 5
