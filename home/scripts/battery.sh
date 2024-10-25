@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 batteryPercentage=$(cat /sys/class/power_supply/BAT0/capacity)
 charging=$(acpi | awk '{print $3}')

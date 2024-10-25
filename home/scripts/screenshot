@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 fileName=$(date '+%b%d%a%I%M%S%p')
-directoryName=$(cat /home/aditya/scripts/directoryfile)
+directoryName=$(cat $HOME/scripts/directoryfile)
 
 part() {
     escrotum -s $directoryName/$fileName.png &&

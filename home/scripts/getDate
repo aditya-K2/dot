@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
+
+source $HOME/.colors
 
 # if [[ "$(mpc status | sed -n 2p | awk '{print $1;}')" != "[playing]" ]]; then
 #     textColor="$ORANGE_COLOR"

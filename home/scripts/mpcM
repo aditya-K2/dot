@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 __clr_="$RED_COLOR"
 __CFILE_="$HOME/scripts/lastPlayedSong"
 __cmd=__current_song__cmd

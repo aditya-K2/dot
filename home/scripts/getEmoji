@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #this is Luke's Script I have just made some changes like removing the arguments part
 chosenEmoji=$(cut -d ';' -f1 ~/scripts/emojiList | dmenu -i -F -l 10 | sed "s/ .*//") &&
 [ -z "$chosenEmoji" ] && exit

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 choice=$(printf "Shutdown\nReboot" | dmenu -c -l 5 -i -p "Choose: ")
 
