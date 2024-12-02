@@ -44,6 +44,11 @@ export NVM_DIR="$HOME/.nvm"
 _FZF_HEIGHT_=7
 _FZF_OPTIONS_="--border=none --info=hidden --color=light --reverse"
 
+cmd_exists() {
+	command -v "$1" 1>/dev/null 2>/dev/null && return 0
+	return 1
+}
+
 fd_command() {
     command -v fd 1>/dev/null 2>/dev/null && printf "fd" || printf "fdfind"
     printf " --color=never"
