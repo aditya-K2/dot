@@ -69,7 +69,7 @@ imap("<C-BS>", "<C-w>")
 imap("<C-h>", "<C-w>")
 
 vim.cmd("autocmd BufRead,BufNewFile *.txt nmap <CR> :wq <CR>")
-vim.cmd("autocmd BufWritePre * :%s/\\s\\+$//e")
+-- vim.cmd("autocmd BufWritePre * :%s/\\s\\+$//e")
 vim.cmd("autocmd BufRead,BufNewFile .zshrc set filetype=bash")
 vim.cmd("autocmd BufRead,BufNewFile *.html set noexpandtab")
 
