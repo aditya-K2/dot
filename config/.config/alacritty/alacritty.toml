@@ -32,10 +32,10 @@ blinking = "Never"
 TERM = "xterm-256color"
 
 [font]
-size = 9.5
+size = 8.5
 
 [font.normal]
-family = "Liberation Mono"
+family = "Sauce Code Pro Nerd Font"
 style = "Normal"
 
 [shell]
