@@ -49,6 +49,9 @@ nnoremap("<M-j>", "<C-w>j")
 nnoremap("<M-k>", "<C-w>k")
 nnoremap("<M-l>", "<C-w>l")
 
+nnoremap("{", ":Gitsigns prev_hunk<CR>")
+nnoremap("}", ":Gitsigns next_hunk<CR>")
+
 nmap("<leader>fn", ":Files ~/.config/nvim/<CR>")
 nmap("<leader>fs", ":Files<CR>")
 nmap("<leader>fo", ":Buffers<CR>")
@@ -60,16 +63,11 @@ nmap("<leader>fh", ":Helptags <CR>")
 vnoremap("<", "<gv")
 vnoremap(">", ">gv")
 
--- Helps Moving Text Up and Down
-
-vnoremap("J", ":m '>+1<CR>gv=gv")
-vnoremap("K", ":m '<-2<CR>gv=gv")
-
 imap("<C-BS>", "<C-w>")
 imap("<C-h>", "<C-w>")
 
 vim.cmd("autocmd BufRead,BufNewFile *.txt nmap <CR> :wq <CR>")
--- vim.cmd("autocmd BufWritePre * :%s/\\s\\+$//e")
+vim.cmd("autocmd BufWritePre * :%s/\\s\\+$//e")
 vim.cmd("autocmd BufRead,BufNewFile .zshrc set filetype=bash")
 vim.cmd("autocmd BufRead,BufNewFile *.html set noexpandtab")
 

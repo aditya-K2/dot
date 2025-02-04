@@ -29,7 +29,7 @@ vim.opt.termguicolors = true
 
 vim.cmd [[
     syntax enable
-    color darcula-solid
+    color base16-brewer
     syntax on
 ]]
 
@@ -69,11 +69,11 @@ vim.opt.mouse = "a"
 
 -- Highlights
 vim.cmd("hi DiagnosticVirtualTextError gui=italic guifg=#a84032")
-vim.cmd("hi NonText guifg=green")
 vim.cmd("hi DiagnosticVirtualTextInfo gui=italic guifg=#3277a8")
 vim.cmd("hi DiagnosticVirtualTextWarn gui=italic guifg=#d1cf47")
 vim.cmd("hi DiagnosticVirtualTextOk gui=italic guifg=#3277a8")
-vim.cmd("hi Normal guibg=None")
-vim.cmd("hi NormalNC guibg=None")
 vim.cmd("hi Winbar guibg=None guifg=white")
 vim.cmd("hi WinbarNC guibg=None guifg=grey")
+-- vim.cmd("hi Normal guibg=None")
+-- vim.cmd("hi NonText guifg=green")
+-- vim.cmd("hi NormalNC guibg=None")
