@@ -1,29 +1,29 @@
 [colors]
 draw_bold_text_with_bright_colors = false
 
-[colors.bright]
-black = "0x7f7f7f"
-blue = "0x5c5cff"
-cyan = "0x00ffff"
-green = "0x00ff00"
-magenta = "0xff00ff"
-red = "0xff0000"
-white = "0xffffff"
-yellow = "0xffff00"
+[colors.primary]
+background = "#111111"
+foreground = "#f8f8f2"
 
 [colors.normal]
-black = "0x000000"
-blue = "0x268bd2"
-cyan = "0x00cdcd"
-green = "0x00cd00"
-magenta = "0xcd00cd"
-red = "0xcd0000"
-white = "0xe5e5e5"
-yellow = "0xcdcd00"
+black = "#272822"
+red = "#f92672"
+green = "#a6e22e"
+yellow = "#f4bf75"
+blue = "#66d9ef"
+magenta = "#ae81ff"
+cyan = "#a1efe4"
+white = "#f8f8f2"
 
-[colors.primary]
-background = "0x111111"
-foreground = "0xececec"
+[colors.bright]
+black = "#75715e"
+red = "#f92672"
+green = "#a6e22e"
+yellow = "#f4bf75"
+blue = "#66d9ef"
+magenta = "#ae81ff"
+cyan = "#a1efe4"
+white = "#f9f8f5"
 
 [cursor.style]
 blinking = "Never"
@@ -32,11 +32,10 @@ blinking = "Never"
 TERM = "xterm-256color"
 
 [font]
-size = 8.5
+size = 10.5
 
 [font.normal]
 family = "Sauce Code Pro Nerd Font"
-style = "Normal"
 
 [shell]
 program = "/bin/zsh"
