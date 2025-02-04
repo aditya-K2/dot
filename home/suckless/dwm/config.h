@@ -33,8 +33,8 @@ static const char gspt_config[]            =   "/home/aditya/.config/alacritty/g
 
 static const char *colors[][3]      = {
     /*              fg                 bg                 border   */
-   [SchemeNorm] = { col_statusbar_fg,  col_statusbar_bg  ,col_border},
-   [SchemeSel]  = { col_primary_fg,    col_primary_bg    ,col_border_sel},
+   [SchemeNorm] = { col_statusbar_fg,  col_statusbar_bg, col_border},
+   [SchemeSel]  = { col_primary_fg,    col_primary_bg  , col_border_sel},
 };
 
 /* tagging */
@@ -101,14 +101,14 @@ static const Layout layouts[] = {
 static char dmenumon[2]              = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[]        = { "dmenu_run", "-p", ">", "-m", dmenumon, "-fn", dmenufont, "-sb", col_primary_bg};
 static const char *termcmd[]         = { "/usr/bin/alacritty", NULL };
-static const char *web[]             = { "/usr/bin/google-chrome", NULL };
+static const char *web[]             = { "/usr/bin/firefox", NULL };
 static const char *torrentcli[]      = { "t", "alacritty", "-t", "tremc" , "-e", "tremc", NULL};
 static const char *fileManager[]     = { "n", "/usr/bin/thunar", NULL };
 static const char *colorChooser[]    = { "c", "/usr/bin/kcolorchooser", NULL };
-static const char *scratchpadcmd[]   = { "s", "alacritty", "-t", "scratchpad" , "-e", "scratchtmux", NULL};
-static const char *ideascmd[]        = { "i", "alacritty", "-t", "Ideas" , "-e", "nvim", "/random/notes/thots/🥷 Tech Ideas/Ideas.md.md", NULL};
-static const char *gompcmd[]         = { "y", "alacritty" , "-t", "gomp" , "--config-file", gspt_config, "-e", "/H/code/gomp/gomp", NULL};
-static const char *gsptcmd[]         = { "g", "alacritty" , "-t", "gspt" , "--config-file", gspt_config, "-e", "/H/code/gspt/gspt", NULL};
+static const char *scratchpadcmd[]   = { "s", "/usr/bin/alacritty", "-t", "scratchpad" , "-e", "bash", "scratchtmux", NULL};
+static const char *ideascmd[]        = { "i", "/usr/bin/alacritty", "-t", "Ideas" , "-e", "nvim", "/random/notes/thots/🥷 Tech Ideas/Ideas.md.md", NULL};
+static const char *gompcmd[]         = { "y", "/usr/bin/alacritty" , "-t", "gomp" , "--config-file", gspt_config, "-e", "/H/code/gomp/gomp", NULL};
+static const char *gsptcmd[]         = { "g", "/usr/bin/alacritty" , "-t", "gspt" , "--config-file", gspt_config, "-e", "/H/code/gspt/gspt", NULL};
 
 static Key keys[] = {
    /* modifier                               key                          function        argument */
@@ -145,7 +145,7 @@ static Key keys[] = {
   { 0,                                      XF86XK_MonBrightnessUp,      spawn,                 SHCMD("xbacklight -inc 10")},
   { 0,                                      XF86XK_MonBrightnessDown,    spawn,                 SHCMD("xbacklight -dec 10")},
   { MODKEY|ShiftMask,                       XK_e,                        spawn,                 SHCMD("getEmoji")},
-  { MODKEY,                                 XK_i,                        spawn,                 SHCMD("copyq menu")},
+  { MODKEY,                                 XK_v,                        spawn,                 SHCMD("copyq menu")},
   { MODKEY,                                 XK_g,                        setlayout,             {.v = &layouts[3]} },
   { MODKEY,                                 XK_r,                        setlayout,             {.v = &layouts[4]} },
   { MODKEY|ShiftMask,                       XK_r,                        setlayout,             {.v = &layouts[5]} },
