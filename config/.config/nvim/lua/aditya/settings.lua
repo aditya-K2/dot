@@ -29,7 +29,7 @@ vim.opt.termguicolors = true
 
 vim.cmd [[
     syntax enable
-    color base16-brewer
+    color vscode
     syntax on
 ]]
 

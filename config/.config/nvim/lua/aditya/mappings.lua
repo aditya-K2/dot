@@ -51,6 +51,7 @@ nnoremap("<M-l>", "<C-w>l")
 
 nnoremap("{", ":Gitsigns prev_hunk<CR>")
 nnoremap("}", ":Gitsigns next_hunk<CR>")
+nnoremap("B", ":Gitsigns blame_line<CR>")
 
 nmap("<leader>fn", ":Files ~/.config/nvim/<CR>")
 nmap("<leader>fs", ":Files<CR>")
