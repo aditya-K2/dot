@@ -57,7 +57,7 @@ fd_command() {
 # Setting fd as the default source for fzf (respects .gitignore)
 export FZF_DEFAULT_COMMAND="$(fd_command) --type f --strip-cwd-prefix"
 
-__fzfcmd() {
+__fzf_cmd() {
     printf "fzf --height $_FZF_HEIGHT_ $_FZF_OPTIONS_"
 }
 
@@ -74,7 +74,7 @@ ____wrapper() {
 }
 
 fzf_cmd() {
-    ____wrapper __fzfcmd
+    ____wrapper __fzf_cmd
 }
 
 rg_cmd() {
@@ -127,7 +127,7 @@ note(){
     elif [[ "$1" == "-g" ]]; then
         cd $NOTES_DIR
     elif [[ "$1" != "" ]]; then
-        nvim $NOTES_DIR/"$1"
+        nvim "$NOTES_DIR/$1.md"
     fi
 }
 
