@@ -29,7 +29,7 @@ vim.opt.termguicolors = true
 
 vim.cmd [[
     syntax enable
-    color vscode
+    color darcula-solid
     syntax on
 ]]
 
