@@ -29,7 +29,7 @@ vim.opt.termguicolors = true
 
 vim.cmd [[
     syntax enable
-    color darcula-solid
+    color kanagawa-dragon
     syntax on
 ]]
 
