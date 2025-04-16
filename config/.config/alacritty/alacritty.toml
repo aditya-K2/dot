@@ -4,7 +4,7 @@ draw_bold_text_with_bright_colors = false
 # Colors (Vscode)
 
 [colors.primary]
-background = "0x1E1E1E"
+background = "0x202124"
 foreground = "0xD4D4D4"
 
 [colors.normal]
