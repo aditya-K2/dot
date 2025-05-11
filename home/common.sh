@@ -9,10 +9,9 @@ __wsl__() {
 }
 
 __source__() {
-    __f=$1
-    __file="lin_$__f.sh"
-    __wsl__ && __file="wsl_$__f.sh"
-    source "$HOME/$__file"
+    local file="lin_$1.sh"
+    __wsl__ && file="wsl_$1.sh"
+    source "$HOME/$file"
 }
 
 __source__ env
@@ -50,7 +49,7 @@ cmd_exists() {
 }
 
 fd_command() {
-    command -v fd 1>/dev/null 2>/dev/null && printf "fd" || printf "fdfind"
+    cmd_exists fd && printf "fd" || printf "fdfind"
     printf " --color=never"
 }
 
@@ -127,7 +126,11 @@ note(){
     elif [[ "$1" == "-g" ]]; then
         cd $NOTES_DIR
     elif [[ "$1" != "" ]]; then
-        nvim "$NOTES_DIR/$1.md"
+        if [[ "$1" != *.md ]]; then
+            nvim "$NOTES_DIR/$1.md"
+        else
+            nvim "$NOTES_DIR/$1"
+        fi
     fi
 }
 
