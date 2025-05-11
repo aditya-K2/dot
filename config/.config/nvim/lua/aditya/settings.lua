@@ -29,7 +29,7 @@ vim.opt.termguicolors = true
 
 vim.cmd [[
     syntax enable
-    color kanagawa-dragon
+    color OceanicNext
     syntax on
 ]]
 
@@ -63,7 +63,7 @@ vim.opt.showmode = false
 vim.opt.completeopt = "menu"
 vim.opt.spelloptions = "camel"
 vim.opt.guifont = "Source Code Pro:h8"
--- vim.opt.expandtab = true
+vim.opt.expandtab = true
 vim.opt.laststatus = 0
 vim.opt.mouse = "a"
 
@@ -74,6 +74,10 @@ vim.cmd("hi DiagnosticVirtualTextWarn gui=italic guifg=#d1cf47")
 vim.cmd("hi DiagnosticVirtualTextOk gui=italic guifg=#3277a8")
 vim.cmd("hi Winbar guibg=None guifg=white")
 vim.cmd("hi WinbarNC guibg=None guifg=grey")
--- vim.cmd("hi Normal guibg=None")
+
+vim.cmd("hi Normal guibg=None")
+vim.cmd("hi LineNr guibg=None")
+vim.cmd("hi SignColumn guibg=None")
+vim.cmd("hi EndOfBuffer guibg=None")
 -- vim.cmd("hi NonText guifg=green")
 -- vim.cmd("hi NormalNC guibg=None")

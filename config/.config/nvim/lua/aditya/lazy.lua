@@ -21,11 +21,11 @@ require("lazy").setup({
     },
     'dstein64/vim-startuptime',
 
-    { 'junegunn/fzf',                 build = function() vim.cmd('call fzf#install()') end },
+    { 'junegunn/fzf',    build = function() vim.cmd('call fzf#install()') end },
     { 'junegunn/fzf.vim' },
 
     -- Color Schemes
-    -- 'mhartington/oceanic-next',
+    'mhartington/oceanic-next',
     -- 'navarasu/onedark.nvim',
     -- 'folke/tokyonight.nvim',
     -- 'Mofiqul/vscode.nvim',
@@ -33,7 +33,7 @@ require("lazy").setup({
     -- 'sainnhe/everforest',
     -- 'sainnhe/sonokai',
     -- 'RRethy/nvim-base16',
-    "rebelot/kanagawa.nvim",
+    -- "rebelot/kanagawa.nvim",
     -- { "ellisonleao/gruvbox.nvim",     dependencies = { "rktjmp/lush.nvim" } },
     -- { "briones-gabriel/darcula-solid.nvim", dependencies = "rktjmp/lush.nvim" },
     -- 'nyoom-engineering/oxocarbon.nvim',
@@ -46,7 +46,7 @@ require("lazy").setup({
     -- 'aditya-K2/scruber.vim',
     -- 'vim/colorschemes',
 
-    { 'iamcco/markdown-preview.nvim', build = 'cd app && yarn install' },
+    { 'iamcco/markdown-preview.nvim',           build = 'cd app && yarn install' },
     {
         'lewis6991/gitsigns.nvim',
         config = function()
