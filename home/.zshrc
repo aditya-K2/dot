@@ -17,6 +17,10 @@ autoload -U compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 compinit
+
+# Enable bash completions
+autoload -U +X bashcompinit && bashcompinit
+
 # Include hidden files.
 _comp_options+=(globdots)
 
@@ -25,6 +29,7 @@ bindkey -v
 
 export KEYTIMEOUT=1
 
+# Keybindings
 bindkey '^H' backward-kill-word
 # Use vim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
