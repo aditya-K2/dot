@@ -37,21 +37,19 @@ end
 nnoremap("<TAB>", ":bnext<CR>")
 nnoremap("<S-TAB>", ":bprevious<CR>")
 nnoremap("Y", "y$")
-nnoremap("<C-\\>", ":vsplit <CR>")
-nnoremap("<leader><CR>", ":split<CR>")
-nnoremap("<leader>m", ":MaximizerToggle <CR>")
 nnoremap("mm", ":lua random_color() <CR>")
 
 -- Split Navigation Mappings
 
-nnoremap("<M-h>", "<C-w>h")
-nnoremap("<M-j>", "<C-w>j")
-nnoremap("<M-k>", "<C-w>k")
-nnoremap("<M-l>", "<C-w>l")
+nnoremap("<C-\\>", ":vsplit <CR>")
+nnoremap("<leader><CR>", ":split<CR>")
+-- nnoremap("<leader>m", ":MaximizerToggle <CR>")
 
 nnoremap("[g", ":Gitsigns prev_hunk<CR>")
 nnoremap("]g", ":Gitsigns next_hunk<CR>")
-nnoremap("B", ":Gitsigns blame_line<CR>")
+nnoremap("<leader>gB", ":Gitsigns blame_line<CR>")
+nnoremap("<leader>gb", ":Gitsigns blame<CR>")
+nnoremap("<leader>gh", ":Gitsigns reset_hunk<CR>")
 
 nmap("<leader>fn", ":Files ~/.config/nvim/<CR>")
 nmap("<leader>fs", ":Files<CR>")

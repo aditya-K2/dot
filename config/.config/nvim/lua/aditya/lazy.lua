@@ -25,19 +25,20 @@ require("lazy").setup({
     { 'junegunn/fzf.vim' },
 
     -- Color Schemes
-    'mhartington/oceanic-next',
+    -- 'mhartington/oceanic-next',
     -- 'navarasu/onedark.nvim',
     -- 'folke/tokyonight.nvim',
     -- 'Mofiqul/vscode.nvim',
     -- 'projekt0n/github-nvim-theme',
     -- 'sainnhe/everforest',
     -- 'sainnhe/sonokai',
-    -- 'RRethy/nvim-base16',
+    'RRethy/nvim-base16',
     -- "rebelot/kanagawa.nvim",
     -- { "ellisonleao/gruvbox.nvim",     dependencies = { "rktjmp/lush.nvim" } },
     -- { "briones-gabriel/darcula-solid.nvim", dependencies = "rktjmp/lush.nvim" },
     -- 'nyoom-engineering/oxocarbon.nvim',
-    -- 'ishan9299/nvim-solarized-lua',
+    'ishan9299/nvim-solarized-lua',
+    -- 'savq/melange-nvim',
     -- 'yorickpeterse/vim-paper',
     -- 'yorickpeterse/nvim-grey',
     -- 'davidosomething/vim-colors-meh',
@@ -45,6 +46,7 @@ require("lazy").setup({
     -- 'https://gitlab.com/madyanov/gruber.vim',
     -- 'aditya-K2/scruber.vim',
     -- 'vim/colorschemes',
+    -- "craftzdog/solarized-osaka.nvim",
 
     { 'iamcco/markdown-preview.nvim',           build = 'cd app && yarn install' },
     {
@@ -92,7 +94,18 @@ require("lazy").setup({
         'williamboman/mason-lspconfig.nvim',
         config = function()
             require("mason-lspconfig").setup({
-                automatic_installation = true,
+                ensure_installed = {
+                    "clangd",
+                    "vimls",
+                    "pyright",
+                    "gopls",
+                    "lua_ls",
+                    "yamlls",
+                    "cssls",
+                    "html",
+                    "mesonlsp",
+                    "jsonls",
+                }
             })
         end
     },
@@ -106,15 +119,35 @@ require("lazy").setup({
     'onsails/lspkind-nvim',
 
     'aditya-K2/spellfloat',
-    {
-        'aditya-K2/termtoggle.nvim',
-        config = function()
-            require('termtoggle').setup()
-        end
-    },
+    -- {
+    --     'aditya-K2/termtoggle.nvim',
+    --     config = function()
+    --         require('termtoggle').setup()
+    --     end
+    -- },
 
     { 'fatih/vim-go', ft = "go" },
 
     --Maximizer
     'szw/vim-maximizer',
+
+    -- Tmux Navigator
+    {
+        "christoomey/vim-tmux-navigator",
+        cmd = {
+            "TmuxNavigateLeft",
+            "TmuxNavigateDown",
+            "TmuxNavigateUp",
+            "TmuxNavigateRight",
+            "TmuxNavigatePrevious",
+            "TmuxNavigatorProcessList",
+        },
+        keys = {
+            { "<M-h>", "<cmd>TmuxNavigateLeft<cr>" },
+            { "<M-j>", "<cmd>TmuxNavigateDown<cr>" },
+            { "<M-k>", "<cmd>TmuxNavigateUp<cr>" },
+            { "<M-l>", "<cmd>TmuxNavigateRight<cr>" },
+            { "<M-\\>", "<cmd>TmuxNavigatePrevious<cr>" },
+        },
+    },
 })

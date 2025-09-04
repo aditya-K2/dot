@@ -29,7 +29,7 @@ vim.opt.termguicolors = true
 
 vim.cmd [[
     syntax enable
-    color OceanicNext
+    color base16-bright
     syntax on
 ]]
 
@@ -49,7 +49,6 @@ vim.opt.writebackup = false -- This is recommended by coc
 vim.opt.updatetime = 300    -- Faster completion
 vim.opt.timeoutlen = 500    -- By default timeoutlen is 1000 ms
 vim.opt.winbar = "%m %f"
--- vim.opt.rnu = true
 vim.opt.nu = true
 vim.opt.errorbells = false
 vim.opt.tabstop = 4
@@ -62,7 +61,6 @@ vim.opt.cursorline = true
 vim.opt.showmode = false
 vim.opt.completeopt = "menu"
 vim.opt.spelloptions = "camel"
-vim.opt.guifont = "Source Code Pro:h8"
 vim.opt.expandtab = true
 vim.opt.laststatus = 0
 vim.opt.mouse = "a"
@@ -74,10 +72,10 @@ vim.cmd("hi DiagnosticVirtualTextWarn gui=italic guifg=#d1cf47")
 vim.cmd("hi DiagnosticVirtualTextOk gui=italic guifg=#3277a8")
 vim.cmd("hi Winbar guibg=None guifg=white")
 vim.cmd("hi WinbarNC guibg=None guifg=grey")
+vim.cmd("hi NonText guifg=grey")
 
-vim.cmd("hi Normal guibg=None")
-vim.cmd("hi LineNr guibg=None")
-vim.cmd("hi SignColumn guibg=None")
-vim.cmd("hi EndOfBuffer guibg=None")
--- vim.cmd("hi NonText guifg=green")
+-- vim.cmd("hi Normal guibg=black")
+-- vim.cmd("hi LineNr guibg=None")
+-- vim.cmd("hi SignColumn guibg=None")
+-- vim.cmd("hi EndOfBuffer guibg=None")
 -- vim.cmd("hi NormalNC guibg=None")

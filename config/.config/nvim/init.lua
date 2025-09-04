@@ -1,3 +1,4 @@
+vim.cmd("let g:tmux_navigator_no_mappings = 1")
 require("aditya.lazy")
 require("aditya.settings")
 require("aditya.autocmds")
