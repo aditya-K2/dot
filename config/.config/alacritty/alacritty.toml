@@ -24,10 +24,10 @@ blinking = "Never"
 TERM = "xterm-256color"
 
 [font]
-size = 10.5
+size = 11
 
 [font.normal]
-family = "Sauce Code Pro Nerd Font"
+family = "Roboto Mono Nerd Font"
 
 [shell]
 program = "/bin/zsh"
