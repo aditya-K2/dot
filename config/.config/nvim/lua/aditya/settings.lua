@@ -29,7 +29,7 @@ vim.opt.termguicolors = true
 
 vim.cmd [[
     syntax enable
-    color base16-bright
+    color base16-penumbra-dark-contrast-plus-plus
     syntax on
 ]]
 
@@ -70,6 +70,7 @@ vim.cmd("hi DiagnosticVirtualTextError gui=italic guifg=#a84032")
 vim.cmd("hi DiagnosticVirtualTextInfo gui=italic guifg=#3277a8")
 vim.cmd("hi DiagnosticVirtualTextWarn gui=italic guifg=#d1cf47")
 vim.cmd("hi DiagnosticVirtualTextOk gui=italic guifg=#3277a8")
+
 vim.cmd("hi Winbar guibg=None guifg=white")
 vim.cmd("hi WinbarNC guibg=None guifg=grey")
 vim.cmd("hi NonText guifg=grey")
